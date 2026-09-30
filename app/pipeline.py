@@ -43,7 +43,14 @@ def fetch_thread(
     if thread.get("type") != "story":
         raise ValueError(f"HN item {thread_id} is not a thread")
     store_raw_item(conn, thread, thread_id)
+    conn.execute(
+        """INSERT INTO thread_checkpoints(thread_id,raw_complete) VALUES (?, 0)
+        ON CONFLICT(thread_id) DO UPDATE SET raw_complete=0,
+        processed_version=NULL,completed_at=NULL""",
+        (thread_id,),
+    )
     conn.commit()
+    failures_before_fetch = metrics.failures
     metrics.threads_fetched += 1
     pending = list(thread.get("kids", []))
     seen = {thread_id}
@@ -69,6 +76,9 @@ def fetch_thread(
                             "detail": str(exc),
                         },
                     )
+    if metrics.failures == failures_before_fetch:
+        conn.execute("UPDATE thread_checkpoints SET raw_complete=1 WHERE thread_id=?", (thread_id,))
+        conn.commit()
     # Each run revisits the whole tree, including children of deleted comments.
 
 

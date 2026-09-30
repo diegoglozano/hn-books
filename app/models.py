@@ -18,6 +18,9 @@ class Classification(BaseModel):
 class RunMetrics(BaseModel):
     threads_discovered: int = 0
     threads_fetched: int = 0
+    threads_skipped: int = 0
+    threads_reused_raw: int = 0
+    threads_remaining: int = 0
     comments_fetched: int = 0
     new_comments: int = 0
     mentions_extracted: int = 0

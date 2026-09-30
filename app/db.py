@@ -62,7 +62,12 @@ CREATE TABLE IF NOT EXISTS ingestion_runs (
 CREATE VIRTUAL TABLE IF NOT EXISTS books_fts USING fts5(
     title, authors, description, tags, hn_context, tokenize='unicode61 remove_diacritics 2'
 );
-PRAGMA user_version = 1;
+CREATE TABLE IF NOT EXISTS thread_checkpoints (
+    thread_id INTEGER PRIMARY KEY REFERENCES hn_threads(id),
+    raw_complete INTEGER NOT NULL DEFAULT 0,
+    processed_version TEXT, completed_at TEXT
+);
+PRAGMA user_version = 2;
 """
 
 

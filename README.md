@@ -29,16 +29,47 @@ Run these from the repository root, prefixed by `uv run` locally. Inside the Doc
 | `python -m app.ingest thread <HN_ID>` | Fetch one complete comment tree, persist raw records, process mentions, rebuild aggregates |
 | `python -m app.ingest` | Refresh configured and already stored threads; suitable for daily scheduling |
 | `python -m app.ingest discover` | Discover the first Algolia result page for each configured Ask HN query, then ingest |
-| `python -m app.ingest backfill` | Traverse all available Algolia pages for configured queries, deduplicate IDs, then ingest |
+| `python -m app.ingest backfill --years 5` | Resume five years of date-bounded reading-thread discovery and ingestion |
 | `python -m app.reprocess mentions` | Re-extract stored comments; reuse local books/cache and look up missing metadata |
 | `python -m app.reprocess mentions --offline` | Re-extract with no network calls, using local books and cached metadata only |
 | `python -m app.reprocess tags` | Reclassify stored mentions, then rebuild scores and search |
 | `python -m app.recompute rankings` | Rebuild scores and FTS5 index |
 | `python -m app.evaluate` | Print golden extraction, matching, tag, and strength metrics offline |
 
-Daily ingestion deliberately starts with an explicit corpus. Historical discovery is opt-in. Algolia backfill covers the pages returned by its search API, not a guaranteed exhaustive archive of HN. A partial run exits nonzero, logs failures, and preserves fetched raw data for retry. Overlapping writer commands are rejected by a process lock.
+Daily ingestion deliberately starts with an explicit corpus. Historical discovery is opt-in. A partial run exits nonzero, logs failures, and preserves fetched raw data for retry. Overlapping writer commands are rejected by a process lock.
 
 Queries, curated title/author aliases, and the controlled taxonomy live in [app/data/library.toml](app/data/library.toml). Add an alias and reprocess mentions to improve a recurring unresolved title. Increment `PROCESSOR_VERSION` in `app/pipeline.py` when changing extraction/classification semantics so normal ingestion reprocesses unchanged raw comments.
+
+## Backfill reading discussions
+
+Preview the scope, pending thread count, and estimated comment volume without ingesting:
+
+```bash
+python -m app.ingest backfill --years 5 --dry-run
+```
+
+Ingest all matching Ask HN discussions from the last five years:
+
+```bash
+python -m app.ingest backfill --years 5
+```
+
+Run this inside the deployed container so it writes to the deployed SQLite volume. Locally, prefix commands with `uv run`. The initial metadata enrichment may take hours for a large corpus. Each thread's raw records commit before extraction, and its results become visible immediately. Repeating the same command skips threads with a complete tree and successful processing under the current processor version. Incomplete trees are retried; metadata failures resume from stored raw comments without fetching HN again. Unresolved bibliographic matches are retained and do not prevent a successfully processed thread from being checkpointed.
+
+For smaller batches, add `--limit 20`. Repeat that command to process the next pending threads. `--dry-run` reports how many remain; ingestion logs persist `threads_remaining`, skipped threads, cached raw reuse, and cumulative processing metrics. `--refresh` explicitly refetches completed threads.
+
+Specify an exact period or include other HN story discussions:
+
+```bash
+python -m app.ingest backfill --since 2021-09-30 --until 2026-10-01
+python -m app.ingest backfill --years 5 --scope stories
+```
+
+`--since` is inclusive and `--until` is exclusive, in UTC. `--years` and `--since` are mutually exclusive. The default range is five calendar years ending now. The historical whitelist does not inject out-of-range threads; the separate daily command still uses `HN_THREAD_IDS`.
+
+The broad `backfill_queries` in `app/data/library.toml` search title terms such as reading, books, and literature. The default scope is Ask HN; `--scope stories` includes all indexed HN story titles. Results are deduplicated by HN ID and processed oldest first. Queries that exceed Algolia's pagination capacity are recursively split into smaller date windows. Incomplete result pages fail explicitly rather than claiming a complete backfill. Coverage means all retrievable matches for these configured title queries in Algolia's index, not every potentially relevant HN discussion; unusual titles and unindexed/deleted threads can still be missed. Some title matches may be about reading code or documentation and yield no books.
+
+For Coolify, create a task targeting `library` with command `python -m app.ingest backfill --years 5` and timeout **36000 seconds**, then use **Execute Now**. If it reaches the timeout, rerun the task to resume. You can temporarily use this as the daily ingestion task until `threads_remaining` reaches zero, then restore `python -m app.ingest` for daily refreshes. Keep one ingestion task active at a time to avoid competing for the writer lock.
 
 ## Configuration
 
