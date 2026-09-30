@@ -3,6 +3,9 @@ discovery_queries = [
   "favorite books", "best books", "what book", "books changed", "book recommendations",
 ]
 
+# Broad title searches for historical reading discussions; deduplicated by HN ID.
+backfill_queries = ["reading", "books", "book", "read", "novels", "literature"]
+
 # Curated aliases guide extraction, never substitute for metadata resolution.
 [[aliases]]
 title = "Designing Data-Intensive Applications"
