@@ -37,15 +37,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: docker build -t hn-library .
+      - run: docker compose -f compose.yaml -f compose.local.yaml config --quiet
+      - run: docker compose up --build -d
       - run: |
-          docker run -d --name library -p 8000:8000 hn-library
+          library_container_id="$(docker compose ps -q library)"
+          docker inspect "$library_container_id" --format '{{json .HostConfig.PortBindings}}' > /tmp/library-ports.json
+          python3 -c "import json; assert not json.load(open('/tmp/library-ports.json')), 'Default Compose must not publish host ports'"
           for attempt in $(seq 1 30); do
-            if curl --fail http://localhost:8000/health; then
-              curl --fail http://localhost:8000/
+            if docker compose exec -T library python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3); urllib.request.urlopen('http://127.0.0.1:8000/', timeout=3)"; then
               exit 0
             fi
             sleep 2
           done
-          docker logs library
+          docker compose logs library
           exit 1
+      - if: always()
+        run: docker compose down

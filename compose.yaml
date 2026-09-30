@@ -1,8 +1,8 @@
 services:
   library:
     build: .
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     environment:
       DATABASE_PATH: /data/hn_books.db
       HN_THREAD_IDS: ${HN_THREAD_IDS:-}
