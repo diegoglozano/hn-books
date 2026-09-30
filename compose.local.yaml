@@ -1,0 +1,5 @@
+# Opt-in local access; deploy compose.yaml alone in Coolify.
+services:
+  library:
+    ports:
+      - "127.0.0.1:${LIBRARY_PORT:-8000}:8000"

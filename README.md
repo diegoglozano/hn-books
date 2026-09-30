@@ -83,13 +83,17 @@ Sort values: `all-time`, `recent`, `mentions`, `recommendations`. Multiple topic
 ## Docker and Coolify
 
 ```bash
-docker compose up --build -d
+docker compose -f compose.yaml -f compose.local.yaml up --build -d
 docker compose exec library python -m app.ingest thread 21457827
 ```
 
-The image serves both the API and the built frontend on port **8000**. It runs as UID **10001** and uses a persistent named volume at `/data`. Bind mounts must be writable by that UID. The database, WAL files, metadata cache and CLI lock all live in that directory.
+For local Docker access, [compose.local.yaml](compose.local.yaml) publishes `127.0.0.1:8000`. Set `LIBRARY_PORT=8080` before the command above if your local port 8000 is busy.
 
-In Coolify, create an application from this repository using the root **Dockerfile**, expose port **8000**, and configure your domain. Add a named persistent volume with destination **`/data`**, and set **`DATABASE_PATH=/data/hn_books.db`**. Docker Compose deployment can use [compose.yaml](compose.yaml) directly. Coolify's [persistent storage guide](https://coolify.io/docs/core/persistent-storage/storage-mounts/overview) describes the volume configuration.
+The image serves both the API and the built frontend on container port **8000**. It runs as UID **10001** and uses a persistent named volume at `/data`. Bind mounts must be writable by that UID. The database, WAL files, metadata cache and CLI lock all live in that directory.
+
+For Coolify's **Docker Compose** build pack, use [compose.yaml](compose.yaml) alone. It exposes container port **8000** without reserving a host port. In **Domains for library**, enter `https://books.example.com:8000`, replacing the example hostname with your domain. The `:8000` suffix selects the internal port; visitors use `https://books.example.com`. Coolify generates the proxy routing. See its [Docker Compose guide](https://coolify.io/docs/applications/builds/docker-compose). After updating the repository, reload the Compose definition, confirm that `ports:` is absent, and redeploy.
+
+For Coolify's **Dockerfile** build pack, use the root Dockerfile, set Ports Exposes to **8000**, and configure your domain. Add a named persistent volume with destination **`/data`**, and set **`DATABASE_PATH=/data/hn_books.db`**. Compose deployment already declares that volume. Coolify's [persistent storage guide](https://coolify.io/docs/core/persistent-storage/storage-mounts/overview) describes volume configuration.
 
 In the running application's terminal, ingest your first thread:
 
