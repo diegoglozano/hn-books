@@ -46,5 +46,202 @@
         "tags": []
       }
     ]
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=21458722",
+    "annotation_note": "31 bibliographic entries, including one imprecise collection reference kept unresolved. Titles are hand labeled; extraction does not imply canonical resolution. Tags label only explicit topic phrases; unstated subject expertise is not inferred.",
+    "html": "During the past six months I have been challenged intellectually and aesthetically by these works:<p>Paideia: The Ideals of Greek Culture, vol 1-3, by Werner Jaeger<p>Diary by Witold Gombrowicz<p>Computer Science: An Interdisciplinary Approach by Sedgewick<p>2666 by Roberto Bolaño<p>The Linux Programming Interface by Michael Kerrisk<p>Tomie: No Use Escaping by Junji Ito<p>L’homme aux cercles by Fred Vargas<p>Cryptonomicon by Neal Stephenson<p>Lab Girl by Hope Jahren<p>Operating Systems: Three Easy Pieces by Arpaci-Dusseau<p>I Contain Multitudes by Ed Yong.<p>The Weird by Ann and Jeff VanderMeer<p>The Federalist Papers,  ed. by Kesler<p>The Anti-Federalist Papers, ed. by Ketcham<p>Doctor Faustus by Thomas Mann, new translation by John Woods<p>Searching for Stars on an Island in Maine by Alan Lightman<p>Loren Eiseley in the Library of America Edition<p>Tu rostro mañana by Javier Marías<p>The Complete Essays by Michel De Montaigne, translation by Screech<p>Earning The Rockies by Kaplan<p>Desperate Remedies by Thomas Hardy<p>The Notebooks of Joseph Joubert<p>Nature Stories by Jules Renard<p>Mac y su contratiempo by Enrique Vila-Matas<p>Olinger Stories by John Updike<p>Greek Science in Antiquity by Marshall Clagett<p>At The Existentialist Cafe by Sarah Bakewell<p>100 Diagrams That Changed The World by Scott Christianson<p>Heart of Europe: A History of the Holy Roman Empire by Peter Wilson<p>Alec &quot;The Years Have Pants&quot; by Eddie Campbell<p>Landmarks by Robert Macfarlane",
+    "books": [
+      {
+        "title": "Paideia: The Ideals of Greek Culture",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Diary",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Computer Science: An Interdisciplinary Approach",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "2666",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "The Linux Programming Interface",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Tomie: No Use Escaping",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "L’homme aux cercles",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Cryptonomicon",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Lab Girl",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Operating Systems: Three Easy Pieces",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": [
+          "systems-programming"
+        ]
+      },
+      {
+        "title": "I Contain Multitudes",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "The Weird",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "The Federalist Papers",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "The Anti-Federalist Papers",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Doctor Faustus",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Searching for Stars on an Island in Maine",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Loren Eiseley in the Library of America Edition",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Tu rostro mañana",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "The Complete Essays",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Earning The Rockies",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Desperate Remedies",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "The Notebooks of Joseph Joubert",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Nature Stories",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Mac y su contratiempo",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Olinger Stories",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Greek Science in Antiquity",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "At The Existentialist Cafe",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "100 Diagrams That Changed The World",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Heart of Europe: A History of the Holy Roman Empire",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": [
+          "history"
+        ]
+      },
+      {
+        "title": "Alec \"The Years Have Pants\"",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      },
+      {
+        "title": "Landmarks",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      }
+    ]
   }
 ]

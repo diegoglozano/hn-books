@@ -72,6 +72,25 @@ def title_similarity(left: str, right: str) -> float:
     return max(ratio(left, right), token_sort_ratio(left, right), ratio(left, right_main)) / 100
 
 
+AUTHOR_NAME = r"(?:[A-Z]\.(?:[A-Z]\.)*|[A-ZÀ-ÖØ-Þ][\w'’\-]*)"
+TITLE_AUTHOR = re.compile(
+    r"(?:^|[.!?]\s+|(?:recommend|reading|read|enjoyed|loved)\s+)"
+    r'["“]?([A-Z0-9](?:[^\n.!?]|\b(?:ed|vol|vols)\.){1,140}?)\s+by\s+'
+    rf"({AUTHOR_NAME}(?:\s+(?:(?:and|&|de|del|van|von)\s+)?{AUTHOR_NAME}){{0,7}})"
+)
+
+
+def bibliographic_title(raw: str) -> str:
+    """Remove edition qualifiers from a lookup title, keeping the original span intact."""
+    title = re.sub(r",?\s+ed\.$", "", raw.strip(), flags=re.IGNORECASE)
+    return re.sub(
+        r",?\s+vol(?:s|umes?)?\.?\s+[\dIVX]+(?:\s*[-–]\s*[\dIVX]+)?\s*,?$",
+        "",
+        title,
+        flags=re.IGNORECASE,
+    ).strip()
+
+
 def extract_mentions(raw_html: str, known_titles: list[str] | None = None) -> list[MentionSpan]:
     parser = CommentParser()
     parser.feed(raw_html)
@@ -85,7 +104,7 @@ def extract_mentions(raw_html: str, known_titles: list[str] | None = None) -> li
         confidence: float = 0.7,
         work_id: str | None = None,
     ) -> None:
-        raw = raw.strip(" \n\t*\"“”'‘’.,;")
+        raw = raw.strip(" \n\t*,;")
         title = title or raw
         title = re.sub(
             r"^(?:I\s+(?:(?:highly|strongly|am|have|just)\s+)*|Highly\s+|Strongly\s+|Recently\s+|Just\s+)?"
@@ -94,16 +113,20 @@ def extract_mentions(raw_html: str, known_titles: list[str] | None = None) -> li
             title,
         )
         title = re.sub(r"(?:\s+(?:for|in|on|a|of|the|and|to))+$", "", title)
-        title = title.strip(" \n\t*\"“”'‘’.,;")
+        title = title.strip(" \n\t*.,;")
+        if title[:1] in {'"', "“", "'", "‘"} and title[-1:] in {'"', "”", "'", "’"}:
+            title = title[1:-1]
         if not 2 <= len(title) <= 180 or title.lower().startswith(("http", "www.")):
             return
-        if not work_id and not any(char.isupper() for char in title):
+        if not work_id and not author and not any(char.isupper() for char in title):
             confidence = min(confidence, 0.45)
         key = normalize_title(title)
         if key not in found or confidence > found[key].confidence:
             found[key] = MentionSpan(
                 raw=raw, title=title, author=author, confidence=confidence, work_id=work_id
             )
+        elif author and not found[key].author:
+            found[key] = found[key].model_copy(update={"author": author})
 
     for alias in library_config()["aliases"]:
         for variant in [alias["title"], *alias["variants"]]:
@@ -123,8 +146,6 @@ def extract_mentions(raw_html: str, known_titles: list[str] | None = None) -> li
     for span in parser.emphasized:
         if 1 <= len(span.split()) <= 18:
             add(span, confidence=0.82)
-    for match in re.finditer(r'["“]([^"”\n]{2,160})["”]', text):
-        add(match[1], confidence=0.82)
     for url, label in parser.links:
         work = re.search(r"openlibrary\.org(/works/OL\d+W)", url)
         if work:
@@ -132,16 +153,17 @@ def extract_mentions(raw_html: str, known_titles: list[str] | None = None) -> li
         elif "amazon." in url or "goodreads.com/book/" in url:
             add(label, confidence=0.8)
     # Explicit title + author, list entries, and reading/recommendation cues.
+    list_lines: list[str] = []
+    explicit_lines = 0
     for line in text.splitlines():
         line = line.strip()
-        by = re.search(
-            r"(?:^|[.!?]\s+|(?:recommend|reading|read|enjoyed|loved)\s+)"
-            r"[\"“]?([A-Z][^\n.!?]{1,140}?)['\"”]?\s+by\s+"
-            r"([A-Z][\w.'’\-]+(?:\s+[A-Z][\w.'’\-]+){0,3})",
-            line,
-        )
-        if by:
-            add(by[1], author=by[2], confidence=0.9)
+        matches = list(TITLE_AUTHOR.finditer(line))
+        if matches:
+            explicit_lines += 1
+        else:
+            list_lines.append(line)
+        for by in matches:
+            add(by[1], bibliographic_title(by[1]), author=by[2].rstrip("."), confidence=0.9)
         cue = re.search(
             r"\b(?:recommend|reading|read|enjoyed|loved|finished)\s+"
             r"(?:the book\s+)?[\"“]?([A-Z][\w'’\-]*"
@@ -153,6 +175,22 @@ def extract_mentions(raw_html: str, known_titles: list[str] | None = None) -> li
         entry = re.match(r"^(?:[-*•]|\d+[.)])\s+(.+?)(?:\s+[–—]\s+|\s+-\s+|$)", line)
         if entry:
             add(entry[1], confidence=0.72)
+    # Unbulleted titles are candidates only inside a clearly bibliographic list.
+    if explicit_lines >= 3:
+        particles = {"a", "an", "the", "of", "in", "on", "and", "for", "to"}
+        for line in list_lines:
+            words = line.split()
+            if (
+                2 <= len(words) <= 18
+                and len(line) <= 120
+                and not re.search(r"[.!?:]", line)
+                and all(word[0].isupper() or word in particles for word in words)
+            ):
+                add(line, confidence=0.65 if "Edition" in words else 0.72)
+    for match in re.finditer(r'["“]([^"”\n]{2,160})["”]', text):
+        # A quoted subtitle inside an explicit title is not a second book.
+        if not any(span.author and match[0] in span.raw for span in found.values()):
+            add(match[1], confidence=0.82)
     # Collapse heuristic spans that overlap a more precise canonical/author span.
     result = sorted(found.values(), key=lambda s: s.confidence, reverse=True)
     unique: list[MentionSpan] = []

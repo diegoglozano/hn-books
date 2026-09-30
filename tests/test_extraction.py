@@ -49,6 +49,46 @@ def test_safe_plain_text_and_links():
     assert spans[0].work_id == "/works/OL123W"
 
 
+def test_bibliographic_spans_preserve_original_text_and_full_author():
+    spans = extract_mentions(
+        "<p>Paideia: The Ideals of Greek Culture, vol 1-3, by Werner Jaeger</p>"
+        "<p>The Federalist Papers, ed. by Kesler</p>"
+        "<p>The Weird by Ann and Jeff VanderMeer</p>"
+        '<p>Alec "The Years Have Pants" by Eddie Campbell</p>'
+        "<p>2666 by Roberto Bolaño</p>"
+    )
+    actual = {span.title: span for span in spans}
+    assert len(actual) == 5
+    assert actual["Paideia: The Ideals of Greek Culture"].raw.endswith("vol 1-3")
+    assert actual["The Federalist Papers"].raw == "The Federalist Papers, ed."
+    assert actual["The Weird"].author == "Ann and Jeff VanderMeer"
+    assert actual['Alec "The Years Have Pants"'].author == "Eddie Campbell"
+    assert actual["2666"].confidence >= 0.7
+
+
+def test_known_title_keeps_explicit_author_for_disambiguation():
+    span = extract_mentions("Diary by Witold Gombrowicz", known_titles=["Diary"])[0]
+    assert span.author == "Witold Gombrowicz"
+
+
+def test_multiple_explicit_books_in_one_paragraph():
+    spans = extract_mentions("2666 by Roberto Bolaño. Lab Girl by Hope Jahren.")
+    assert {span.title for span in spans} == {"2666", "Lab Girl"}
+
+
+def test_unbulleted_titles_require_bibliographic_context():
+    assert extract_mentions("The Notebooks of Joseph Joubert") == []
+    spans = extract_mentions(
+        "<p>2666 by Roberto Bolaño</p><p>Diary by Witold Gombrowicz</p>"
+        "<p>Lab Girl by Hope Jahren</p><p>The Notebooks of Joseph Joubert</p>"
+        "<p>Loren Eiseley in the Library of America Edition</p><p>This changed my life</p>"
+    )
+    actual = {span.title: span for span in spans}
+    assert len(actual) == 5
+    assert actual["The Notebooks of Joseph Joubert"].confidence >= 0.7
+    assert actual["Loren Eiseley in the Library of America Edition"].confidence < 0.7
+
+
 DATA = Path(__file__).parent.parent / "app/data"
 GOLDEN = json.loads((DATA / "golden.json").read_text()) + json.loads(
     (DATA / "golden_hn.json").read_text()

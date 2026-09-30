@@ -19,7 +19,7 @@ from app.ranking import compute_book_scores, update_search_indexes
 from app.resolution import resolve_book
 
 logger = logging.getLogger(__name__)
-PROCESSOR_VERSION = "2"
+PROCESSOR_VERSION = "3"
 
 
 def discover_threads(remote: RemoteClient, backfill: bool = False) -> list[int]:

@@ -22,10 +22,21 @@ class Candidate(TypedDict):
 def author_matches(author: str | None, authors: list[str]) -> bool:
     if not author:
         return True
+    parts = re.split(r"\s+(?:and|&)\s+", author)
+    if len(parts) > 1:
+        # Shared surnames: "Ann and Jeff VanderMeer" names two distinct authors.
+        surname = parts[-1].split()[-1]
+        return all(
+            author_matches(f"{part} {surname}" if len(part.split()) == 1 else part, authors)
+            for part in parts
+        )
     expected = normalize_author(author)
     return any(
         ratio(expected, normalize_author(value)) >= 87
-        or (len(expected.split()) == 1 and expected == normalize_author(value).split()[-1])
+        or (
+            len(author.split()) == 1
+            and normalize_author(value).split()[-len(expected.split()) :] == expected.split()
+        )
         for value in authors
         if normalize_author(value)
     )
@@ -70,6 +81,10 @@ def resolve_book(
         docs = [{"key": span.work_id, "title": work["title"], "author_name": authors}]
     else:
         docs = metadata.search(span.title, span.author)
+        if not docs and span.author:
+            # Search can reject abbreviated/coordinated author names. Candidate validation
+            # still requires the extracted authors to agree; the title threshold is unchanged.
+            docs = metadata.search(span.title)
     selected, confidence, evidence = select_candidate(span, docs)
     if selected is None:
         return None, confidence, evidence
