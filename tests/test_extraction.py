@@ -89,6 +89,44 @@ def test_unbulleted_titles_require_bibliographic_context():
     assert actual["Loren Eiseley in the Library of America Edition"].confidence < 0.7
 
 
+@pytest.mark.parametrize(
+    "text",
+    [
+        "It is very clearly written. I highly recommend it.",
+        "It's hard to recommend anything other than the original K&R.",
+        "Crucial Conversations. It was actually recommended to me in an HN thread.",
+        "We use Python and Go at work. Code reviews are useful.",
+        "Quiet people might enjoy reading together.",
+    ],
+)
+def test_single_word_catalog_titles_do_not_match_ordinary_prose(text):
+    assert extract_mentions(text, known_titles=["It", "We", "Python", "Go", "Code", "Quiet"]) == []
+
+
+@pytest.mark.parametrize(
+    "text", ['I recommend "It".', "I recommend It.", "<i>It</i> is excellent."]
+)
+def test_ambiguous_titles_without_author_are_preserved_at_low_confidence(text):
+    spans = extract_mentions(text, known_titles=["It"])
+    assert spans
+    assert all(span.confidence < 0.7 for span in spans if span.title == "It")
+
+
+@pytest.mark.parametrize("title,author", [("It", "Stephen King"), ("We", "Yevgeny Zamyatin")])
+def test_genuine_ambiguous_book_with_author_is_extracted(title, author):
+    span = extract_mentions(f"{title} by {author}. Highly recommended.", known_titles=[title])[0]
+    assert span.title == title
+    assert span.author == author
+    assert span.confidence >= 0.7
+
+
+def test_ambiguous_title_with_authoritative_work_link_is_extracted():
+    span = extract_mentions('<a href="https://openlibrary.org/works/OL81613W">It</a>')[0]
+    assert span.title == "It"
+    assert span.work_id == "/works/OL81613W"
+    assert span.confidence >= 0.7
+
+
 DATA = Path(__file__).parent.parent / "app/data"
 GOLDEN = json.loads((DATA / "golden.json").read_text()) + json.loads(
     (DATA / "golden_hn.json").read_text()
@@ -97,7 +135,7 @@ GOLDEN = json.loads((DATA / "golden.json").read_text()) + json.loads(
 
 @pytest.mark.parametrize("sample", GOLDEN)
 def test_golden_extraction_and_classification(sample):
-    spans = extract_mentions(sample["html"])
+    spans = extract_mentions(sample["html"], sample.get("known_titles"))
     actual = {normalize_title(span.title): span for span in spans}
     expected = {normalize_title(book["title"]): book for book in sample["books"]}
     assert actual.keys() == expected.keys()

@@ -22,7 +22,10 @@ def evaluate() -> dict:
     mentions_tp = mentions_fp = mentions_fn = tags_tp = tags_fp = tags_fn = strength_matches = 0
     matched = 0
     for sample in samples:
-        actual = {normalize_title(s.title): s for s in extract_mentions(sample["html"])}
+        actual = {
+            normalize_title(s.title): s
+            for s in extract_mentions(sample["html"], sample.get("known_titles"))
+        }
         expected = {normalize_title(b["title"]): b for b in sample["books"]}
         mentions_tp += len(actual.keys() & expected.keys())
         mentions_fp += len(actual.keys() - expected.keys())
@@ -46,7 +49,7 @@ def evaluate() -> dict:
         selected, _, _ = select_candidate(MentionSpan(**case["mention"]), case["candidates"])
         canonical_correct += (selected["key"] if selected else None) == case["expected_work"]
     return {
-        "corpus": "15 synthetic comments + 5 labeled HN comments; not representative accuracy",
+        "corpus": "15 synthetic comments + 8 labeled HN comments; not representative accuracy",
         "source_linked_comments": sum("source_url" in sample for sample in samples),
         "comments": len(samples),
         "canonicalization_cases": len(cases),

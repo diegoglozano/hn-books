@@ -1,3 +1,4 @@
+import hashlib
 import json
 import sys
 from typing import Any
@@ -241,6 +242,86 @@ def test_refresh_deleted_comment_removes_derived_mentions(settings):
             conn.execute("SELECT COUNT(*) FROM book_mentions WHERE comment_id=101").fetchone()[0]
             == 0
         )
+
+
+def test_reprocessing_removes_stale_common_word_matches_from_scores_and_search(settings):
+    from app.db import store_raw_item
+
+    false_comment = dict(
+        ITEMS[101], text="It was about distributed systems. Highly recommended.", kids=[]
+    )
+    true_comment = dict(ITEMS[101], id=102, text="It by Stephen King. Highly recommended.", kids=[])
+    doc = dict(DOC, title="It", author_name=["Stephen King"])
+
+    def handle(request):
+        if request.url.path == "/search.json":
+            return httpx.Response(200, json={"docs": [doc]})
+        return httpx.Response(200, json={"title": "It", "description": "A horror novel."})
+
+    remote = RemoteClient(settings, httpx.Client(transport=httpx.MockTransport(handle)))
+    with connect(settings.database_path) as conn:
+        store_raw_item(conn, THREAD, 100)
+        store_raw_item(conn, false_comment, 100)
+        store_raw_item(conn, true_comment, 100)
+        conn.commit()
+        metrics = RunMetrics()
+        metadata = MetadataClient(remote, conn, metrics)
+        extract_and_resolve(conn, metadata, metrics)
+        book_id = conn.execute("SELECT id FROM books").fetchone()[0]
+        # Simulate a resolved false mention persisted by the old processor.
+        conn.execute(
+            """INSERT INTO book_mentions(book_id,comment_id,thread_id,raw_mention,
+            normalized_mention,context_text,extraction_confidence,resolution_confidence,
+            recommendation_strength,sentiment,status,candidates_json,created_at)
+            SELECT book_id,101,thread_id,'It','it',?,0.95,1,
+            recommendation_strength,sentiment,status,candidates_json,created_at
+            FROM book_mentions WHERE comment_id=102""",
+            (false_comment["text"],),
+        )
+        raw = conn.execute("SELECT raw_json FROM hn_comments WHERE id=101").fetchone()[0]
+        old_hash = hashlib.sha256(("3" + raw).encode()).hexdigest()
+        conn.execute("UPDATE hn_comments SET processed_hash=? WHERE id=101", (old_hash,))
+        refresh_aggregates(conn)
+        assert conn.execute("SELECT mention_count FROM books").fetchone()[0] == 2
+        assert (
+            conn.execute(
+                "SELECT COUNT(*) FROM books_fts WHERE books_fts MATCH 'distributed'"
+            ).fetchone()[0]
+            == 1
+        )
+        extract_and_resolve(conn, MetadataClient(remote, conn, RunMetrics(), offline=True), metrics)
+        refresh_aggregates(conn)
+        assert (
+            conn.execute("SELECT COUNT(*) FROM book_mentions WHERE comment_id=101").fetchone()[0]
+            == 0
+        )
+        assert conn.execute("SELECT mention_count,recommendation_count FROM books").fetchone()[
+            :
+        ] == (
+            1,
+            1,
+        )
+        assert (
+            conn.execute(
+                "SELECT COUNT(*) FROM books_fts WHERE books_fts MATCH 'distributed'"
+            ).fetchone()[0]
+            == 0
+        )
+        assert conn.execute("SELECT COUNT(*) FROM hn_comments").fetchone()[0] == 2
+        # When no real mention remains, preserve metadata but clear library/search aggregates.
+        store_raw_item(conn, dict(true_comment, text="I highly recommend it."), 100)
+        conn.commit()
+        extract_and_resolve(conn, MetadataClient(remote, conn, metrics, offline=True), metrics)
+        refresh_aggregates(conn)
+        assert conn.execute("SELECT mention_count,all_time_score FROM books").fetchone()[:] == (
+            0,
+            0,
+        )
+        assert conn.execute("SELECT COUNT(*) FROM books_fts").fetchone()[0] == 0
+    with TestClient(create_app(settings)) as client:
+        assert client.get("/api/books").json()["total"] == 0
+        assert client.get(f"/api/books/{book_id}/mentions").json()["total"] == 0
+        assert client.get(f"/api/books/{book_id}").json()["canonical_title"] == "It"
 
 
 def test_api_evidence_search_and_admin_protection(settings):

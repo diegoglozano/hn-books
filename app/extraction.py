@@ -96,6 +96,7 @@ def extract_mentions(raw_html: str, known_titles: list[str] | None = None) -> li
     parser.feed(raw_html)
     text = plain_text(raw_html)
     found: dict[str, MentionSpan] = {}
+    ambiguous_titles = {normalize_title(value) for value in library_config()["ambiguous_titles"]}
 
     def add(
         raw: str,
@@ -120,6 +121,12 @@ def extract_mentions(raw_html: str, known_titles: list[str] | None = None) -> li
             return
         if not work_id and not author and not any(char.isupper() for char in title):
             confidence = min(confidence, 0.45)
+        if (
+            not work_id
+            and not author
+            and normalize_title(title.split(":", 1)[0]) in ambiguous_titles
+        ):
+            confidence = min(confidence, 0.65)
         key = normalize_title(title)
         if key not in found or confidence > found[key].confidence:
             found[key] = MentionSpan(
@@ -140,6 +147,10 @@ def extract_mentions(raw_html: str, known_titles: list[str] | None = None) -> li
                 add(match.group(), alias["title"], alias["author"], 0.98)
                 break
     for title in known_titles or []:
+        # A catalog entry is not evidence that an ordinary word refers to that book.
+        # Single-word titles must go through the explicit author/format/link/cue stages.
+        if len(normalize_title(title).split()) < 2:
+            continue
         match = re.search(r"(?<!\w)" + re.escape(title) + r"(?!\w)", text)
         if match:
             add(match.group(), title, confidence=0.95)
