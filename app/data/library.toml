@@ -6,6 +6,10 @@ discovery_queries = [
 # Broad title searches for historical reading discussions; deduplicated by HN ID.
 backfill_queries = ["reading", "books", "book", "read", "novels", "literature"]
 
+# These ordinary words/language names require an explicit author or Open Library work link.
+# Quotation marks, italics, and a reading cue alone do not identify the intended book.
+ambiguous_titles = ["It", "We", "Us", "You", "Her", "Go", "Up", "On", "Python", "Rust", "Java", "SQL", "AI", "Code"]
+
 # Curated aliases guide extraction, never substitute for metadata resolution.
 [[aliases]]
 title = "Designing Data-Intensive Applications"

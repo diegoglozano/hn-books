@@ -243,5 +243,46 @@
         "tags": []
       }
     ]
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=29736115",
+    "known_titles": [
+      "It"
+    ],
+    "html": "I second “Probability Theory.” This is simply the best book I’ve ever seen on probability and statistics. It’s the only book that made things actually make sense to me as a software developer.",
+    "books": [
+      {
+        "title": "Probability Theory",
+        "sentiment": 0.9,
+        "strength": 0.95,
+        "tags": [
+          "statistics"
+        ]
+      }
+    ]
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=29728281",
+    "known_titles": [
+      "It"
+    ],
+    "html": "This book had a big influence on me. I highly recommend it. I read both the first and second editions.<p>It is very clearly written, full of practical examples (with code), and doesn&#x27;t assume heavy math knowledge.",
+    "books": [],
+    "annotation_note": "Opening paragraphs only; quoted publisher preface omitted. Pronouns do not identify a book title."
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=29500995",
+    "known_titles": [
+      "It"
+    ],
+    "html": "It&#x27;s hard to recommend anything other than the original K&amp;R - &quot;The C Programming Language&quot;.<p>It&#x27;s obviously not going to teach you the ins and outs of modern C development, but it&#x27;s the best introduction to the language out there IMHO.",
+    "books": [
+      {
+        "title": "The C Programming Language",
+        "sentiment": 0.9,
+        "strength": 0.95,
+        "tags": []
+      }
+    ]
   }
 ]
