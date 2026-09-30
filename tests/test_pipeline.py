@@ -1,4 +1,5 @@
 import json
+import sys
 from typing import Any
 
 import httpx
@@ -10,7 +11,7 @@ from app.main import create_app
 from app.models import MentionSpan, RunMetrics
 from app.pipeline import extract_and_resolve, fetch_thread, refresh_aggregates
 from app.ranking import aggregate_tags
-from app.resolution import resolve_book
+from app.resolution import author_matches, resolve_book
 
 THREAD = {
     "id": 100,
@@ -160,6 +161,66 @@ def test_wrong_author_is_unresolved(settings):
             MetadataClient(remote, conn, RunMetrics()),
         )
         assert book_id is None
+
+
+def test_coordinated_and_hyphenated_authors():
+    assert author_matches("Ann and Jeff VanderMeer", ["Ann VanderMeer", "Jeff VanderMeer"])
+    assert not author_matches("Ann and Jeff VanderMeer", ["Jeff VanderMeer"])
+    assert author_matches("Arpaci-Dusseau", ["Remzi Arpaci-Dusseau", "Andrea Arpaci-Dusseau"])
+    assert not author_matches("Arpaci-Dusseau", ["Another Dusseau"])
+    assert not author_matches("Ann", ["Ann VanderMeer"])
+
+
+def test_empty_author_search_retries_title_without_weakening_validation(settings):
+    requests = []
+
+    def handle(request):
+        requests.append(request)
+        if request.url.path == "/search.json":
+            return httpx.Response(
+                200,
+                json={"docs": [] if "author" in request.url.params else [DOC]},
+            )
+        assert request.url.path == "/works/OL123W.json"
+        return httpx.Response(200, json=WORK)
+
+    remote = RemoteClient(settings, httpx.Client(transport=httpx.MockTransport(handle)))
+    with connect(settings.database_path) as conn:
+        metadata = MetadataClient(remote, conn, RunMetrics())
+        span = MentionSpan(raw=DOC["title"], title=DOC["title"], author="Kleppmann", confidence=0.9)
+        book_id, _, _ = resolve_book(conn, span, metadata)
+        assert book_id is not None
+        assert len(requests) == 3
+        wrong = span.model_copy(update={"author": "Someone Else"})
+        assert resolve_book(conn, wrong, metadata)[0] is None
+        # The title-only result and canonical work are permanently cached.
+        assert len(requests) == 4
+
+
+def test_scoped_reprocessing_only_changes_selected_thread(settings, monkeypatch):
+    from app.db import store_raw_item
+    from app.reprocess import main
+
+    remote = make_remote(settings, [])
+    with connect(settings.database_path) as conn:
+        metrics = RunMetrics()
+        fetch_thread(conn, remote, 100, metrics)
+        extract_and_resolve(conn, MetadataClient(remote, conn, metrics), metrics)
+        store_raw_item(conn, dict(THREAD, id=200), 200)
+        store_raw_item(conn, dict(ITEMS[101], id=201, parent=200), 200)
+        conn.execute("UPDATE hn_comments SET processed_hash='untouched' WHERE id=201")
+        conn.commit()
+    monkeypatch.setattr(sys, "argv", ["reprocess", "mentions", "--thread", "100", "--offline"])
+    assert main() == 0
+    with connect(settings.database_path) as conn:
+        assert conn.execute("SELECT processed_hash FROM hn_comments WHERE id=201").fetchone()[
+            0
+        ] == ("untouched")
+        assert (
+            conn.execute("SELECT COUNT(*) FROM book_mentions WHERE thread_id=200").fetchone()[0]
+            == 0
+        )
+        assert conn.execute("SELECT mention_count FROM books").fetchone()[0] == 2
 
 
 def test_refresh_deleted_comment_removes_derived_mentions(settings):

@@ -46,7 +46,7 @@ def evaluate() -> dict:
         selected, _, _ = select_candidate(MentionSpan(**case["mention"]), case["candidates"])
         canonical_correct += (selected["key"] if selected else None) == case["expected_work"]
     return {
-        "corpus": "15 synthetic comments + 4 labeled HN comments; not representative accuracy",
+        "corpus": "15 synthetic comments + 5 labeled HN comments; not representative accuracy",
         "source_linked_comments": sum("source_url" in sample for sample in samples),
         "comments": len(samples),
         "canonicalization_cases": len(cases),

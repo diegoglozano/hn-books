@@ -32,6 +32,7 @@ Run these from the repository root, prefixed by `uv run` locally. Inside the Doc
 | `python -m app.ingest backfill --years 5` | Resume five years of date-bounded reading-thread discovery and ingestion |
 | `python -m app.reprocess mentions` | Re-extract stored comments; reuse local books/cache and look up missing metadata |
 | `python -m app.reprocess mentions --offline` | Re-extract with no network calls, using local books and cached metadata only |
+| `python -m app.reprocess mentions --thread <HN_ID>` | Re-extract one stored thread without fetching its HN comments again |
 | `python -m app.reprocess tags` | Reclassify stored mentions, then rebuild scores and search |
 | `python -m app.recompute rankings` | Rebuild scores and FTS5 index |
 | `python -m app.evaluate` | Print golden extraction, matching, tag, and strength metrics offline |
@@ -156,6 +157,8 @@ npm run build --prefix frontend
 
 CI checks Python on 3.12, builds the frontend, and builds and starts the Docker image. Tests cover normalization, fuzzy matching, ambiguity, full trees including deleted parents, repeat ingestion, offline reprocessing, tag aggregation, recommendation independence, decay, API evidence, search and debug access.
 
-The golden set includes 15 constructed comments, four source-linked HN comments, and six constructed canonicalization cases. Its metrics detect regressions; they do **not** establish representative accuracy. Extraction and sentence-based classification are conservative heuristics. Lowercase quoted phrases stay unresolved; ambiguity and sarcasm need more labeled data. HN comment scores are unavailable from the official API, so the baseline uses thread score and context length.
+The golden set includes 15 constructed comments, five source-linked HN comments (including a 31-entry reading list), and six constructed canonicalization cases. Its metrics detect regressions; they do **not** establish representative accuracy. Extraction and sentence-based classification are conservative heuristics. Numeric titles with explicit authors, coordinated author names, volume/editor qualifiers and unbulleted bibliographic lists are supported. Original mention strings remain stored separately from lookup titles. Imprecise collection references, lowercase quoted phrases and ambiguous metadata matches stay unresolved; sarcasm needs more labeled data. HN comment scores are unavailable from the official API, so the baseline uses thread score and context length.
+
+Only resolved mentions appear as library books. A detected title may remain unresolved because Open Library returned no matching work, the stated title/author disagrees with its metadata, or several works are equally plausible. Inspect the authenticated unresolved-mentions endpoint for these cases. An empty author-filtered lookup retries by title, while retaining the same title and author validation. After an extraction update, reprocess a stored thread with the command above, or reprocess all mentions. Wait for any active ingestion to finish first; writer commands share a lock.
 
 See [docs/architecture.md](docs/architecture.md) for the inspectable ranking formula, stage boundaries, failure behavior and experiments to pursue next. Embeddings, semantic discovery, clustering, graph experiments, Polars/scikit-learn processing, personalized recommendations and model-based classification are deferred until the core corpus and evaluation justify them.
