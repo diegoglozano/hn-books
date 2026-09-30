@@ -1,0 +1,62 @@
+discovery_queries = [
+  "What are you reading", "What books are you reading", "books you recommend",
+  "favorite books", "best books", "what book", "books changed", "book recommendations",
+]
+
+# Curated aliases guide extraction, never substitute for metadata resolution.
+[[aliases]]
+title = "Designing Data-Intensive Applications"
+author = "Martin Kleppmann"
+variants = ["DDIA", "Designing Data Intensive Applications", "Kleppmann's book", "Kleppmann’s book"]
+
+[[aliases]]
+title = "Structure and Interpretation of Computer Programs"
+author = "Harold Abelson"
+variants = ["SICP"]
+
+[[aliases]]
+title = "The Art of Computer Programming"
+author = "Donald Knuth"
+variants = ["TAOCP"]
+
+[[aliases]]
+title = "The Pragmatic Programmer"
+author = "David Thomas"
+variants = ["Pragmatic Programmer"]
+
+[[aliases]]
+title = "Gödel, Escher, Bach"
+author = "Douglas Hofstadter"
+variants = ["GEB", "Godel Escher Bach", "Gödel Escher Bach"]
+
+[[aliases]]
+title = "Dune"
+author = "Frank Herbert"
+variants = []
+
+[[aliases]]
+title = "The Rust Programming Language"
+author = "Steve Klabnik"
+variants = ["the Rust book"]
+
+[topics]
+distributed-systems = ["distributed systems", "distributed computing", "consensus", "replication"]
+databases = ["database", "databases", "sql", "data intensive", "data-intensive"]
+systems-programming = ["systems programming", "rust", "operating systems", "low-level"]
+programming-languages = ["programming languages", "compiler", "compilers", "lisp", "scheme"]
+machine-learning = ["machine learning", "deep learning", "neural networks"]
+ai = ["artificial intelligence", " ai ", "llm"]
+mathematics = ["mathematics", "math", "algebra", "calculus", "proofs"]
+statistics = ["statistics", "statistical", "probability", "bayesian"]
+finance = ["finance", "investing", "investment"]
+economics = ["economics", "economic", "markets"]
+startups = ["startup", "startups", "entrepreneur"]
+management = ["management", "manager", "leadership"]
+software-design = ["software design", "architecture", "refactoring", "programmer", "programming"]
+engineering = ["engineering", "engineer"]
+philosophy = ["philosophy", "philosophical", "ethics"]
+psychology = ["psychology", "cognitive", "behavior"]
+history = ["history", "historical"]
+biography = ["biography", "memoir", "autobiography"]
+science-fiction = ["science fiction", "sci-fi", "dune", "space opera"]
+fiction = ["fiction", "novel", "novels"]

@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.pyc
+.env
+/data/
+*.db
+*.db-shm
+*.db-wal
+*.lock
+frontend/node_modules/
+frontend/dist/
+!uv.lock
+*.tsbuildinfo
