@@ -1,0 +1,50 @@
+[
+  {
+    "source_url": "https://news.ycombinator.com/item?id=21457991",
+    "html": "Recently read &quot;Quiet&quot; by Susan Cain, about introverts and extroverts. Highly recommended :)",
+    "books": [
+      {
+        "title": "Quiet",
+        "sentiment": 0.9,
+        "strength": 0.95,
+        "tags": []
+      }
+    ]
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=21458200",
+    "html": "Indistractible by Nir Eyal.",
+    "books": [
+      {
+        "title": "Indistractible",
+        "sentiment": 0,
+        "strength": 0.2,
+        "tags": []
+      }
+    ]
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=21458234",
+    "html": "Fishbowl by Bradley Somer. Clever book imo.",
+    "books": [
+      {
+        "title": "Fishbowl",
+        "sentiment": 0.6,
+        "strength": 0.65,
+        "tags": []
+      }
+    ]
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=21458346",
+    "html": "<i>The Demon in the Machine</i> by Paul Davies (would recommend)",
+    "books": [
+      {
+        "title": "The Demon in the Machine",
+        "sentiment": 0.9,
+        "strength": 0.95,
+        "tags": []
+      }
+    ]
+  }
+]

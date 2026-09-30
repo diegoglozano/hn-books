@@ -1,0 +1,16 @@
+services:
+  library:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_PATH: /data/hn_books.db
+      HN_THREAD_IDS: ${HN_THREAD_IDS:-}
+      HTTP_USER_AGENT: ${HTTP_USER_AGENT:-HNOpinionatedLibrary/0.1}
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-}
+    volumes:
+      - library-data:/data
+    restart: unless-stopped
+    stop_grace_period: 30s
+volumes:
+  library-data:

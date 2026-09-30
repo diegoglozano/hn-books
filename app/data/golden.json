@@ -1,0 +1,17 @@
+[
+  {"html":"I highly recommend DDIA for distributed systems and databases.","books":[{"title":"Designing Data-Intensive Applications","sentiment":0.9,"strength":0.95,"tags":["distributed-systems","databases"]}]},
+  {"html":"Kleppmann's book is excellent for databases.","books":[{"title":"Designing Data-Intensive Applications","sentiment":0.6,"strength":0.65,"tags":["databases"]}]},
+  {"html":"I loved <i>Dune</i>. A great science fiction novel.","books":[{"title":"Dune","sentiment":0.6,"strength":0.65,"tags":["science-fiction"]}]},
+  {"html":"I am reading Dune.","books":[{"title":"Dune","sentiment":0,"strength":0.2,"tags":["science-fiction"]}]},
+  {"html":"Dune is overrated. I would not recommend it.","books":[{"title":"Dune","sentiment":-0.8,"strength":0,"tags":["science-fiction"]}]},
+  {"html":"I strongly recommend SICP for programming languages and Scheme.","books":[{"title":"Structure and Interpretation of Computer Programs","sentiment":0.9,"strength":0.95,"tags":["programming-languages"]}]},
+  {"html":"<p>Highly recommend \"The Psychology of Money\" for finance.</p>","books":[{"title":"The Psychology of Money","sentiment":0.9,"strength":0.95,"tags":["psychology","finance"]}]},
+  {"html":"I enjoyed The Pragmatic Programmer. Its software design advice was useful.","books":[{"title":"The Pragmatic Programmer","sentiment":0.6,"strength":0.65,"tags":["software-design"]}]},
+  {"html":"- The Mythical Man-Month — a management classic","books":[{"title":"The Mythical Man-Month","sentiment":0,"strength":0.2,"tags":["management"]}]},
+  {"html":"I highly recommend Dune. DDIA was disappointing for me.","books":[{"title":"Dune","sentiment":0.9,"strength":0.95,"tags":["science-fiction"]},{"title":"Designing Data-Intensive Applications","sentiment":-0.8,"strength":0,"tags":["databases"]}]},
+  {"html":"The Rust book is excellent for systems programming.","books":[{"title":"The Rust Programming Language","sentiment":0.6,"strength":0.65,"tags":["systems-programming"]}]},
+  {"html":"We use SQLite in production. This is a discussion about databases, not a book recommendation.","books":[]},
+  {"html":"Thanks for sharing! I will come back to this thread later.","books":[]},
+  {"html":"Designing Data Intensive Applications by Martin Kleppmann is essential.","books":[{"title":"Designing Data-Intensive Applications","sentiment":0.9,"strength":0.95,"tags":["databases"]}]},
+  {"html":"I recommend Thinking in Systems by Donella Meadows.","books":[{"title":"Thinking in Systems","sentiment":0.9,"strength":0.95,"tags":[]}]}
+]

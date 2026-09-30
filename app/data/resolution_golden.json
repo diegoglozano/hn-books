@@ -1,0 +1,8 @@
+[
+  {"mention":{"raw":"DDIA","title":"Designing Data-Intensive Applications","author":"Martin Kleppmann","confidence":0.98},"candidates":[{"key":"/works/OL1W","title":"Designing Data Intensive Applications","author_name":["Martin Kleppmann"]}],"expected_work":"/works/OL1W"},
+  {"mention":{"raw":"Dune","title":"Dune","author":"Frank Herbert","confidence":0.98},"candidates":[{"key":"/works/OL2W","title":"Dune","author_name":["Frank Herbert"]},{"key":"/works/OL3W","title":"Dune","author_name":["Another Author"]}],"expected_work":"/works/OL2W"},
+  {"mention":{"raw":"Dune","title":"Dune","confidence":0.8},"candidates":[{"key":"/works/OL2W","title":"Dune","author_name":["Frank Herbert"]},{"key":"/works/OL3W","title":"Dune","author_name":["Another Author"]}],"expected_work":null},
+  {"mention":{"raw":"Dune","title":"Dune","author":"Frank Herbert","confidence":0.8},"candidates":[{"key":"/works/OL4W","title":"Children of Dune","author_name":["Frank Herbert"]}],"expected_work":null},
+  {"mention":{"raw":"DDIA","title":"Designing Data Intensive Applications","author":"Someone Else","confidence":0.8},"candidates":[{"key":"/works/OL1W","title":"Designing Data-Intensive Applications","author_name":["Martin Kleppmann"]}],"expected_work":null},
+  {"mention":{"raw":"Missing book","title":"Missing book","confidence":0.7},"candidates":[],"expected_work":null}
+]

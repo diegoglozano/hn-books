@@ -1,0 +1,14 @@
+.git
+.venv
+.env
+__pycache__
+.pytest_cache
+.ruff_cache
+data
+*.db
+*.lock
+!uv.lock
+frontend/node_modules
+frontend/dist
+tests
+.github
