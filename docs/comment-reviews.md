@@ -15,12 +15,23 @@ valid Middlemarch mention. The decisions are Codex source checks, pending
 independent human review. This is a selected regression set, not a complete
 thread review or a held-out accuracy benchmark.
 
+The expanded set adds 21 complete comment decisions, bringing the total to 32.
+These reject author-only entries and unspecified works, distinguish TV-adaptation
+praise from book recommendations, and correct titles, author provenance,
+reading intentions and topics. Examples include rejecting an arbitrary John le
+Carré omnibus, keeping only The River in a comment praising the Station Eleven
+TV series, and identifying There Is No Antimemetics Division from the immediate
+parent instead of choosing Ra from an older ancestor. Energy and Civilization
+is nonfiction history, so its science-fiction tag is removed. All decisions bind
+to the current comment and its actual ancestor context.
+
 The source-linked [regression labels](../tests/fixtures/reviewed_comment_labels.json)
-cover 24 comments: selected failures and reviewed negative examples. Six expected
-works have catalog-checked identities. The
-[saved baseline](../tests/fixtures/reviewed_comment_baseline.json) records five
-omissions and seven false entries in this selected set. Those figures describe
-these regressions, not accuracy across the thread. No full comments, credentials
+cover 104 comments: selected failures and reviewed negative examples. Of 42
+expected mentions, 27 have catalog-checked identities and 15 still require
+catalog verification. The
+[saved baseline](../tests/fixtures/reviewed_comment_baseline.json) records eight
+omissions and 38 false entries in this selected set, before applying corrections.
+Those figures describe these regressions, not accuracy across the thread. No full comments, credentials
 or deployment logs are committed in the fixtures.
 
 To compare a saved full-thread export against these sparse labels, explicitly allow
@@ -33,9 +44,12 @@ uv run python -m app.evaluate_review \
   --output data/comment-regression-evaluation.json
 ```
 
-Coverage remains 24 of 870 comments. Full evaluation still requires every comment
-to be present and reviewed. Do not treat a selected regression set as satisfying
-the complete-thread quality gate.
+Coverage remains 104 of 870 comments. Full evaluation still requires every comment
+to be present and reviewed, with no pending identity labels. Do not treat a selected
+regression set as satisfying the complete-thread quality gate. A pending catalog
+check is distinct from a genuinely ambiguous identity: it does not score as a
+correct abstention or contribute to canonicalization accuracy. Mention, sentiment,
+strength and topic metrics can still be evaluated independently of that check.
 
 ## Scope and evidence
 
@@ -50,9 +64,10 @@ The numerical title's author is supported by the
 [National Library of New Zealand catalog](https://natlib.govt.nz/records/22191646).
 The DCC abbreviation's author is supported by the
 [publisher's series page](https://www.penguinrandomhouse.com/series/43C/dungeon-crawler-carl/).
-Other author credits come from the linked HN ancestors, except the well-known
-George Eliot attribution on Middlemarch. Corrections still pass through normal
-bibliographic resolution: adding a reviewed mention does not force its work ID
+The first set's other author credits come from the linked HN ancestors, except the
+well-known George Eliot attribution on Middlemarch. The expanded decisions also
+link publisher and catalog records for inferred credits and corrected titles.
+Corrections still pass through normal bibliographic resolution: adding a reviewed mention does not force its work ID
 or guarantee a resolved catalog match.
 
 Review only uniquely identifiable references. Unnamed novels, author-only praise,

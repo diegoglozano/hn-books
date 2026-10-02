@@ -27,6 +27,7 @@ class ExpectedMention(BaseModel):
     authors: list[str]
     work_id: str | None = Field(pattern=r"^/works/OL\d+W$")
     accepted_work_ids: list[str] = Field(default_factory=list)
+    identity_status: Literal["verified", "ambiguous", "pending"] | None = None
     author_source: Literal["stated", "context", "inferred", "unknown"]
     sentiment: Literal["recommended", "positive", "neutral", "negative"]
     strength: float = Field(ge=0, le=1)
@@ -116,6 +117,8 @@ def score_comment(
     errors = []
     remaining = list(predictions)
     for gold in expected:
+        if canonical and gold.identity_status == "pending":
+            counts["identities_pending"] += 1
         titles = {normalize_title(title) for title in [gold.title, *gold.aliases]}
         prediction = next((p for p in remaining if normalize_title(p["title"]) in titles), None)
         if prediction is None:
@@ -136,7 +139,9 @@ def score_comment(
         counts["provenance_correct"] += (
             prediction["extraction"].get("author_source") == gold.author_source
         )
-        if canonical and gold.work_id is not None:
+        if canonical and gold.identity_status == "pending":
+            pass  # Count extraction and classification, but do not invent identity ground truth.
+        elif canonical and gold.work_id is not None:
             counts["known_works"] += 1
             correct = prediction.get("openlibrary_id") in {gold.work_id, *gold.accepted_work_ids}
             counts["identity_correct"] += correct
@@ -221,6 +226,10 @@ def evaluate_review(snapshot: dict, labels: dict, *, allow_partial: bool = False
                     "Expected titles and aliases must be nonempty and unique per comment"
                 )
             seen.update(titles)
+            if (mention.identity_status == "verified" and mention.work_id is None) or (
+                mention.identity_status in {"ambiguous", "pending"} and mention.work_id is not None
+            ):
+                raise ValueError("Identity status conflicts with the reviewed work ID")
             if mention.accepted_work_ids and mention.work_id is None:
                 raise ValueError("Ambiguous labels cannot accept canonical work IDs")
             for work_id in mention.accepted_work_ids:
@@ -238,10 +247,17 @@ def evaluate_review(snapshot: dict, labels: dict, *, allow_partial: bool = False
         and bool(checkpoint.get("completed_at"))
     )
     raw_complete = bool(checkpoint.get("raw_complete"))
-    if not allow_partial and not (complete and processed and raw_complete):
+    pending_identities = [
+        {"comment_id": comment["comment_id"], "title": mention.title}
+        for comment, _, expected in ready
+        for mention in expected
+        if mention.identity_status == "pending"
+    ]
+    finished = complete and processed and raw_complete and not pending_identities
+    if not allow_partial and not finished:
         raise ValueError(
             "Complete evaluation requires every comment reviewed, processed, a complete raw tree "
-            "and a finished processing checkpoint"
+            "and a finished processing checkpoint, with no pending identity labels"
         )
     if not ready:
         raise ValueError("No reviewed comments to evaluate")
@@ -287,10 +303,11 @@ def evaluate_review(snapshot: dict, labels: dict, *, allow_partial: bool = False
         "thread_id": snapshot["thread_id"],
         "reviewer": labels["reviewer"],
         "applied_comment_reviews": applied,
+        "pending_identity_labels": pending_identities,
         "coverage": {
             "stored_comments": len(comments),
             "reviewed_comments": len(ready),
-            "complete_thread_review": complete and processed and raw_complete,
+            "complete_thread_review": finished,
         },
         "source_digest": snapshot["source_digest"],
         "snapshot_digest": snapshot["snapshot_digest"],
@@ -299,7 +316,7 @@ def evaluate_review(snapshot: dict, labels: dict, *, allow_partial: bool = False
         "processing_checkpoint": snapshot["processing_checkpoint"],
         "recorded_rebuild_runs": snapshot["recorded_rebuild_runs"],
         "taxonomy_digest": content_digest(snapshot["taxonomy"]),
-        "evaluation_version": 2,
+        "evaluation_version": 3,
         "results": outputs,
     }
 

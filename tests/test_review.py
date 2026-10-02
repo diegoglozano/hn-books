@@ -305,6 +305,52 @@ def test_sparse_regression_labels_require_explicit_partial_evaluation(review_sna
         evaluate_review(review_snapshot, labels, allow_partial=True)
 
 
+def test_pending_identity_neither_scores_as_abstention_nor_passes_full_review(review_snapshot):
+    labels = labeled_review(review_snapshot)
+    gold = labels["comments"][1]["expected_mentions"][0]
+    gold["identity_status"] = "pending"
+    with pytest.raises(ValueError, match="pending identity"):
+        evaluate_review(review_snapshot, labels)
+    partial = evaluate_review(review_snapshot, labels, allow_partial=True)
+    metrics = partial["results"]["saved_extractor"]["metrics"]
+    assert metrics["identities_pending"] == 1
+    assert metrics["abstention_accuracy"] is None
+    assert metrics["canonicalization_accuracy"] == 1  # The independently verified Dune label.
+    assert partial["pending_identity_labels"] == [{"comment_id": 102, "title": "Mystery Book"}]
+    assert not partial["coverage"]["complete_thread_review"]
+    # Missing this title still counts as an omission and a pending identity check.
+    snapshot = deepcopy(review_snapshot)
+    snapshot["mentions"].pop()
+    redigest(snapshot)
+    metrics = evaluate_review(snapshot, labels, allow_partial=True)["results"]["saved_extractor"][
+        "metrics"
+    ]
+    assert metrics["fn"] == metrics["identities_pending"] == 1
+
+    # An unverified catalog label cannot declare a resolved prediction right or wrong either.
+    snapshot = deepcopy(review_snapshot)
+    snapshot["mentions"][1].update(status="resolved", openlibrary_id="/works/OL999W")
+    redigest(snapshot)
+    report = evaluate_review(snapshot, labels, allow_partial=True)
+    metrics = report["results"]["saved_extractor"]["metrics"]
+    assert metrics["known_works"] == metrics["identity_correct"] == 1
+    assert metrics["abstention_accuracy"] is None
+    assert not any(
+        e["comment_id"] == 102 and e["kind"] in {"identity_mismatch", "unexpected_resolution"}
+        for e in report["results"]["saved_extractor"]["errors"]
+    )
+
+
+@pytest.mark.parametrize(
+    "status,work", [("verified", None), ("ambiguous", "/works/OL1W"), ("pending", "/works/OL1W")]
+)
+def test_identity_label_status_must_agree_with_work_id(review_snapshot, status, work):
+    labels = labeled_review(review_snapshot)
+    labels["comments"][0]["expected_mentions"][0].update(identity_status=status, work_id=work)
+    with pytest.raises(ValueError, match="Identity status conflicts"):
+        evaluate_review(review_snapshot, labels, allow_partial=True)
+
+
 @pytest.mark.parametrize(
     "change", ["duplicate", "missing", "ungrounded", "topic", "anonymous", "url"]
 )
