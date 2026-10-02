@@ -58,11 +58,21 @@ class LunaMention(BaseModel):
     sentiment: Literal["recommended", "positive", "neutral", "negative"]
     tags: list[str]
     _duplicates: list[dict] = PrivateAttr(default_factory=list)
+    _normalizations: dict[str, dict] = PrivateAttr(default_factory=dict)
 
     def evidence(self) -> dict:
         data = self.model_dump()
         if self._duplicates:
             data["duplicate_mentions"] = self._duplicates
+        if self._normalizations:
+            data["normalizations"] = self._normalizations
+        return data
+
+    def cache_data(self) -> dict:
+        """Keep the original model fields so normalization remains auditable on cache hits."""
+        data = self.model_dump()
+        for field, change in self._normalizations.items():
+            data[field] = change["original"]
         return data
 
     def span(self) -> MentionSpan:
@@ -152,6 +162,12 @@ class EvidenceMismatch(ValueError):
         )
 
 
+class InvalidTitle(ValueError):
+    def __init__(self, title: str) -> None:
+        self.title = title
+        super().__init__("Luna returned an empty normalized title")
+
+
 def canonical_evidence(text: str) -> tuple[str, list[tuple[int, int]]]:
     """Normalize typography while mapping every character back to the literal source."""
     replacements = str.maketrans(
@@ -201,6 +217,25 @@ def grounded_excerpt(raw: str, text: str) -> str | None:
     return None
 
 
+def normalize_field(mention: LunaMention, field: str, value) -> None:
+    original = getattr(mention, field)
+    if original == value:
+        return
+    mention._normalizations[field] = {"original": original, "normalized": value}
+    setattr(mention, field, value)
+    logger.warning(
+        "luna_metadata_normalized",
+        extra={
+            "detail": {
+                "title": mention.title,
+                "field": field,
+                "original": original,
+                "normalized": value,
+            }
+        },
+    )
+
+
 def validate_result(result: LunaResult, payload: dict) -> None:
     text = payload["current_comment"]["text"]
     source_links = [url for url, _ in payload["current_comment"]["links"]]
@@ -215,25 +250,37 @@ def validate_result(result: LunaResult, payload: dict) -> None:
                 extra={"detail": {"model_raw": mention.raw[:200], "source_raw": matched[:200]}},
             )
             mention.raw = matched
-        if mention.work_id and (
-            not re.fullmatch(r"/works/OL\d+W", mention.work_id)
-            or not any(
+        if not normalize_title(mention.title):
+            raise InvalidTitle(mention.title)
+        if mention.work_id:
+            match = re.fullmatch(
+                r"(?:(?:https?://openlibrary\.org)?/works/)?(OL\d+W)(?:[/?#].*)?",
+                mention.work_id.strip(),
+            )
+            work_id = f"/works/{match[1]}" if match else None
+            supported = work_id and any(
                 re.fullmatch(
-                    r"https?://openlibrary\.org" + re.escape(mention.work_id) + r"(?:[/?#].*)?",
+                    r"https?://openlibrary\.org" + re.escape(work_id) + r"(?:[/?#].*)?",
                     url,
                 )
                 for url in source_links
             )
-        ):
-            raise ValueError("Luna returned an unsupported Open Library work link")
-        if not normalize_title(mention.title):
-            raise ValueError("Luna returned an empty normalized title")
-        if not set(mention.tags) <= library_config()["topics"].keys():
-            raise ValueError("Luna returned an unknown topic")
-        if mention.author is not None and not mention.author.strip():
-            raise ValueError("Luna returned an empty author")
-        if bool(mention.author) != (mention.author_source != "unknown"):
-            raise ValueError("Luna returned inconsistent author provenance")
+            # A fabricated link must never bypass normal title/author verification.
+            normalize_field(mention, "work_id", work_id if supported else None)
+        normalize_field(
+            mention,
+            "tags",
+            list(dict.fromkeys(tag for tag in mention.tags if tag in library_config()["topics"])),
+        )
+        normalize_field(
+            mention, "author", mention.author.strip() or None if mention.author else None
+        )
+        source = mention.author_source
+        if mention.author is None:
+            source = "unknown"
+        elif source == "unknown":
+            source = "inferred"
+        normalize_field(mention, "author_source", source)
 
 
 def deduplicate_result(result: LunaResult) -> LunaResult:
@@ -272,7 +319,10 @@ def deduplicate_result(result: LunaResult) -> LunaResult:
                     "confidence": min(merged.confidence, 0.69),
                 }
             )
-        merged._duplicates = [m.model_dump() for m in group]
+        # Each variant below records its own normalization; the merged fields can
+        # differ further because of duplicate conflict handling and tag unions.
+        merged._normalizations = {}
+        merged._duplicates = [m.evidence() for m in group]
         mentions.append(merged)
         logger.warning(
             "luna_duplicate_mentions_collapsed",
@@ -346,7 +396,7 @@ class LunaExtractor:
             (
                 extraction_key(self.settings, payload),
                 self.settings.openai_model,
-                outcome.result.model_dump_json(),
+                json.dumps({"mentions": [m.cache_data() for m in outcome.result.mentions]}),
                 json.dumps(outcome.usage),
                 utc_now(),
             ),
@@ -502,6 +552,26 @@ class LunaExtractor:
                             "validation_feedback": {
                                 "error": "raw_not_from_current_comment",
                                 "invalid_raw": exc.raw[:1000],
+                            }
+                        },
+                        ensure_ascii=False,
+                    )
+                elif isinstance(exc, InvalidTitle):
+                    logger.warning(
+                        "luna_title_validation_failed",
+                        extra={"detail": {"attempt": attempt + 1, "title": exc.title[:1000]}},
+                    )
+                    body["instructions"] = instructions + (
+                        "\nCorrection: title must identify a literary work and contain letters "
+                        "or numbers, not just whitespace or punctuation. Re-extract all supported "
+                        "mentions. Return no mentions if no literary work is identified."
+                    )
+                    body["input"] = json.dumps(
+                        payload
+                        | {
+                            "validation_feedback": {
+                                "error": "empty_normalized_title",
+                                "invalid_title": exc.title[:1000],
                             }
                         },
                         ensure_ascii=False,

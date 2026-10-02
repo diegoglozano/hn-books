@@ -23,7 +23,14 @@ def seed_old_library(settings):
         VALUES ('Wrong old book','wrong old book','[]','yesterday','yesterday')""")
 
 
-def mocks(settings, monkeypatch, fail_metadata=False, duplicate_mentions=False, raw_excerpt="Dune"):
+def mocks(
+    settings,
+    monkeypatch,
+    fail_metadata=False,
+    duplicate_mentions=False,
+    raw_excerpt="Dune",
+    mention_overrides=None,
+):
     settings.extraction_backend = "luna"
     settings.openai_api_key = SecretStr("test-key")
     requests = []
@@ -72,6 +79,7 @@ def mocks(settings, monkeypatch, fail_metadata=False, duplicate_mentions=False, 
                                                     "sentiment": "recommended",
                                                     "tags": ["fiction"],
                                                 }
+                                                | (mention_overrides or {})
                                             ]
                                             * (2 if duplicate_mentions else 1)
                                         }
@@ -101,6 +109,39 @@ def mocks(settings, monkeypatch, fail_metadata=False, duplicate_mentions=False, 
         ),
     )
     return requests, state
+
+
+@pytest.mark.parametrize(
+    "overrides,resolved",
+    [
+        ({"author_source": "unknown"}, True),
+        ({"author": None, "author_source": "inferred"}, False),
+        ({"author": "   ", "author_source": "stated"}, False),
+        ({"work_id": "/works/OL999W", "tags": ["fiction", "invalid-topic"]}, True),
+    ],
+)
+def test_rebuild_normalizes_metadata_without_retries_and_keeps_audit_on_resume(
+    settings,
+    monkeypatch,
+    overrides,
+    resolved,
+):
+    seed_old_library(settings)
+    requests, _ = mocks(settings, monkeypatch, mention_overrides=overrides)
+    result = rebuild_thread(settings, 100)
+    assert requests.count("/v1/responses") == 1
+    assert result["metrics"]["mentions_extracted"] == 1
+    report = thread_report(settings.database_path, 100)
+    assert report["processed_comments"] == 1
+    assert report["resolved_mentions"] == int(resolved)
+    assert report["unresolved_mentions"] == int(not resolved)
+    original_evidence = report["mentions"][0]["extraction"]
+    assert original_evidence["normalizations"]
+    rebuild_thread(settings, 100)
+    assert requests.count("/v1/responses") == 1
+    assert (
+        thread_report(settings.database_path, 100)["mentions"][0]["extraction"] == original_evidence
+    )
 
 
 def test_backup_includes_wal_and_never_overwrites_existing_backup(settings):
