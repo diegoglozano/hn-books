@@ -2,7 +2,7 @@
   "schema_version": 1,
   "thread_id": 49893157,
   "source_digest": "6cec05326320b74fbd7838c3431a9b90e9f95e1b756b7345c9db9fde386fd658",
-  "prediction_snapshot_digest": "e38b4d881abf7f4ea0ef45c93cf6d4c05269f88c64026832d95406354e346d66",
+  "prediction_snapshot_digest": "8447e512ee81a46aa6a0ec1da3ac4f88026ff04c355082811c11bf1c6038ecac",
   "reviewer": "Codex; source-checked selected regressions, pending independent human review",
   "comments": [
     {
@@ -16,6 +16,17 @@
       "notes": "A literary periodical, not a book title."
     },
     {
+      "comment_id": 49896123,
+      "source_url": "https://news.ycombinator.com/item?id=49896123",
+      "status": "reviewed",
+      "case_types": [
+        "ambiguous-reference",
+        "author-only"
+      ],
+      "expected_mentions": [],
+      "notes": "Butler translated both the Iliad and Odyssey. The current comment names neither; choosing the Iliad invents a particular work. Sources: https://news.ycombinator.com/item?id=49896123, https://www.gutenberg.org/ebooks/author/748, https://www.gutenberg.org/ebooks/1727"
+    },
+    {
       "comment_id": 49899604,
       "source_url": "https://news.ycombinator.com/item?id=49899604",
       "status": "reviewed",
@@ -24,6 +35,154 @@
       ],
       "expected_mentions": [],
       "notes": "Links to reading discussions, not mentions of works in those discussions."
+    },
+    {
+      "comment_id": 49899719,
+      "source_url": "https://news.ycombinator.com/item?id=49899719",
+      "status": "reviewed",
+      "case_types": [
+        "long-list",
+        "wrong-title",
+        "wrong-author",
+        "abbreviation",
+        "series"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Indistractable",
+          "title": "Indistractable",
+          "authors": [
+            "Nir Eyal"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "psychology"
+          ],
+          "work_id": "/works/OL20464319W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Quicksilver Neal Stephenson",
+          "title": "Quicksilver",
+          "authors": [
+            "Neal Stephenson"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL38495W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Dungeon Crawler Carl",
+          "title": "Dungeon Crawler Carl",
+          "authors": [
+            "Matt Dinniman"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": "/works/OL24593432W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Ten things I wish I knew about raising boys",
+          "title": "Ten Things I Wish I Knew About Raising Boys",
+          "authors": [],
+          "author_source": "unknown",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "psychology"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        },
+        {
+          "raw": "Outdoor kids in an indoor world",
+          "title": "Outdoor Kids in an Inside World",
+          "authors": [
+            "Steven Rinella"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [],
+          "work_id": null,
+          "identity_status": "pending"
+        },
+        {
+          "raw": "Intentional(Chris Bailey)",
+          "title": "Intentional",
+          "authors": [
+            "Chris Bailey"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "psychology"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        },
+        {
+          "raw": "the Baroque Cycle",
+          "title": "The Baroque Cycle",
+          "authors": [
+            "Neal Stephenson"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        },
+        {
+          "raw": "The Laundry Files by Charles Stross",
+          "title": "The Laundry Files",
+          "authors": [
+            "Charles Stross"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        },
+        {
+          "raw": "the rest of Discworld",
+          "title": "Discworld",
+          "authors": [
+            "Terry Pratchett"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "Nine named reads or series, with no personal endorsement. The outdoor-parenting title is Outdoor Kids in an Inside World by Steven Rinella; There Are No Children Here and Richard Louv are unsupported substitutions. DCC repeats one series, not a second mention. Sources: https://news.ycombinator.com/item?id=49899719, https://penguinrandomhouselibrary.com/book/?isbn=9780593129685, https://openlibrary.org/works/OL20464319W.json, https://openlibrary.org/works/OL38495W.json, https://openlibrary.org/works/OL24593432W.json"
     },
     {
       "comment_id": 49899881,
@@ -87,6 +246,196 @@
       "notes": "Only Middlemarch is a named work. Brontë, Austen and Dickens are comparisons between authors, not additional book titles. Bibliographic checks: https://openlibrary.org/works/OL20867W.json; https://news.ycombinator.com/item?id=49900248"
     },
     {
+      "comment_id": 49900388,
+      "source_url": "https://news.ycombinator.com/item?id=49900388",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A question about meetup membership, not a literary work."
+    },
+    {
+      "comment_id": 49900440,
+      "source_url": "https://news.ycombinator.com/item?id=49900440",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Praise for a podcast, not the book mentioned in the parent."
+    },
+    {
+      "comment_id": 49900636,
+      "source_url": "https://news.ycombinator.com/item?id=49900636",
+      "status": "reviewed",
+      "case_types": [
+        "unnamed-work",
+        "anonymous-work"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Sagas of the Icelanders",
+          "title": "Sagas of the Icelanders",
+          "authors": [],
+          "author_source": "unknown",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "history"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        },
+        {
+          "raw": "Poetic Edda",
+          "title": "Poetic Edda",
+          "authors": [],
+          "author_source": "unknown",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "history"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        },
+        {
+          "raw": "Havamal",
+          "title": "Hávamál",
+          "authors": [],
+          "author_source": "unknown",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "history"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "Three named literary works or collections. An ordered unnamed saga cannot become a literal book title; anonymous authors and unverified collection identities remain unresolved. Sources: https://news.ycombinator.com/item?id=49900636"
+    },
+    {
+      "comment_id": 49900693,
+      "source_url": "https://news.ycombinator.com/item?id=49900693",
+      "status": "reviewed",
+      "case_types": [
+        "author-only",
+        "negative",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "\"Blind Corner\" by Dornford Yates",
+          "title": "Blind Corner",
+          "authors": [
+            "Dornford Yates"
+          ],
+          "author_source": "stated",
+          "sentiment": "negative",
+          "strength": 0.0,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL4501705W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "SS/GB by Deighton",
+          "title": "SS-GB",
+          "authors": [
+            "Len Deighton"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": "/works/OL2425042W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Blind Corner is criticized and SS-GB is only a possible next read. Praise for Dorothy Sayers and an unnamed Pratchett novel cannot identify particular additional books. Sources: https://news.ycombinator.com/item?id=49900693, https://openlibrary.org/works/OL4501705W.json, https://openlibrary.org/works/OL2425042W.json"
+    },
+    {
+      "comment_id": 49900872,
+      "source_url": "https://news.ycombinator.com/item?id=49900872",
+      "status": "reviewed",
+      "case_types": [
+        "unnamed-work",
+        "short-story",
+        "reading-intention",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "\"Stories of your life\" collection",
+          "title": "Stories of Your Life and Others",
+          "authors": [
+            "Ted Chiang"
+          ],
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": "/works/OL6216050W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "\"Tower of Babylon\"",
+          "title": "Tower of Babylon",
+          "authors": [
+            "Ted Chiang"
+          ],
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        },
+        {
+          "raw": "Exhalation",
+          "title": "Exhalation",
+          "authors": [
+            "Ted Chiang"
+          ],
+          "author_source": "context",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": "/works/OL20149336W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The collection and Tower of Babylon receive personal praise. Wanting to get Exhalation is a reading intention, not a recommendation. Unnamed Asimov story collections do not identify a specific work. Sources: https://news.ycombinator.com/item?id=49900872, https://news.ycombinator.com/item?id=49899887, https://www.penguinrandomhouse.com/books/547478/tower-of-babylon-by-ted-chiang/9781101974421/, https://openlibrary.org/works/OL6216050W.json, https://openlibrary.org/works/OL20149336W.json"
+    },
+    {
+      "comment_id": 49900960,
+      "source_url": "https://news.ycombinator.com/item?id=49900960",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A book-sale resource and authors, without any particular work named."
+    },
+    {
       "comment_id": 49901063,
       "source_url": "https://news.ycombinator.com/item?id=49901063",
       "status": "reviewed",
@@ -133,6 +482,26 @@
       "notes": "The parent names one book and author. The current reply positively evaluates that book without an explicit recommendation. Bibliographic checks: https://openlibrary.org/works/OL3741565W.json; https://news.ycombinator.com/item?id=49901160, https://news.ycombinator.com/item?id=49901146"
     },
     {
+      "comment_id": 49901285,
+      "source_url": "https://news.ycombinator.com/item?id=49901285",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A clarification about a meetup, not the parent reading recommendation."
+    },
+    {
+      "comment_id": 49901317,
+      "source_url": "https://news.ycombinator.com/item?id=49901317",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A radio skit about phrases attributed to Shakespeare; no play or book is named."
+    },
+    {
       "comment_id": 49901336,
       "source_url": "https://news.ycombinator.com/item?id=49901336",
       "status": "reviewed",
@@ -164,6 +533,48 @@
       "notes": "Claude-generated text; no literary work."
     },
     {
+      "comment_id": 49901739,
+      "source_url": "https://news.ycombinator.com/item?id=49901739",
+      "status": "reviewed",
+      "case_types": [
+        "author-only",
+        "philosophy"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "“Empiricism and the Philosophy of Mind”",
+          "title": "Empiricism and the Philosophy of Mind",
+          "authors": [
+            "Wilfrid Sellars"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "philosophy"
+          ],
+          "work_id": "/works/OL3356354W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Philosophical Investigations",
+          "title": "Philosophical Investigations",
+          "authors": [
+            "Ludwig Wittgenstein"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "philosophy"
+          ],
+          "work_id": "/works/OL38409135W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Two named philosophical works are current reads. A general statement about Richard Rorty's works names no exact title or series. Sources: https://news.ycombinator.com/item?id=49901739, https://openlibrary.org/works/OL3356354W.json, https://openlibrary.org/works/OL38409135W.json"
+    },
+    {
       "comment_id": 49901980,
       "source_url": "https://news.ycombinator.com/item?id=49901980",
       "status": "reviewed",
@@ -187,6 +598,54 @@
       "notes": "The parent names Understanding Comics and Scott McCloud. The reply describes its positive personal impact; it is not just general praise for comics. Bibliographic checks: https://openlibrary.org/works/OL276032W.json; https://news.ycombinator.com/item?id=49901980, https://news.ycombinator.com/item?id=49899665"
     },
     {
+      "comment_id": 49902593,
+      "source_url": "https://news.ycombinator.com/item?id=49902593",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "wrong-title",
+        "audiobook"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "the book",
+          "title": "There Is No Antimemetics Division",
+          "authors": [
+            "qntm"
+          ],
+          "author_source": "context",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "science-fiction"
+          ],
+          "work_id": "/works/OL24726867W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The immediate parent names There Is No Antimemetics Division. Ra occurs only in the older ancestor. The current audiobook evaluation refers to the immediate parent's book, not Ra. Sources: https://news.ycombinator.com/item?id=49902593, https://news.ycombinator.com/item?id=49902534, https://news.ycombinator.com/item?id=49902543, https://www.penguinrandomhouse.com/books/783041/there-is-no-antimemetics-division-by-qntm/, https://openlibrary.org/works/OL24726867W.json"
+    },
+    {
+      "comment_id": 49902644,
+      "source_url": "https://news.ycombinator.com/item?id=49902644",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "General parallel-reading habits, without identifying a work."
+    },
+    {
+      "comment_id": 49902707,
+      "source_url": "https://news.ycombinator.com/item?id=49902707",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "General reading habits, not a reference to the parent novel."
+    },
+    {
       "comment_id": 49902715,
       "source_url": "https://news.ycombinator.com/item?id=49902715",
       "status": "reviewed",
@@ -195,6 +654,168 @@
       ],
       "expected_mentions": [],
       "notes": "A list of communications, signs and media; no literary work."
+    },
+    {
+      "comment_id": 49902799,
+      "source_url": "https://news.ycombinator.com/item?id=49902799",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A general question about whether audiobooks count as reading."
+    },
+    {
+      "comment_id": 49902849,
+      "source_url": "https://news.ycombinator.com/item?id=49902849",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "General opinions about reading media, not any identified work."
+    },
+    {
+      "comment_id": 49902946,
+      "source_url": "https://news.ycombinator.com/item?id=49902946",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "An empty deleted comment."
+    },
+    {
+      "comment_id": 49903380,
+      "source_url": "https://news.ycombinator.com/item?id=49903380",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "An empty dead comment."
+    },
+    {
+      "comment_id": 49903439,
+      "source_url": "https://news.ycombinator.com/item?id=49903439",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "An empty deleted comment."
+    },
+    {
+      "comment_id": 49903448,
+      "source_url": "https://news.ycombinator.com/item?id=49903448",
+      "status": "reviewed",
+      "case_types": [
+        "author-only",
+        "comparison"
+      ],
+      "expected_mentions": [],
+      "notes": "The current commenter criticizes an AI-generated list and praises Mary Roach generally. Neither a generic word such as books nor praise for an author identifies a specific work; do not transfer it to Stiff. Sources: https://news.ycombinator.com/item?id=49903448, https://news.ycombinator.com/item?id=49903415"
+    },
+    {
+      "comment_id": 49903481,
+      "source_url": "https://news.ycombinator.com/item?id=49903481",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Praise for the analog computer kit in the immediate parent, not a book."
+    },
+    {
+      "comment_id": 49903587,
+      "source_url": "https://news.ycombinator.com/item?id=49903587",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A reaction to news about a screen adaptation, with no book discussed."
+    },
+    {
+      "comment_id": 49903633,
+      "source_url": "https://news.ycombinator.com/item?id=49903633",
+      "status": "reviewed",
+      "case_types": [
+        "author-only",
+        "author-provenance",
+        "comparison"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Middlemarch",
+          "title": "Middlemarch",
+          "authors": [
+            "George Eliot"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL20867W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Only Middlemarch is a named work. Austen is an author comparison, and George Eliot is stated in the current comment rather than supplied by an ancestor. Sources: https://news.ycombinator.com/item?id=49903633, https://news.ycombinator.com/item?id=49900248, https://openlibrary.org/works/OL20867W.json"
+    },
+    {
+      "comment_id": 49903728,
+      "source_url": "https://news.ycombinator.com/item?id=49903728",
+      "status": "reviewed",
+      "case_types": [
+        "author-only",
+        "nonfiction-topic",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Energy and Civilization by Vaclav Smil",
+          "title": "Energy and Civilization",
+          "authors": [
+            "Vaclav Smil"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL20186754W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Anne of Green Gables",
+          "title": "Anne of Green Gables",
+          "authors": [
+            "Lucy Maud Montgomery"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "Two named books are being read without an endorsement. Unspecified Robert Macfarlane titles cannot be individual entries. The publisher identifies Energy and Civilization as nonfiction history, not science fiction. Sources: https://news.ycombinator.com/item?id=49903728, https://mitpress.mit.edu/9780262035774/energy-and-civilization/, https://openlibrary.org/works/OL20186754W.json"
+    },
+    {
+      "comment_id": 49903748,
+      "source_url": "https://news.ycombinator.com/item?id=49903748",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A link to a list outside the comment; no literary titles occur here."
     },
     {
       "comment_id": 49903807,
@@ -217,6 +838,74 @@
       "notes": "An unnamed technology blog; no literary work."
     },
     {
+      "comment_id": 49903965,
+      "source_url": "https://news.ycombinator.com/item?id=49903965",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Praise for an author; do not turn it into a recommendation for an unspecified collection."
+    },
+    {
+      "comment_id": 49904295,
+      "source_url": "https://news.ycombinator.com/item?id=49904295",
+      "status": "reviewed",
+      "case_types": [
+        "false-canonical-match",
+        "author-only",
+        "unnamed-work"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The Little Drummer Girl",
+          "title": "The Little Drummer Girl",
+          "authors": [
+            "John le Carré"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL181814W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Only The Little Drummer Girl is uniquely named. John le Carré novels refers to a general bibliography, not the catalog omnibus with that title. His memoir is unnamed; do not select one by inference. Sources: https://news.ycombinator.com/item?id=49904295, https://openlibrary.org/works/OL181814W.json"
+    },
+    {
+      "comment_id": 49904317,
+      "source_url": "https://news.ycombinator.com/item?id=49904317",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A general comparison between audiobooks and podcasts."
+    },
+    {
+      "comment_id": 49904333,
+      "source_url": "https://news.ycombinator.com/item?id=49904333",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A book about a hotel is not named or uniquely identified; the named people are subjects of a question, not credited authors."
+    },
+    {
+      "comment_id": 49904366,
+      "source_url": "https://news.ycombinator.com/item?id=49904366",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Interest in an analog computer kit, not the books in a more distant ancestor."
+    },
+    {
       "comment_id": 49904372,
       "source_url": "https://news.ycombinator.com/item?id=49904372",
       "status": "reviewed",
@@ -225,6 +914,154 @@
       ],
       "expected_mentions": [],
       "notes": "An empty dead comment."
+    },
+    {
+      "comment_id": 49904395,
+      "source_url": "https://news.ycombinator.com/item?id=49904395",
+      "status": "reviewed",
+      "case_types": [
+        "author-only",
+        "comparison"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The Quantum Thief",
+          "title": "The Quantum Thief",
+          "authors": [
+            "Hannu Rajaniemi"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "science-fiction"
+          ],
+          "work_id": "/works/OL15916906W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "The Fractal Prince",
+          "title": "The Fractal Prince",
+          "authors": [
+            "Hannu Rajaniemi"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "science-fiction"
+          ],
+          "work_id": "/works/OL17400059W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Both named Rajaniemi novels are praised. Philip K. Dick is a comparison to an author, not an additional literary title. Sources: https://news.ycombinator.com/item?id=49904395, https://openlibrary.org/works/OL15916906W.json, https://openlibrary.org/works/OL17400059W.json"
+    },
+    {
+      "comment_id": 49904461,
+      "source_url": "https://news.ycombinator.com/item?id=49904461",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A joke about using AI to summarize books in general."
+    },
+    {
+      "comment_id": 49904605,
+      "source_url": "https://news.ycombinator.com/item?id=49904605",
+      "status": "reviewed",
+      "case_types": [
+        "adaptation",
+        "author-only",
+        "false-recommendation"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Peter Heller's The River",
+          "title": "The River",
+          "authors": [
+            "Peter Heller"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL20153430W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The River is the only specifically named literary work. Agatha Christie and unspecified Mandel books are author/bibliography references. The liked Station Eleven series is the TV adaptation, not an endorsement of the novel. Sources: https://news.ycombinator.com/item?id=49904605, https://press.wbd.com/us/property/station-eleven, https://openlibrary.org/works/OL20153430W.json"
+    },
+    {
+      "comment_id": 49904833,
+      "source_url": "https://news.ycombinator.com/item?id=49904833",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "sequel",
+        "author-provenance"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The Tainted Cup",
+          "title": "The Tainted Cup",
+          "authors": [
+            "Robert Jackson Bennett"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL37628730W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "the next",
+          "title": "A Drop of Corruption",
+          "authors": [
+            "Robert Jackson Bennett"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        },
+        {
+          "raw": "Gameshouse series",
+          "title": "The Gameshouse",
+          "authors": [
+            "Claire North"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL20892736W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Bennet refers to Robert Jackson Bennett, also named in the ancestor. The next book after The Tainted Cup is the publisher-verified A Drop of Corruption, not an invented title The next. Praise for Bennett's writing and the Gameshouse is retained; simply moving on to a sequel is neutral. Sources: https://news.ycombinator.com/item?id=49904833, https://news.ycombinator.com/item?id=49897221, https://www.penguinrandomhouse.com/books/735559/a-drop-of-corruption-by-robert-jackson-bennett/ebook/, https://openlibrary.org/works/OL37628730W.json, https://openlibrary.org/works/OL20892736W.json"
+    },
+    {
+      "comment_id": 49905135,
+      "source_url": "https://news.ycombinator.com/item?id=49905135",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "An author-page link, without a current book reference or a particular linked edition."
     },
     {
       "comment_id": 49905281,
@@ -254,6 +1091,126 @@
       "notes": "DCC denotes Dungeon Crawler Carl in this reading thread and Soundbooth Theater audiobook context. The author is independently verified by the publisher; praise belongs to this audiobook experience. Bibliographic checks: https://openlibrary.org/works/OL24593432W.json; https://news.ycombinator.com/item?id=49905281, https://www.penguinrandomhouse.com/series/43C/dungeon-crawler-carl/"
     },
     {
+      "comment_id": 49905351,
+      "source_url": "https://news.ycombinator.com/item?id=49905351",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "General discussion of reading recommendations and AI authorship."
+    },
+    {
+      "comment_id": 49905392,
+      "source_url": "https://news.ycombinator.com/item?id=49905392",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A question about reading aloud as a habit; no particular work is identified."
+    },
+    {
+      "comment_id": 49905443,
+      "source_url": "https://news.ycombinator.com/item?id=49905443",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "General concern about spoilers, not a reference to an identified work."
+    },
+    {
+      "comment_id": 49905540,
+      "source_url": "https://news.ycombinator.com/item?id=49905540",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "General spoiler habits, not a reference to an identified work."
+    },
+    {
+      "comment_id": 49906090,
+      "source_url": "https://news.ycombinator.com/item?id=49906090",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "An analog-computing hardware project and build log, not a book."
+    },
+    {
+      "comment_id": 49906768,
+      "source_url": "https://news.ycombinator.com/item?id=49906768",
+      "status": "reviewed",
+      "case_types": [
+        "author-only",
+        "negative-example"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The Gold Standard by Saifedean Ammous",
+          "title": "The Gold Standard",
+          "authors": [
+            "Saifedean Ammous"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "economics",
+            "fiction",
+            "history"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "One named current read; hopes about its later content do not establish an endorsement. Tolkien, Dostoevsky and Huxley are examples of authors, not three unnamed book titles. Sources: https://news.ycombinator.com/item?id=49906768"
+    },
+    {
+      "comment_id": 49906782,
+      "source_url": "https://news.ycombinator.com/item?id=49906782",
+      "status": "reviewed",
+      "case_types": [
+        "author-only",
+        "context-boundary"
+      ],
+      "expected_mentions": [],
+      "notes": "The current commenter praises Borges and Chiang generally and requests similar authors. Do not arbitrarily choose Ficciones or Exhalation from an older ancestor as the specific objects of that praise. Sources: https://news.ycombinator.com/item?id=49906782, https://news.ycombinator.com/item?id=49899887, https://news.ycombinator.com/item?id=49902436"
+    },
+    {
+      "comment_id": 49907069,
+      "source_url": "https://news.ycombinator.com/item?id=49907069",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Praise for Heinlein and Le Guin generally; no individual work is identified."
+    },
+    {
+      "comment_id": 49907511,
+      "source_url": "https://news.ycombinator.com/item?id=49907511",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "An opinion about reading aloud as a relationship habit."
+    },
+    {
+      "comment_id": 49907893,
+      "source_url": "https://news.ycombinator.com/item?id=49907893",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A linked response essay, not an identified book."
+    },
+    {
       "comment_id": 49908178,
       "source_url": "https://news.ycombinator.com/item?id=49908178",
       "status": "reviewed",
@@ -263,6 +1220,36 @@
       ],
       "expected_mentions": [],
       "notes": "Two authors/philosophers, without a uniquely identifiable work."
+    },
+    {
+      "comment_id": 49908287,
+      "source_url": "https://news.ycombinator.com/item?id=49908287",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "An author-only joke about Hegel."
+    },
+    {
+      "comment_id": 49908313,
+      "source_url": "https://news.ycombinator.com/item?id=49908313",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A request for feedback on a reading application."
+    },
+    {
+      "comment_id": 49908460,
+      "source_url": "https://news.ycombinator.com/item?id=49908460",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Cast details of a TV adaptation, without a literary-work reference."
     },
     {
       "comment_id": 49908523,
@@ -275,6 +1262,85 @@
       "notes": "Claude tokens; no literary work."
     },
     {
+      "comment_id": 49908585,
+      "source_url": "https://news.ycombinator.com/item?id=49908585",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Praise for an author's style; the parent lists multiple manga and no particular work is selected."
+    },
+    {
+      "comment_id": 49909264,
+      "source_url": "https://news.ycombinator.com/item?id=49909264",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A linked song about a slogan, not a literary work."
+    },
+    {
+      "comment_id": 49909266,
+      "source_url": "https://news.ycombinator.com/item?id=49909266",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "General discussion of reading aloud and relationships, without an identified work."
+    },
+    {
+      "comment_id": 49909420,
+      "source_url": "https://news.ycombinator.com/item?id=49909420",
+      "status": "reviewed",
+      "case_types": [
+        "author-only",
+        "reading-intention"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Poor Charlie's Almanack",
+          "title": "Poor Charlie's Almanack",
+          "authors": [
+            "Charlie Munger"
+          ],
+          "author_source": "context",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "economics",
+            "finance"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "The almanac is on the reading pile, not recommended. The ancestor supplies Charlie Munger. Camus names a possible author to read, with no particular title identified. Sources: https://news.ycombinator.com/item?id=49909420, https://news.ycombinator.com/item?id=49909304, https://press.stripe.com/poor-charlies-almanack"
+    },
+    {
+      "comment_id": 49909476,
+      "source_url": "https://news.ycombinator.com/item?id=49909476",
+      "status": "reviewed",
+      "case_types": [
+        "author-only",
+        "adaptation"
+      ],
+      "expected_mentions": [],
+      "notes": "The current comment praises Chiang's overall writing and the Arrival film. Neither generic short stories nor author praise identifies a specific work. Do not convert film praise into a literary recommendation. Sources: https://news.ycombinator.com/item?id=49909476, https://news.ycombinator.com/item?id=49904900"
+    },
+    {
+      "comment_id": 49909490,
+      "source_url": "https://news.ycombinator.com/item?id=49909490",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A thank-you without a literary-work reference."
+    },
+    {
       "comment_id": 49909546,
       "source_url": "https://news.ycombinator.com/item?id=49909546",
       "status": "reviewed",
@@ -284,6 +1350,111 @@
       ],
       "expected_mentions": [],
       "notes": "An IMDb link to a film adaptation, not a book mention."
+    },
+    {
+      "comment_id": 49910098,
+      "source_url": "https://news.ycombinator.com/item?id=49910098",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Praise for the author discussed in the parent, without a specific work evaluation."
+    },
+    {
+      "comment_id": 49910120,
+      "source_url": "https://news.ycombinator.com/item?id=49910120",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Praise for an interaction with the author, not for the book."
+    },
+    {
+      "comment_id": 49910237,
+      "source_url": "https://news.ycombinator.com/item?id=49910237",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "General strategy for reading business books, with no title singled out."
+    },
+    {
+      "comment_id": 49910310,
+      "source_url": "https://news.ycombinator.com/item?id=49910310",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Discussion of an author's podcast and videos, not a book."
+    },
+    {
+      "comment_id": 49910313,
+      "source_url": "https://news.ycombinator.com/item?id=49910313",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A remark about camera technology, not a literary work."
+    },
+    {
+      "comment_id": 49910393,
+      "source_url": "https://news.ycombinator.com/item?id=49910393",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "General ereader preferences, not a reference to a particular work."
+    },
+    {
+      "comment_id": 49910451,
+      "source_url": "https://news.ycombinator.com/item?id=49910451",
+      "status": "reviewed",
+      "case_types": [
+        "author-only",
+        "negative",
+        "author-provenance",
+        "nonfiction-topic"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Dungeon Crawler Carl",
+          "title": "Dungeon Crawler Carl",
+          "authors": [
+            "Matt Dinniman"
+          ],
+          "author_source": "inferred",
+          "sentiment": "negative",
+          "strength": 0.0,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": "/works/OL24593432W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "American Gods",
+          "title": "American Gods",
+          "authors": [
+            "Neil Gaiman"
+          ],
+          "author_source": "stated",
+          "sentiment": "negative",
+          "strength": 0.0,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "Two named books receive explicit criticism. General criticism of Iain M. Banks cannot be narrowed to the Culture series. The DCC author is publisher-verified; negative sentiment remains negative, and American Gods is fantasy rather than science fiction. Sources: https://news.ycombinator.com/item?id=49910451, https://www.penguinrandomhouse.com/series/43C/dungeon-crawler-carl/, https://neilgaiman.com/works/Books/American_Gods, https://openlibrary.org/works/OL24593432W.json"
     },
     {
       "comment_id": 49910622,
@@ -317,6 +1488,162 @@
       "notes": "Praise for the thread-indexing website, not a book."
     },
     {
+      "comment_id": 49910795,
+      "source_url": "https://news.ycombinator.com/item?id=49910795",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A reply about the thread-indexing website, not its listed books."
+    },
+    {
+      "comment_id": 49910892,
+      "source_url": "https://news.ycombinator.com/item?id=49910892",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "General fiction/nonfiction reading habits."
+    },
+    {
+      "comment_id": 49911799,
+      "source_url": "https://news.ycombinator.com/item?id=49911799",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Authors and blog-to-book publishing in general, without a named work."
+    },
+    {
+      "comment_id": 49912122,
+      "source_url": "https://news.ycombinator.com/item?id=49912122",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A statement about copying and pasting, not a literary-work mention."
+    },
+    {
+      "comment_id": 49912584,
+      "source_url": "https://news.ycombinator.com/item?id=49912584",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A screenshot of a website, not an identified book."
+    },
+    {
+      "comment_id": 49912620,
+      "source_url": "https://news.ycombinator.com/item?id=49912620",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "An observation about a singer's popularity, not a literary work."
+    },
+    {
+      "comment_id": 49912814,
+      "source_url": "https://news.ycombinator.com/item?id=49912814",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Instructions for making websites with ChatGPT, not a literary work."
+    },
+    {
+      "comment_id": 49913157,
+      "source_url": "https://news.ycombinator.com/item?id=49913157",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Praise for a book-log website, not an individual book."
+    },
+    {
+      "comment_id": 49914053,
+      "source_url": "https://news.ycombinator.com/item?id=49914053",
+      "status": "reviewed",
+      "case_types": [
+        "author-only",
+        "author-provenance",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Quicksilver",
+          "title": "Quicksilver",
+          "authors": [
+            "Neal Stephenson"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "history",
+            "fiction"
+          ],
+          "work_id": "/works/OL38495W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Cryptonomicon",
+          "title": "Cryptonomicon",
+          "authors": [
+            "Neal Stephenson"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "history",
+            "mathematics",
+            "fiction"
+          ],
+          "work_id": "/works/OL38494W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Two named novels are praised. General praise for Stephenson's works adds no third title, and the current surname credits the author. Historical computing in a novel is not a discussion of systems programming as a technical topic. Sources: https://news.ycombinator.com/item?id=49914053, https://news.ycombinator.com/item?id=49913121, https://openlibrary.org/works/OL38495W.json, https://openlibrary.org/works/OL38494W.json"
+    },
+    {
+      "comment_id": 49914287,
+      "source_url": "https://news.ycombinator.com/item?id=49914287",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A question about a software repository, not a book."
+    },
+    {
+      "comment_id": 49914851,
+      "source_url": "https://news.ycombinator.com/item?id=49914851",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Software preferences and an AI subscription, not a literary work."
+    },
+    {
+      "comment_id": 49915226,
+      "source_url": "https://news.ycombinator.com/item?id=49915226",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A missing footnote about reading logs; no book title or specific reference."
+    },
+    {
       "comment_id": 49915763,
       "source_url": "https://news.ycombinator.com/item?id=49915763",
       "status": "reviewed",
@@ -341,6 +1668,77 @@
         }
       ],
       "notes": "Both ancestors identify Peace by Gene Wolfe. The reply praises that novel; do not confuse it with other novels containing Peace in their title. Bibliographic checks: https://openlibrary.org/works/OL14871978W.json; https://news.ycombinator.com/item?id=49915763, https://news.ycombinator.com/item?id=49904734, https://news.ycombinator.com/item?id=49906501"
+    },
+    {
+      "comment_id": 49916512,
+      "source_url": "https://news.ycombinator.com/item?id=49916512",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A correction to URL formatting, not a literary-work reference."
+    },
+    {
+      "comment_id": 49917055,
+      "source_url": "https://news.ycombinator.com/item?id=49917055",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Thanks about URL formatting; the terms and conditions are not a book."
+    },
+    {
+      "comment_id": 49917417,
+      "source_url": "https://news.ycombinator.com/item?id=49917417",
+      "status": "reviewed",
+      "case_types": [
+        "author-only",
+        "negative-example"
+      ],
+      "expected_mentions": [],
+      "notes": "The commenter recommends an author, Italo Calvino, but no particular book or series is identified. Sources: https://news.ycombinator.com/item?id=49917417, https://news.ycombinator.com/item?id=49902436, https://news.ycombinator.com/item?id=49906782"
+    },
+    {
+      "comment_id": 49917967,
+      "source_url": "https://news.ycombinator.com/item?id=49917967",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "General questions about reading speed and habits."
+    },
+    {
+      "comment_id": 49924471,
+      "source_url": "https://news.ycombinator.com/item?id=49924471",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Discussion of Holocaust statistics, without identifying a current literary work."
+    },
+    {
+      "comment_id": 49925652,
+      "source_url": "https://news.ycombinator.com/item?id=49925652",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "General reading speed, commuting and reading habits."
+    },
+    {
+      "comment_id": 49928894,
+      "source_url": "https://news.ycombinator.com/item?id=49928894",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Agreement about reading habits, without identifying a literary work."
     }
   ]
 }

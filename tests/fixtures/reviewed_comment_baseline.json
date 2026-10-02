@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
+  "scope": "104 selected source-review comments, including confirmed failures and negative examples; not a random sample, complete-thread review or held-out accuracy benchmark.",
   "thread_id": 49893157,
-  "scope": "24 targeted regression comments, including confirmed failures and negative examples; not a random sample, complete-thread review or held-out accuracy benchmark.",
   "source_digest": "6cec05326320b74fbd7838c3431a9b90e9f95e1b756b7345c9db9fde386fd658",
-  "snapshot_digest": "e38b4d881abf7f4ea0ef45c93cf6d4c05269f88c64026832d95406354e346d66",
+  "snapshot_digest": "8447e512ee81a46aa6a0ec1da3ac4f88026ff04c355082811c11bf1c6038ecac",
   "reviewer": "Codex; source-checked selected regressions, pending independent human review",
   "coverage": {
     "stored_comments": 870,
-    "reviewed_comments": 24,
+    "reviewed_comments": 104,
     "complete_thread_review": false
   },
   "observed_versions": {
@@ -21,69 +21,171 @@
       3
     ]
   },
-  "processor_version": "7-luna-1:review-738ec695dae5:e782619148fc4f27",
-  "labels_digest": "ad226478d4b3288db6b2d927ba2b7f2c2a3277f4d17affb73a61aa301a9e964b",
-  "evaluation_version": 2,
+  "labels_digest": "123976a0d6188eb0610f6a71aeae039bb049b496e53d0c1ca5c2ad11fbe08495",
+  "evaluation_version": 3,
+  "pending_identity_labels": [
+    {
+      "comment_id": 49899719,
+      "title": "Ten Things I Wish I Knew About Raising Boys"
+    },
+    {
+      "comment_id": 49899719,
+      "title": "Outdoor Kids in an Inside World"
+    },
+    {
+      "comment_id": 49899719,
+      "title": "Intentional"
+    },
+    {
+      "comment_id": 49899719,
+      "title": "The Baroque Cycle"
+    },
+    {
+      "comment_id": 49899719,
+      "title": "The Laundry Files"
+    },
+    {
+      "comment_id": 49899719,
+      "title": "Discworld"
+    },
+    {
+      "comment_id": 49900636,
+      "title": "Sagas of the Icelanders"
+    },
+    {
+      "comment_id": 49900636,
+      "title": "Poetic Edda"
+    },
+    {
+      "comment_id": 49900636,
+      "title": "Hávamál"
+    },
+    {
+      "comment_id": 49900872,
+      "title": "Tower of Babylon"
+    },
+    {
+      "comment_id": 49903728,
+      "title": "Anne of Green Gables"
+    },
+    {
+      "comment_id": 49904833,
+      "title": "A Drop of Corruption"
+    },
+    {
+      "comment_id": 49906768,
+      "title": "The Gold Standard"
+    },
+    {
+      "comment_id": 49909420,
+      "title": "Poor Charlie's Almanack"
+    },
+    {
+      "comment_id": 49910451,
+      "title": "American Gods"
+    }
+  ],
   "results": {
     "saved_extractor": {
       "metrics": {
-        "predicted": 8,
-        "expected": 6,
-        "fp": 7,
-        "tags_fp": 1,
-        "fn": 5,
-        "tags_fn": 5,
-        "tp": 1,
-        "tags_tp": 1,
-        "sentiment_correct": 1,
-        "strength_correct": 1,
-        "provenance_correct": 1,
-        "known_works": 1,
-        "identity_correct": 1,
-        "authors_correct": 1,
-        "grounded": 8,
-        "unresolved": 7,
-        "mention_precision": 0.125,
-        "mention_recall": 0.16666666666666666,
-        "tag_precision": 0.5,
-        "tag_recall": 0.16666666666666666,
-        "sentiment_agreement": 1.0,
-        "recommendation_strength_agreement": 1.0,
+        "predicted": 72,
+        "expected": 42,
+        "fp": 38,
+        "tags_fp": 27,
+        "grounded": 72,
+        "unresolved": 50,
+        "tp": 34,
+        "tags_tp": 50,
+        "tags_fn": 7,
+        "sentiment_correct": 33,
+        "strength_correct": 33,
+        "provenance_correct": 29,
+        "known_works": 21,
+        "identity_correct": 20,
+        "authors_correct": 20,
+        "identities_pending": 15,
+        "fn": 8,
+        "mention_precision": 0.4722222222222222,
+        "mention_recall": 0.8095238095238095,
+        "tag_precision": 0.6493506493506493,
+        "tag_recall": 0.8771929824561403,
+        "sentiment_agreement": 0.9705882352941176,
+        "recommendation_strength_agreement": 0.9705882352941176,
         "grounded_evidence_rate": 1.0,
-        "canonicalization_accuracy": 1.0,
-        "author_accuracy": 1.0,
-        "author_provenance_agreement": 1.0,
-        "unresolved_rate": 0.875,
+        "canonicalization_accuracy": 0.9523809523809523,
+        "author_accuracy": 0.9523809523809523,
+        "author_provenance_agreement": 0.8529411764705882,
+        "unresolved_rate": 0.6944444444444444,
         "abstention_accuracy": null
       },
       "by_case": {
         "abbreviation": {
-          "predicted": 0,
-          "expected": 1,
-          "fn": 1,
-          "tags_fn": 2,
-          "fp": 0,
+          "predicted": 9,
+          "expected": 10,
+          "tp": 8,
+          "tags_tp": 10,
           "tags_fp": 0,
-          "mention_precision": null,
-          "mention_recall": 0.0,
-          "tag_precision": null,
-          "tag_recall": 0.0,
-          "sentiment_agreement": null,
-          "recommendation_strength_agreement": null,
-          "grounded_evidence_rate": null,
-          "canonicalization_accuracy": null,
-          "author_accuracy": null,
-          "author_provenance_agreement": null,
-          "unresolved_rate": null,
+          "tags_fn": 2,
+          "sentiment_correct": 8,
+          "strength_correct": 8,
+          "provenance_correct": 8,
+          "known_works": 3,
+          "identity_correct": 3,
+          "authors_correct": 3,
+          "identities_pending": 6,
+          "fn": 2,
+          "fp": 1,
+          "grounded": 9,
+          "unresolved": 6,
+          "mention_precision": 0.8888888888888888,
+          "mention_recall": 0.8,
+          "tag_precision": 1.0,
+          "tag_recall": 0.8333333333333334,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 1.0,
+          "author_accuracy": 1.0,
+          "author_provenance_agreement": 1.0,
+          "unresolved_rate": 0.6666666666666666,
+          "abstention_accuracy": null
+        },
+        "adaptation": {
+          "predicted": 7,
+          "expected": 1,
+          "tp": 1,
+          "tags_tp": 1,
+          "tags_fp": 6,
+          "tags_fn": 0,
+          "sentiment_correct": 1,
+          "strength_correct": 1,
+          "provenance_correct": 1,
+          "known_works": 1,
+          "identity_correct": 1,
+          "authors_correct": 1,
+          "fp": 6,
+          "grounded": 7,
+          "unresolved": 5,
+          "mention_precision": 0.14285714285714285,
+          "mention_recall": 1.0,
+          "tag_precision": 0.14285714285714285,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 1.0,
+          "author_accuracy": 1.0,
+          "author_provenance_agreement": 1.0,
+          "unresolved_rate": 0.7142857142857143,
           "abstention_accuracy": null
         },
         "ambiguous-reference": {
-          "predicted": 4,
+          "predicted": 5,
           "expected": 0,
-          "fp": 4,
-          "tags_fp": 1,
-          "grounded": 4,
-          "unresolved": 4,
+          "fp": 5,
+          "tags_fp": 2,
+          "grounded": 5,
+          "unresolved": 5,
           "mention_precision": 0.0,
           "mention_recall": null,
           "tag_precision": 0.0,
@@ -97,53 +199,144 @@
           "unresolved_rate": 1.0,
           "abstention_accuracy": null
         },
-        "audiobook": {
-          "predicted": 0,
-          "expected": 1,
-          "fn": 1,
-          "tags_fn": 2,
-          "fp": 0,
-          "tags_fp": 0,
-          "mention_precision": null,
-          "mention_recall": 0.0,
-          "tag_precision": null,
-          "tag_recall": 0.0,
-          "sentiment_agreement": null,
-          "recommendation_strength_agreement": null,
-          "grounded_evidence_rate": null,
-          "canonicalization_accuracy": null,
-          "author_accuracy": null,
-          "author_provenance_agreement": null,
-          "unresolved_rate": null,
-          "abstention_accuracy": null
-        },
-        "author-only": {
-          "predicted": 8,
-          "expected": 1,
-          "tp": 1,
-          "tags_tp": 1,
-          "tags_fp": 1,
+        "anonymous-work": {
+          "predicted": 4,
+          "expected": 3,
+          "identities_pending": 3,
+          "tp": 3,
+          "tags_tp": 6,
+          "tags_fp": 2,
           "tags_fn": 0,
-          "sentiment_correct": 1,
-          "strength_correct": 1,
-          "provenance_correct": 1,
-          "known_works": 1,
-          "identity_correct": 1,
-          "authors_correct": 1,
-          "fp": 7,
-          "grounded": 8,
-          "unresolved": 7,
-          "mention_precision": 0.125,
+          "sentiment_correct": 3,
+          "strength_correct": 3,
+          "provenance_correct": 3,
+          "fp": 1,
+          "grounded": 4,
+          "unresolved": 4,
+          "mention_precision": 0.75,
           "mention_recall": 1.0,
-          "tag_precision": 0.5,
+          "tag_precision": 0.75,
           "tag_recall": 1.0,
           "sentiment_agreement": 1.0,
           "recommendation_strength_agreement": 1.0,
           "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": null,
+          "author_accuracy": null,
+          "author_provenance_agreement": 1.0,
+          "unresolved_rate": 1.0,
+          "abstention_accuracy": null
+        },
+        "audiobook": {
+          "predicted": 1,
+          "expected": 2,
+          "fn": 2,
+          "tags_fn": 3,
+          "fp": 1,
+          "tags_fp": 1,
+          "grounded": 1,
+          "unresolved": 1,
+          "mention_precision": 0.0,
+          "mention_recall": 0.0,
+          "tag_precision": 0.0,
+          "tag_recall": 0.0,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": null,
+          "author_accuracy": null,
+          "author_provenance_agreement": null,
+          "unresolved_rate": 1.0,
+          "abstention_accuracy": null
+        },
+        "author-only": {
+          "predicted": 51,
+          "expected": 18,
+          "fp": 33,
+          "tags_fp": 23,
+          "grounded": 51,
+          "unresolved": 36,
+          "tp": 18,
+          "tags_tp": 26,
+          "tags_fn": 0,
+          "sentiment_correct": 18,
+          "strength_correct": 18,
+          "provenance_correct": 14,
+          "known_works": 14,
+          "identity_correct": 13,
+          "authors_correct": 13,
+          "identities_pending": 4,
+          "mention_precision": 0.35294117647058826,
+          "mention_recall": 1.0,
+          "tag_precision": 0.5306122448979592,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 0.9285714285714286,
+          "author_accuracy": 0.9285714285714286,
+          "author_provenance_agreement": 0.7777777777777778,
+          "unresolved_rate": 0.7058823529411765,
+          "abstention_accuracy": null
+        },
+        "author-provenance": {
+          "predicted": 11,
+          "expected": 8,
+          "tp": 7,
+          "tags_tp": 11,
+          "tags_fp": 4,
+          "tags_fn": 1,
+          "sentiment_correct": 7,
+          "strength_correct": 7,
+          "provenance_correct": 2,
+          "known_works": 6,
+          "identity_correct": 5,
+          "authors_correct": 5,
+          "fp": 4,
+          "grounded": 11,
+          "unresolved": 6,
+          "identities_pending": 2,
+          "fn": 1,
+          "mention_precision": 0.6363636363636364,
+          "mention_recall": 0.875,
+          "tag_precision": 0.7333333333333333,
+          "tag_recall": 0.9166666666666666,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 0.8333333333333334,
+          "author_accuracy": 0.8333333333333334,
+          "author_provenance_agreement": 0.2857142857142857,
+          "unresolved_rate": 0.5454545454545454,
+          "abstention_accuracy": null
+        },
+        "classification": {
+          "predicted": 14,
+          "expected": 9,
+          "tp": 9,
+          "tags_tp": 16,
+          "tags_fp": 6,
+          "tags_fn": 0,
+          "sentiment_correct": 8,
+          "strength_correct": 8,
+          "provenance_correct": 7,
+          "known_works": 7,
+          "identity_correct": 7,
+          "authors_correct": 7,
+          "fp": 5,
+          "grounded": 14,
+          "unresolved": 7,
+          "identities_pending": 2,
+          "mention_precision": 0.6428571428571429,
+          "mention_recall": 1.0,
+          "tag_precision": 0.7272727272727273,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 0.8888888888888888,
+          "recommendation_strength_agreement": 0.8888888888888888,
+          "grounded_evidence_rate": 1.0,
           "canonicalization_accuracy": 1.0,
           "author_accuracy": 1.0,
-          "author_provenance_agreement": 1.0,
-          "unresolved_rate": 0.875,
+          "author_provenance_agreement": 0.7777777777777778,
+          "unresolved_rate": 0.5,
           "abstention_accuracy": null
         },
         "common-word-title": {
@@ -167,11 +360,120 @@
           "abstention_accuracy": null
         },
         "comparison": {
+          "predicted": 11,
+          "expected": 4,
+          "tp": 4,
+          "tags_tp": 4,
+          "tags_fp": 1,
+          "tags_fn": 0,
+          "sentiment_correct": 4,
+          "strength_correct": 4,
+          "provenance_correct": 3,
+          "known_works": 4,
+          "identity_correct": 4,
+          "authors_correct": 4,
+          "fp": 7,
+          "grounded": 11,
+          "unresolved": 7,
+          "mention_precision": 0.36363636363636365,
+          "mention_recall": 1.0,
+          "tag_precision": 0.8,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 1.0,
+          "author_accuracy": 1.0,
+          "author_provenance_agreement": 0.75,
+          "unresolved_rate": 0.6363636363636364,
+          "abstention_accuracy": null
+        },
+        "context-boundary": {
+          "predicted": 2,
+          "expected": 0,
+          "fp": 2,
+          "tags_fp": 3,
+          "grounded": 2,
+          "unresolved": 2,
+          "mention_precision": 0.0,
+          "mention_recall": null,
+          "tag_precision": 0.0,
+          "tag_recall": null,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": null,
+          "author_accuracy": null,
+          "author_provenance_agreement": null,
+          "unresolved_rate": 1.0,
+          "abstention_accuracy": null
+        },
+        "contextual-reference": {
+          "predicted": 4,
+          "expected": 8,
+          "fn": 6,
+          "tags_fn": 5,
+          "fp": 2,
+          "tags_fp": 1,
+          "grounded": 4,
+          "unresolved": 2,
+          "tp": 2,
+          "tags_tp": 2,
+          "sentiment_correct": 2,
+          "strength_correct": 2,
+          "provenance_correct": 1,
+          "known_works": 2,
+          "identity_correct": 2,
+          "authors_correct": 2,
+          "identities_pending": 1,
+          "mention_precision": 0.5,
+          "mention_recall": 0.25,
+          "tag_precision": 0.6666666666666666,
+          "tag_recall": 0.2857142857142857,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 1.0,
+          "author_accuracy": 1.0,
+          "author_provenance_agreement": 0.5,
+          "unresolved_rate": 0.5,
+          "abstention_accuracy": null
+        },
+        "false-canonical-match": {
+          "predicted": 3,
+          "expected": 1,
+          "tp": 1,
+          "tags_tp": 1,
+          "tags_fp": 2,
+          "tags_fn": 0,
+          "sentiment_correct": 1,
+          "strength_correct": 1,
+          "provenance_correct": 1,
+          "known_works": 1,
+          "identity_correct": 1,
+          "authors_correct": 1,
+          "fp": 2,
+          "grounded": 3,
+          "unresolved": 1,
+          "mention_precision": 0.3333333333333333,
+          "mention_recall": 1.0,
+          "tag_precision": 0.3333333333333333,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 1.0,
+          "author_accuracy": 1.0,
+          "author_provenance_agreement": 1.0,
+          "unresolved_rate": 0.3333333333333333,
+          "abstention_accuracy": null
+        },
+        "false-recommendation": {
           "predicted": 4,
           "expected": 1,
           "tp": 1,
           "tags_tp": 1,
-          "tags_fp": 0,
+          "tags_fp": 3,
           "tags_fn": 0,
           "sentiment_correct": 1,
           "strength_correct": 1,
@@ -181,9 +483,40 @@
           "authors_correct": 1,
           "fp": 3,
           "grounded": 4,
-          "unresolved": 3,
+          "unresolved": 2,
           "mention_precision": 0.25,
           "mention_recall": 1.0,
+          "tag_precision": 0.25,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 1.0,
+          "author_accuracy": 1.0,
+          "author_provenance_agreement": 1.0,
+          "unresolved_rate": 0.5,
+          "abstention_accuracy": null
+        },
+        "long-list": {
+          "predicted": 9,
+          "expected": 9,
+          "tp": 8,
+          "tags_tp": 10,
+          "tags_fp": 0,
+          "tags_fn": 0,
+          "sentiment_correct": 8,
+          "strength_correct": 8,
+          "provenance_correct": 8,
+          "known_works": 3,
+          "identity_correct": 3,
+          "authors_correct": 3,
+          "identities_pending": 6,
+          "fn": 1,
+          "fp": 1,
+          "grounded": 9,
+          "unresolved": 6,
+          "mention_precision": 0.8888888888888888,
+          "mention_recall": 0.8888888888888888,
           "tag_precision": 1.0,
           "tag_recall": 1.0,
           "sentiment_agreement": 1.0,
@@ -192,27 +525,64 @@
           "canonicalization_accuracy": 1.0,
           "author_accuracy": 1.0,
           "author_provenance_agreement": 1.0,
-          "unresolved_rate": 0.75,
+          "unresolved_rate": 0.6666666666666666,
           "abstention_accuracy": null
         },
-        "contextual-reference": {
-          "predicted": 0,
+        "negative": {
+          "predicted": 7,
           "expected": 4,
-          "fn": 4,
-          "tags_fn": 3,
-          "fp": 0,
+          "tp": 4,
+          "tags_tp": 6,
+          "tags_fp": 4,
+          "tags_fn": 0,
+          "sentiment_correct": 4,
+          "strength_correct": 4,
+          "provenance_correct": 3,
+          "known_works": 3,
+          "identity_correct": 2,
+          "authors_correct": 2,
+          "fp": 3,
+          "grounded": 7,
+          "unresolved": 5,
+          "identities_pending": 1,
+          "mention_precision": 0.5714285714285714,
+          "mention_recall": 1.0,
+          "tag_precision": 0.6,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 0.6666666666666666,
+          "author_accuracy": 0.6666666666666666,
+          "author_provenance_agreement": 0.75,
+          "unresolved_rate": 0.7142857142857143,
+          "abstention_accuracy": null
+        },
+        "negative-example": {
+          "predicted": 5,
+          "expected": 1,
+          "identities_pending": 1,
+          "tp": 1,
+          "tags_tp": 3,
           "tags_fp": 0,
-          "mention_precision": null,
-          "mention_recall": 0.0,
-          "tag_precision": null,
-          "tag_recall": 0.0,
-          "sentiment_agreement": null,
-          "recommendation_strength_agreement": null,
-          "grounded_evidence_rate": null,
+          "tags_fn": 0,
+          "sentiment_correct": 1,
+          "strength_correct": 1,
+          "provenance_correct": 1,
+          "fp": 4,
+          "grounded": 5,
+          "unresolved": 5,
+          "mention_precision": 0.2,
+          "mention_recall": 1.0,
+          "tag_precision": 1.0,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
           "canonicalization_accuracy": null,
           "author_accuracy": null,
-          "author_provenance_agreement": null,
-          "unresolved_rate": null,
+          "author_provenance_agreement": 1.0,
+          "unresolved_rate": 1.0,
           "abstention_accuracy": null
         },
         "no-books": {
@@ -233,6 +603,36 @@
           "unresolved_rate": null,
           "abstention_accuracy": null
         },
+        "nonfiction-topic": {
+          "predicted": 6,
+          "expected": 4,
+          "tp": 4,
+          "tags_tp": 5,
+          "tags_fp": 3,
+          "tags_fn": 0,
+          "sentiment_correct": 4,
+          "strength_correct": 4,
+          "provenance_correct": 3,
+          "known_works": 2,
+          "identity_correct": 1,
+          "authors_correct": 1,
+          "identities_pending": 2,
+          "fp": 2,
+          "grounded": 6,
+          "unresolved": 5,
+          "mention_precision": 0.6666666666666666,
+          "mention_recall": 1.0,
+          "tag_precision": 0.625,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 0.5,
+          "author_accuracy": 0.5,
+          "author_provenance_agreement": 0.75,
+          "unresolved_rate": 0.8333333333333334,
+          "abstention_accuracy": null
+        },
         "other-media": {
           "predicted": 0,
           "expected": 0,
@@ -250,9 +650,312 @@
           "author_provenance_agreement": null,
           "unresolved_rate": null,
           "abstention_accuracy": null
+        },
+        "philosophy": {
+          "predicted": 3,
+          "expected": 2,
+          "tp": 2,
+          "tags_tp": 2,
+          "tags_fp": 1,
+          "tags_fn": 0,
+          "sentiment_correct": 2,
+          "strength_correct": 2,
+          "provenance_correct": 2,
+          "known_works": 2,
+          "identity_correct": 2,
+          "authors_correct": 2,
+          "fp": 1,
+          "grounded": 3,
+          "unresolved": 1,
+          "mention_precision": 0.6666666666666666,
+          "mention_recall": 1.0,
+          "tag_precision": 0.6666666666666666,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 1.0,
+          "author_accuracy": 1.0,
+          "author_provenance_agreement": 1.0,
+          "unresolved_rate": 0.3333333333333333,
+          "abstention_accuracy": null
+        },
+        "reading-intention": {
+          "predicted": 6,
+          "expected": 4,
+          "tp": 4,
+          "tags_tp": 8,
+          "tags_fp": 2,
+          "tags_fn": 0,
+          "sentiment_correct": 3,
+          "strength_correct": 3,
+          "provenance_correct": 4,
+          "known_works": 2,
+          "identity_correct": 2,
+          "authors_correct": 2,
+          "identities_pending": 2,
+          "fp": 2,
+          "grounded": 6,
+          "unresolved": 4,
+          "mention_precision": 0.6666666666666666,
+          "mention_recall": 1.0,
+          "tag_precision": 0.8,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 0.75,
+          "recommendation_strength_agreement": 0.75,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 1.0,
+          "author_accuracy": 1.0,
+          "author_provenance_agreement": 1.0,
+          "unresolved_rate": 0.6666666666666666,
+          "abstention_accuracy": null
+        },
+        "sequel": {
+          "predicted": 3,
+          "expected": 3,
+          "tp": 2,
+          "tags_tp": 2,
+          "tags_fp": 0,
+          "tags_fn": 1,
+          "sentiment_correct": 2,
+          "strength_correct": 2,
+          "provenance_correct": 1,
+          "known_works": 2,
+          "identity_correct": 2,
+          "authors_correct": 2,
+          "identities_pending": 1,
+          "fn": 1,
+          "fp": 1,
+          "grounded": 3,
+          "unresolved": 1,
+          "mention_precision": 0.6666666666666666,
+          "mention_recall": 0.6666666666666666,
+          "tag_precision": 1.0,
+          "tag_recall": 0.6666666666666666,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 1.0,
+          "author_accuracy": 1.0,
+          "author_provenance_agreement": 0.5,
+          "unresolved_rate": 0.3333333333333333,
+          "abstention_accuracy": null
+        },
+        "series": {
+          "predicted": 9,
+          "expected": 9,
+          "tp": 8,
+          "tags_tp": 10,
+          "tags_fp": 0,
+          "tags_fn": 0,
+          "sentiment_correct": 8,
+          "strength_correct": 8,
+          "provenance_correct": 8,
+          "known_works": 3,
+          "identity_correct": 3,
+          "authors_correct": 3,
+          "identities_pending": 6,
+          "fn": 1,
+          "fp": 1,
+          "grounded": 9,
+          "unresolved": 6,
+          "mention_precision": 0.8888888888888888,
+          "mention_recall": 0.8888888888888888,
+          "tag_precision": 1.0,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 1.0,
+          "author_accuracy": 1.0,
+          "author_provenance_agreement": 1.0,
+          "unresolved_rate": 0.6666666666666666,
+          "abstention_accuracy": null
+        },
+        "short-story": {
+          "predicted": 4,
+          "expected": 3,
+          "tp": 3,
+          "tags_tp": 6,
+          "tags_fp": 1,
+          "tags_fn": 0,
+          "sentiment_correct": 2,
+          "strength_correct": 2,
+          "provenance_correct": 3,
+          "known_works": 2,
+          "identity_correct": 2,
+          "authors_correct": 2,
+          "identities_pending": 1,
+          "fp": 1,
+          "grounded": 4,
+          "unresolved": 2,
+          "mention_precision": 0.75,
+          "mention_recall": 1.0,
+          "tag_precision": 0.8571428571428571,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 0.6666666666666666,
+          "recommendation_strength_agreement": 0.6666666666666666,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 1.0,
+          "author_accuracy": 1.0,
+          "author_provenance_agreement": 1.0,
+          "unresolved_rate": 0.5,
+          "abstention_accuracy": null
+        },
+        "unnamed-work": {
+          "predicted": 11,
+          "expected": 7,
+          "identities_pending": 4,
+          "tp": 7,
+          "tags_tp": 13,
+          "tags_fp": 5,
+          "tags_fn": 0,
+          "sentiment_correct": 6,
+          "strength_correct": 6,
+          "provenance_correct": 7,
+          "fp": 4,
+          "grounded": 11,
+          "unresolved": 7,
+          "known_works": 3,
+          "identity_correct": 3,
+          "authors_correct": 3,
+          "mention_precision": 0.6363636363636364,
+          "mention_recall": 1.0,
+          "tag_precision": 0.7222222222222222,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 0.8571428571428571,
+          "recommendation_strength_agreement": 0.8571428571428571,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 1.0,
+          "author_accuracy": 1.0,
+          "author_provenance_agreement": 1.0,
+          "unresolved_rate": 0.6363636363636364,
+          "abstention_accuracy": null
+        },
+        "wrong-author": {
+          "predicted": 9,
+          "expected": 9,
+          "tp": 8,
+          "tags_tp": 10,
+          "tags_fp": 0,
+          "tags_fn": 0,
+          "sentiment_correct": 8,
+          "strength_correct": 8,
+          "provenance_correct": 8,
+          "known_works": 3,
+          "identity_correct": 3,
+          "authors_correct": 3,
+          "identities_pending": 6,
+          "fn": 1,
+          "fp": 1,
+          "grounded": 9,
+          "unresolved": 6,
+          "mention_precision": 0.8888888888888888,
+          "mention_recall": 0.8888888888888888,
+          "tag_precision": 1.0,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 1.0,
+          "author_accuracy": 1.0,
+          "author_provenance_agreement": 1.0,
+          "unresolved_rate": 0.6666666666666666,
+          "abstention_accuracy": null
+        },
+        "wrong-title": {
+          "predicted": 10,
+          "expected": 10,
+          "tp": 8,
+          "tags_tp": 10,
+          "tags_fp": 1,
+          "tags_fn": 1,
+          "sentiment_correct": 8,
+          "strength_correct": 8,
+          "provenance_correct": 8,
+          "known_works": 3,
+          "identity_correct": 3,
+          "authors_correct": 3,
+          "identities_pending": 6,
+          "fn": 2,
+          "fp": 2,
+          "grounded": 10,
+          "unresolved": 7,
+          "mention_precision": 0.8,
+          "mention_recall": 0.8,
+          "tag_precision": 0.9090909090909091,
+          "tag_recall": 0.9090909090909091,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 1.0,
+          "author_accuracy": 1.0,
+          "author_provenance_agreement": 1.0,
+          "unresolved_rate": 0.7,
+          "abstention_accuracy": null
         }
       },
       "errors": [
+        {
+          "kind": "false_positive",
+          "title": "The Iliad",
+          "comment_id": 49896123,
+          "source_url": "https://news.ycombinator.com/item?id=49896123"
+        },
+        {
+          "kind": "unresolved",
+          "title": "The Iliad",
+          "comment_id": 49896123,
+          "source_url": "https://news.ycombinator.com/item?id=49896123"
+        },
+        {
+          "kind": "omission",
+          "title": "Outdoor Kids in an Inside World",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "false_positive",
+          "title": "There Are No Children Here",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Ten Things I Wish I Knew About Raising Boys",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "unresolved",
+          "title": "There Are No Children Here",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Intentional",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "unresolved",
+          "title": "The Baroque Cycle",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "unresolved",
+          "title": "The Laundry Files",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Discworld",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
         {
           "kind": "omission",
           "title": "The Brothers Karamazov",
@@ -294,6 +997,78 @@
           "title": "Dickens",
           "comment_id": 49900248,
           "source_url": "https://news.ycombinator.com/item?id=49900248"
+        },
+        {
+          "kind": "false_positive",
+          "title": "a saga that's not in this book",
+          "comment_id": 49900636,
+          "source_url": "https://news.ycombinator.com/item?id=49900636"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Sagas of the Icelanders",
+          "comment_id": 49900636,
+          "source_url": "https://news.ycombinator.com/item?id=49900636"
+        },
+        {
+          "kind": "unresolved",
+          "title": "a saga that's not in this book",
+          "comment_id": 49900636,
+          "source_url": "https://news.ycombinator.com/item?id=49900636"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Poetic Edda",
+          "comment_id": 49900636,
+          "source_url": "https://news.ycombinator.com/item?id=49900636"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Hávamál",
+          "comment_id": 49900636,
+          "source_url": "https://news.ycombinator.com/item?id=49900636"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Dorothy Sayers",
+          "comment_id": 49900693,
+          "source_url": "https://news.ycombinator.com/item?id=49900693"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Unknown Pratchett novel",
+          "comment_id": 49900693,
+          "source_url": "https://news.ycombinator.com/item?id=49900693"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Dorothy Sayers",
+          "comment_id": 49900693,
+          "source_url": "https://news.ycombinator.com/item?id=49900693"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Unknown Pratchett novel",
+          "comment_id": 49900693,
+          "source_url": "https://news.ycombinator.com/item?id=49900693"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Asimov stories",
+          "comment_id": 49900872,
+          "source_url": "https://news.ycombinator.com/item?id=49900872"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Asimov stories",
+          "comment_id": 49900872,
+          "source_url": "https://news.ycombinator.com/item?id=49900872"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Tower of Babylon",
+          "comment_id": 49900872,
+          "source_url": "https://news.ycombinator.com/item?id=49900872"
         },
         {
           "kind": "omission",
@@ -350,10 +1125,172 @@
           "source_url": "https://news.ycombinator.com/item?id=49901526"
         },
         {
+          "kind": "false_positive",
+          "title": "Works of Richard Rorty",
+          "comment_id": 49901739,
+          "source_url": "https://news.ycombinator.com/item?id=49901739"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Works of Richard Rorty",
+          "comment_id": 49901739,
+          "source_url": "https://news.ycombinator.com/item?id=49901739"
+        },
+        {
           "kind": "omission",
           "title": "Understanding Comics",
           "comment_id": 49901980,
           "source_url": "https://news.ycombinator.com/item?id=49901980"
+        },
+        {
+          "kind": "omission",
+          "title": "There Is No Antimemetics Division",
+          "comment_id": 49902593,
+          "source_url": "https://news.ycombinator.com/item?id=49902593"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Ra",
+          "comment_id": 49902593,
+          "source_url": "https://news.ycombinator.com/item?id=49902593"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Ra",
+          "comment_id": 49902593,
+          "source_url": "https://news.ycombinator.com/item?id=49902593"
+        },
+        {
+          "kind": "false_positive",
+          "title": "books",
+          "comment_id": 49903448,
+          "source_url": "https://news.ycombinator.com/item?id=49903448"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Stiff: The Curious Lives of Human Cadavers",
+          "comment_id": 49903448,
+          "source_url": "https://news.ycombinator.com/item?id=49903448"
+        },
+        {
+          "kind": "unresolved",
+          "title": "books",
+          "comment_id": 49903448,
+          "source_url": "https://news.ycombinator.com/item?id=49903448"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Stiff: The Curious Lives of Human Cadavers",
+          "comment_id": 49903448,
+          "source_url": "https://news.ycombinator.com/item?id=49903448"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Austen",
+          "comment_id": 49903633,
+          "source_url": "https://news.ycombinator.com/item?id=49903633"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Austen",
+          "comment_id": 49903633,
+          "source_url": "https://news.ycombinator.com/item?id=49903633"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Robert Macfarlane titles",
+          "comment_id": 49903728,
+          "source_url": "https://news.ycombinator.com/item?id=49903728"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Robert Macfarlane titles",
+          "comment_id": 49903728,
+          "source_url": "https://news.ycombinator.com/item?id=49903728"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Anne of Green Gables",
+          "comment_id": 49903728,
+          "source_url": "https://news.ycombinator.com/item?id=49903728"
+        },
+        {
+          "kind": "false_positive",
+          "title": "John Le Carré novels",
+          "comment_id": 49904295,
+          "source_url": "https://news.ycombinator.com/item?id=49904295"
+        },
+        {
+          "kind": "false_positive",
+          "title": "his memoir",
+          "comment_id": 49904295,
+          "source_url": "https://news.ycombinator.com/item?id=49904295"
+        },
+        {
+          "kind": "unresolved",
+          "title": "his memoir",
+          "comment_id": 49904295,
+          "source_url": "https://news.ycombinator.com/item?id=49904295"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Philip K. Dick",
+          "comment_id": 49904395,
+          "source_url": "https://news.ycombinator.com/item?id=49904395"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Philip K. Dick",
+          "comment_id": 49904395,
+          "source_url": "https://news.ycombinator.com/item?id=49904395"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Agatha Christie",
+          "comment_id": 49904605,
+          "source_url": "https://news.ycombinator.com/item?id=49904605"
+        },
+        {
+          "kind": "false_positive",
+          "title": "books by Emily St. John Mandel",
+          "comment_id": 49904605,
+          "source_url": "https://news.ycombinator.com/item?id=49904605"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Station Eleven",
+          "comment_id": 49904605,
+          "source_url": "https://news.ycombinator.com/item?id=49904605"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Agatha Christie",
+          "comment_id": 49904605,
+          "source_url": "https://news.ycombinator.com/item?id=49904605"
+        },
+        {
+          "kind": "unresolved",
+          "title": "books by Emily St. John Mandel",
+          "comment_id": 49904605,
+          "source_url": "https://news.ycombinator.com/item?id=49904605"
+        },
+        {
+          "kind": "omission",
+          "title": "A Drop of Corruption",
+          "comment_id": 49904833,
+          "source_url": "https://news.ycombinator.com/item?id=49904833"
+        },
+        {
+          "kind": "false_positive",
+          "title": "The next",
+          "comment_id": 49904833,
+          "source_url": "https://news.ycombinator.com/item?id=49904833"
+        },
+        {
+          "kind": "unresolved",
+          "title": "The next",
+          "comment_id": 49904833,
+          "source_url": "https://news.ycombinator.com/item?id=49904833"
         },
         {
           "kind": "omission",
@@ -362,36 +1299,233 @@
           "source_url": "https://news.ycombinator.com/item?id=49905281"
         },
         {
+          "kind": "false_positive",
+          "title": "Tolkien",
+          "comment_id": 49906768,
+          "source_url": "https://news.ycombinator.com/item?id=49906768"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Dostoevsky",
+          "comment_id": 49906768,
+          "source_url": "https://news.ycombinator.com/item?id=49906768"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Huxley",
+          "comment_id": 49906768,
+          "source_url": "https://news.ycombinator.com/item?id=49906768"
+        },
+        {
+          "kind": "unresolved",
+          "title": "The Gold Standard",
+          "comment_id": 49906768,
+          "source_url": "https://news.ycombinator.com/item?id=49906768"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Tolkien",
+          "comment_id": 49906768,
+          "source_url": "https://news.ycombinator.com/item?id=49906768"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Dostoevsky",
+          "comment_id": 49906768,
+          "source_url": "https://news.ycombinator.com/item?id=49906768"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Huxley",
+          "comment_id": 49906768,
+          "source_url": "https://news.ycombinator.com/item?id=49906768"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Ficciones",
+          "comment_id": 49906782,
+          "source_url": "https://news.ycombinator.com/item?id=49906782"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Exhalation",
+          "comment_id": 49906782,
+          "source_url": "https://news.ycombinator.com/item?id=49906782"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Ficciones",
+          "comment_id": 49906782,
+          "source_url": "https://news.ycombinator.com/item?id=49906782"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Exhalation",
+          "comment_id": 49906782,
+          "source_url": "https://news.ycombinator.com/item?id=49906782"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Camus",
+          "comment_id": 49909420,
+          "source_url": "https://news.ycombinator.com/item?id=49909420"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Poor Charlie's Almanack",
+          "comment_id": 49909420,
+          "source_url": "https://news.ycombinator.com/item?id=49909420"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Camus",
+          "comment_id": 49909420,
+          "source_url": "https://news.ycombinator.com/item?id=49909420"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Chiang's stuff",
+          "comment_id": 49909476,
+          "source_url": "https://news.ycombinator.com/item?id=49909476"
+        },
+        {
+          "kind": "false_positive",
+          "title": "short stories",
+          "comment_id": 49909476,
+          "source_url": "https://news.ycombinator.com/item?id=49909476"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Arrival",
+          "comment_id": 49909476,
+          "source_url": "https://news.ycombinator.com/item?id=49909476"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Chiang's stuff",
+          "comment_id": 49909476,
+          "source_url": "https://news.ycombinator.com/item?id=49909476"
+        },
+        {
+          "kind": "unresolved",
+          "title": "short stories",
+          "comment_id": 49909476,
+          "source_url": "https://news.ycombinator.com/item?id=49909476"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Arrival",
+          "comment_id": 49909476,
+          "source_url": "https://news.ycombinator.com/item?id=49909476"
+        },
+        {
+          "kind": "identity_mismatch",
+          "title": "Dungeon Crawler Carl",
+          "expected_work": "/works/OL24593432W",
+          "actual_work": null,
+          "comment_id": 49910451,
+          "source_url": "https://news.ycombinator.com/item?id=49910451"
+        },
+        {
+          "kind": "false_positive",
+          "title": "The Culture series",
+          "comment_id": 49910451,
+          "source_url": "https://news.ycombinator.com/item?id=49910451"
+        },
+        {
+          "kind": "unresolved",
+          "title": "The Culture series",
+          "comment_id": 49910451,
+          "source_url": "https://news.ycombinator.com/item?id=49910451"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Dungeon Crawler Carl",
+          "comment_id": 49910451,
+          "source_url": "https://news.ycombinator.com/item?id=49910451"
+        },
+        {
+          "kind": "unresolved",
+          "title": "American Gods",
+          "comment_id": 49910451,
+          "source_url": "https://news.ycombinator.com/item?id=49910451"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Neal Stephenson's works",
+          "comment_id": 49914053,
+          "source_url": "https://news.ycombinator.com/item?id=49914053"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Neal Stephenson's works",
+          "comment_id": 49914053,
+          "source_url": "https://news.ycombinator.com/item?id=49914053"
+        },
+        {
           "kind": "omission",
           "title": "Peace",
           "comment_id": 49915763,
           "source_url": "https://news.ycombinator.com/item?id=49915763"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Italo Calvino",
+          "comment_id": 49917417,
+          "source_url": "https://news.ycombinator.com/item?id=49917417"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Italo Calvino",
+          "comment_id": 49917417,
+          "source_url": "https://news.ycombinator.com/item?id=49917417"
         }
       ]
     },
     "heuristic_baseline": {
       "metrics": {
-        "predicted": 21,
-        "expected": 6,
-        "fp": 21,
-        "tags_fp": 1,
-        "grounded": 21,
-        "fn": 6,
-        "tags_fn": 6,
-        "mention_precision": 0.0,
-        "mention_recall": 0.0,
-        "tag_precision": 0.0,
-        "tag_recall": 0.0,
-        "sentiment_agreement": null,
-        "recommendation_strength_agreement": null,
+        "predicted": 49,
+        "expected": 42,
+        "fp": 40,
+        "tags_fp": 7,
+        "grounded": 49,
+        "fn": 33,
+        "tags_fn": 56,
+        "tp": 9,
+        "tags_tp": 1,
+        "sentiment_correct": 5,
+        "strength_correct": 5,
+        "provenance_correct": 0,
+        "mention_precision": 0.1836734693877551,
+        "mention_recall": 0.21428571428571427,
+        "tag_precision": 0.125,
+        "tag_recall": 0.017543859649122806,
+        "sentiment_agreement": 0.5555555555555556,
+        "recommendation_strength_agreement": 0.5555555555555556,
         "grounded_evidence_rate": 1.0
       },
       "by_case": {
         "abbreviation": {
+          "predicted": 1,
+          "expected": 10,
+          "fn": 10,
+          "tags_fn": 12,
+          "fp": 1,
+          "tags_fp": 1,
+          "grounded": 1,
+          "mention_precision": 0.0,
+          "mention_recall": 0.0,
+          "tag_precision": 0.0,
+          "tag_recall": 0.0,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": 1.0
+        },
+        "adaptation": {
           "predicted": 0,
           "expected": 1,
           "fn": 1,
-          "tags_fn": 2,
+          "tags_fn": 1,
           "fp": 0,
           "tags_fp": 0,
           "mention_precision": null,
@@ -415,35 +1549,105 @@
           "recommendation_strength_agreement": null,
           "grounded_evidence_rate": null
         },
-        "audiobook": {
-          "predicted": 0,
-          "expected": 1,
-          "fn": 1,
-          "tags_fn": 2,
-          "fp": 0,
+        "anonymous-work": {
+          "predicted": 1,
+          "expected": 3,
+          "tp": 1,
+          "tags_tp": 0,
           "tags_fp": 0,
-          "mention_precision": null,
+          "tags_fn": 6,
+          "sentiment_correct": 1,
+          "strength_correct": 1,
+          "provenance_correct": 0,
+          "fn": 2,
+          "fp": 0,
+          "grounded": 1,
+          "mention_precision": 1.0,
+          "mention_recall": 0.3333333333333333,
+          "tag_precision": null,
+          "tag_recall": 0.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0
+        },
+        "audiobook": {
+          "predicted": 1,
+          "expected": 2,
+          "fn": 2,
+          "tags_fn": 3,
+          "fp": 1,
+          "tags_fp": 0,
+          "grounded": 1,
+          "mention_precision": 0.0,
           "mention_recall": 0.0,
           "tag_precision": null,
           "tag_recall": 0.0,
           "sentiment_agreement": null,
           "recommendation_strength_agreement": null,
-          "grounded_evidence_rate": null
+          "grounded_evidence_rate": 1.0
         },
         "author-only": {
-          "predicted": 0,
-          "expected": 1,
-          "fn": 1,
-          "tags_fn": 1,
-          "fp": 0,
-          "tags_fp": 0,
-          "mention_precision": null,
-          "mention_recall": 0.0,
-          "tag_precision": null,
+          "predicted": 15,
+          "expected": 18,
+          "fp": 9,
+          "tags_fp": 4,
+          "fn": 12,
+          "tags_fn": 25,
+          "tp": 6,
+          "tags_tp": 1,
+          "sentiment_correct": 3,
+          "strength_correct": 3,
+          "provenance_correct": 0,
+          "grounded": 15,
+          "mention_precision": 0.4,
+          "mention_recall": 0.3333333333333333,
+          "tag_precision": 0.2,
+          "tag_recall": 0.038461538461538464,
+          "sentiment_agreement": 0.5,
+          "recommendation_strength_agreement": 0.5,
+          "grounded_evidence_rate": 1.0
+        },
+        "author-provenance": {
+          "predicted": 6,
+          "expected": 8,
+          "fn": 5,
+          "tags_fn": 12,
+          "fp": 3,
+          "tags_fp": 1,
+          "tp": 3,
+          "tags_tp": 0,
+          "sentiment_correct": 0,
+          "strength_correct": 0,
+          "provenance_correct": 0,
+          "grounded": 6,
+          "mention_precision": 0.5,
+          "mention_recall": 0.375,
+          "tag_precision": 0.0,
           "tag_recall": 0.0,
-          "sentiment_agreement": null,
-          "recommendation_strength_agreement": null,
-          "grounded_evidence_rate": null
+          "sentiment_agreement": 0.0,
+          "recommendation_strength_agreement": 0.0,
+          "grounded_evidence_rate": 1.0
+        },
+        "classification": {
+          "predicted": 8,
+          "expected": 9,
+          "tp": 4,
+          "tags_tp": 0,
+          "tags_fp": 1,
+          "tags_fn": 16,
+          "sentiment_correct": 3,
+          "strength_correct": 3,
+          "provenance_correct": 0,
+          "fn": 5,
+          "fp": 4,
+          "grounded": 8,
+          "mention_precision": 0.5,
+          "mention_recall": 0.4444444444444444,
+          "tag_precision": 0.0,
+          "tag_recall": 0.0,
+          "sentiment_agreement": 0.75,
+          "recommendation_strength_agreement": 0.75,
+          "grounded_evidence_rate": 1.0
         },
         "common-word-title": {
           "predicted": 0,
@@ -461,6 +1665,77 @@
           "grounded_evidence_rate": null
         },
         "comparison": {
+          "predicted": 2,
+          "expected": 4,
+          "fn": 3,
+          "tags_fn": 4,
+          "fp": 1,
+          "tags_fp": 0,
+          "tp": 1,
+          "tags_tp": 0,
+          "sentiment_correct": 0,
+          "strength_correct": 0,
+          "provenance_correct": 0,
+          "grounded": 2,
+          "mention_precision": 0.5,
+          "mention_recall": 0.25,
+          "tag_precision": null,
+          "tag_recall": 0.0,
+          "sentiment_agreement": 0.0,
+          "recommendation_strength_agreement": 0.0,
+          "grounded_evidence_rate": 1.0
+        },
+        "context-boundary": {
+          "predicted": 0,
+          "expected": 0,
+          "fp": 0,
+          "tags_fp": 0,
+          "mention_precision": null,
+          "mention_recall": null,
+          "tag_precision": null,
+          "tag_recall": null,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": null
+        },
+        "contextual-reference": {
+          "predicted": 2,
+          "expected": 8,
+          "fn": 7,
+          "tags_fn": 7,
+          "fp": 1,
+          "tags_fp": 0,
+          "grounded": 2,
+          "tp": 1,
+          "tags_tp": 0,
+          "sentiment_correct": 0,
+          "strength_correct": 0,
+          "provenance_correct": 0,
+          "mention_precision": 0.5,
+          "mention_recall": 0.125,
+          "tag_precision": null,
+          "tag_recall": 0.0,
+          "sentiment_agreement": 0.0,
+          "recommendation_strength_agreement": 0.0,
+          "grounded_evidence_rate": 1.0
+        },
+        "false-canonical-match": {
+          "predicted": 1,
+          "expected": 1,
+          "fn": 1,
+          "tags_fn": 1,
+          "fp": 1,
+          "tags_fp": 2,
+          "grounded": 1,
+          "mention_precision": 0.0,
+          "mention_recall": 0.0,
+          "tag_precision": 0.0,
+          "tag_recall": 0.0,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": 1.0
+        },
+        "false-recommendation": {
           "predicted": 0,
           "expected": 1,
           "fn": 1,
@@ -475,33 +1750,92 @@
           "recommendation_strength_agreement": null,
           "grounded_evidence_rate": null
         },
-        "contextual-reference": {
-          "predicted": 0,
+        "long-list": {
+          "predicted": 1,
+          "expected": 9,
+          "fn": 9,
+          "tags_fn": 10,
+          "fp": 1,
+          "tags_fp": 1,
+          "grounded": 1,
+          "mention_precision": 0.0,
+          "mention_recall": 0.0,
+          "tag_precision": 0.0,
+          "tag_recall": 0.0,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": 1.0
+        },
+        "negative": {
+          "predicted": 6,
           "expected": 4,
-          "fn": 4,
+          "tp": 2,
+          "tags_tp": 0,
+          "tags_fp": 1,
+          "tags_fn": 6,
+          "sentiment_correct": 1,
+          "strength_correct": 1,
+          "provenance_correct": 0,
+          "fn": 2,
+          "fp": 4,
+          "grounded": 6,
+          "mention_precision": 0.3333333333333333,
+          "mention_recall": 0.5,
+          "tag_precision": 0.0,
+          "tag_recall": 0.0,
+          "sentiment_agreement": 0.5,
+          "recommendation_strength_agreement": 0.5,
+          "grounded_evidence_rate": 1.0
+        },
+        "negative-example": {
+          "predicted": 1,
+          "expected": 1,
+          "fn": 1,
           "tags_fn": 3,
-          "fp": 0,
+          "fp": 1,
           "tags_fp": 0,
-          "mention_precision": null,
+          "grounded": 1,
+          "mention_precision": 0.0,
           "mention_recall": 0.0,
           "tag_precision": null,
           "tag_recall": 0.0,
           "sentiment_agreement": null,
           "recommendation_strength_agreement": null,
-          "grounded_evidence_rate": null
+          "grounded_evidence_rate": 1.0
         },
         "no-books": {
-          "predicted": 21,
+          "predicted": 28,
           "expected": 0,
-          "fp": 21,
+          "fp": 28,
           "tags_fp": 1,
-          "grounded": 21,
+          "grounded": 28,
           "mention_precision": 0.0,
           "mention_recall": null,
           "tag_precision": 0.0,
           "tag_recall": null,
           "sentiment_agreement": null,
           "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": 1.0
+        },
+        "nonfiction-topic": {
+          "predicted": 4,
+          "expected": 4,
+          "tp": 2,
+          "tags_tp": 0,
+          "tags_fp": 1,
+          "tags_fn": 5,
+          "sentiment_correct": 1,
+          "strength_correct": 1,
+          "provenance_correct": 0,
+          "fn": 2,
+          "fp": 2,
+          "grounded": 4,
+          "mention_precision": 0.5,
+          "mention_recall": 0.5,
+          "tag_precision": 0.0,
+          "tag_recall": 0.0,
+          "sentiment_agreement": 0.5,
+          "recommendation_strength_agreement": 0.5,
           "grounded_evidence_rate": 1.0
         },
         "other-media": {
@@ -514,6 +1848,159 @@
           "mention_recall": null,
           "tag_precision": null,
           "tag_recall": null,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": 1.0
+        },
+        "philosophy": {
+          "predicted": 2,
+          "expected": 2,
+          "tp": 1,
+          "tags_tp": 1,
+          "tags_fp": 1,
+          "tags_fn": 1,
+          "sentiment_correct": 1,
+          "strength_correct": 1,
+          "provenance_correct": 0,
+          "fn": 1,
+          "fp": 1,
+          "grounded": 2,
+          "mention_precision": 0.5,
+          "mention_recall": 0.5,
+          "tag_precision": 0.5,
+          "tag_recall": 0.5,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0
+        },
+        "reading-intention": {
+          "predicted": 2,
+          "expected": 4,
+          "fn": 3,
+          "tags_fn": 8,
+          "tp": 1,
+          "tags_tp": 0,
+          "tags_fp": 1,
+          "sentiment_correct": 1,
+          "strength_correct": 1,
+          "provenance_correct": 0,
+          "fp": 1,
+          "grounded": 2,
+          "mention_precision": 0.5,
+          "mention_recall": 0.25,
+          "tag_precision": 0.0,
+          "tag_recall": 0.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0
+        },
+        "sequel": {
+          "predicted": 1,
+          "expected": 3,
+          "tp": 1,
+          "tags_tp": 0,
+          "tags_fp": 0,
+          "tags_fn": 3,
+          "sentiment_correct": 0,
+          "strength_correct": 0,
+          "provenance_correct": 0,
+          "fn": 2,
+          "fp": 0,
+          "grounded": 1,
+          "mention_precision": 1.0,
+          "mention_recall": 0.3333333333333333,
+          "tag_precision": null,
+          "tag_recall": 0.0,
+          "sentiment_agreement": 0.0,
+          "recommendation_strength_agreement": 0.0,
+          "grounded_evidence_rate": 1.0
+        },
+        "series": {
+          "predicted": 1,
+          "expected": 9,
+          "fn": 9,
+          "tags_fn": 10,
+          "fp": 1,
+          "tags_fp": 1,
+          "grounded": 1,
+          "mention_precision": 0.0,
+          "mention_recall": 0.0,
+          "tag_precision": 0.0,
+          "tag_recall": 0.0,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": 1.0
+        },
+        "short-story": {
+          "predicted": 2,
+          "expected": 3,
+          "fn": 2,
+          "tags_fn": 6,
+          "tp": 1,
+          "tags_tp": 0,
+          "tags_fp": 1,
+          "sentiment_correct": 1,
+          "strength_correct": 1,
+          "provenance_correct": 0,
+          "fp": 1,
+          "grounded": 2,
+          "mention_precision": 0.5,
+          "mention_recall": 0.3333333333333333,
+          "tag_precision": 0.0,
+          "tag_recall": 0.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0
+        },
+        "unnamed-work": {
+          "predicted": 4,
+          "expected": 7,
+          "tp": 2,
+          "tags_tp": 0,
+          "tags_fp": 3,
+          "tags_fn": 13,
+          "sentiment_correct": 2,
+          "strength_correct": 2,
+          "provenance_correct": 0,
+          "fn": 5,
+          "fp": 2,
+          "grounded": 4,
+          "mention_precision": 0.5,
+          "mention_recall": 0.2857142857142857,
+          "tag_precision": 0.0,
+          "tag_recall": 0.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0
+        },
+        "wrong-author": {
+          "predicted": 1,
+          "expected": 9,
+          "fn": 9,
+          "tags_fn": 10,
+          "fp": 1,
+          "tags_fp": 1,
+          "grounded": 1,
+          "mention_precision": 0.0,
+          "mention_recall": 0.0,
+          "tag_precision": 0.0,
+          "tag_recall": 0.0,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": 1.0
+        },
+        "wrong-title": {
+          "predicted": 2,
+          "expected": 10,
+          "fn": 10,
+          "tags_fn": 11,
+          "fp": 2,
+          "tags_fp": 1,
+          "grounded": 2,
+          "mention_precision": 0.0,
+          "mention_recall": 0.0,
+          "tag_precision": 0.0,
+          "tag_recall": 0.0,
           "sentiment_agreement": null,
           "recommendation_strength_agreement": null,
           "grounded_evidence_rate": 1.0
@@ -582,6 +2069,66 @@
         },
         {
           "kind": "omission",
+          "title": "Indistractable",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "omission",
+          "title": "Quicksilver",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "omission",
+          "title": "Dungeon Crawler Carl",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "omission",
+          "title": "Ten Things I Wish I Knew About Raising Boys",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "omission",
+          "title": "Outdoor Kids in an Inside World",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "omission",
+          "title": "Intentional",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "omission",
+          "title": "The Baroque Cycle",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "omission",
+          "title": "The Laundry Files",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "omission",
+          "title": "Discworld",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Fiction: The rest of the Baroque Cycle, then moving onto The Laundry Files",
+          "comment_id": 49899719,
+          "source_url": "https://news.ycombinator.com/item?id=49899719"
+        },
+        {
+          "kind": "omission",
           "title": "The Brothers Karamazov",
           "comment_id": 49899881,
           "source_url": "https://news.ycombinator.com/item?id=49899881"
@@ -594,15 +2141,99 @@
         },
         {
           "kind": "omission",
+          "title": "Poetic Edda",
+          "comment_id": 49900636,
+          "source_url": "https://news.ycombinator.com/item?id=49900636"
+        },
+        {
+          "kind": "omission",
+          "title": "Hávamál",
+          "comment_id": 49900636,
+          "source_url": "https://news.ycombinator.com/item?id=49900636"
+        },
+        {
+          "kind": "omission",
+          "title": "SS-GB",
+          "comment_id": 49900693,
+          "source_url": "https://news.ycombinator.com/item?id=49900693"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Well in theory I'm reading \"Blind Corner\"",
+          "comment_id": 49900693,
+          "source_url": "https://news.ycombinator.com/item?id=49900693"
+        },
+        {
+          "kind": "false_positive",
+          "title": "After that/those I'm dithering between SS/GB",
+          "comment_id": 49900693,
+          "source_url": "https://news.ycombinator.com/item?id=49900693"
+        },
+        {
+          "kind": "omission",
+          "title": "Stories of Your Life and Others",
+          "comment_id": 49900872,
+          "source_url": "https://news.ycombinator.com/item?id=49900872"
+        },
+        {
+          "kind": "omission",
+          "title": "Exhalation",
+          "comment_id": 49900872,
+          "source_url": "https://news.ycombinator.com/item?id=49900872"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Stories of your life",
+          "comment_id": 49900872,
+          "source_url": "https://news.ycombinator.com/item?id=49900872"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Le Guin, Robert Jordan, comics",
+          "comment_id": 49900960,
+          "source_url": "https://news.ycombinator.com/item?id=49900960"
+        },
+        {
+          "kind": "omission",
           "title": "The Cuckoo's Egg",
           "comment_id": 49901160,
           "source_url": "https://news.ycombinator.com/item?id=49901160"
+        },
+        {
+          "kind": "false_positive",
+          "title": "If you're <common phrase>, then you're quoting Shakespeare",
+          "comment_id": 49901317,
+          "source_url": "https://news.ycombinator.com/item?id=49901317"
+        },
+        {
+          "kind": "omission",
+          "title": "Philosophical Investigations",
+          "comment_id": 49901739,
+          "source_url": "https://news.ycombinator.com/item?id=49901739"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Wilfred Sellars",
+          "comment_id": 49901739,
+          "source_url": "https://news.ycombinator.com/item?id=49901739"
         },
         {
           "kind": "omission",
           "title": "Understanding Comics",
           "comment_id": 49901980,
           "source_url": "https://news.ycombinator.com/item?id=49901980"
+        },
+        {
+          "kind": "omission",
+          "title": "There Is No Antimemetics Division",
+          "comment_id": 49902593,
+          "source_url": "https://news.ycombinator.com/item?id=49902593"
+        },
+        {
+          "kind": "false_positive",
+          "title": "read",
+          "comment_id": 49902593,
+          "source_url": "https://news.ycombinator.com/item?id=49902593"
         },
         {
           "kind": "false_positive",
@@ -659,10 +2290,64 @@
           "source_url": "https://news.ycombinator.com/item?id=49902715"
         },
         {
+          "kind": "omission",
+          "title": "Middlemarch",
+          "comment_id": 49903633,
+          "source_url": "https://news.ycombinator.com/item?id=49903633"
+        },
+        {
+          "kind": "omission",
+          "title": "Anne of Green Gables",
+          "comment_id": 49903728,
+          "source_url": "https://news.ycombinator.com/item?id=49903728"
+        },
+        {
           "kind": "false_positive",
           "title": "AI",
           "comment_id": 49903812,
           "source_url": "https://news.ycombinator.com/item?id=49903812"
+        },
+        {
+          "kind": "omission",
+          "title": "The Little Drummer Girl",
+          "comment_id": 49904295,
+          "source_url": "https://news.ycombinator.com/item?id=49904295"
+        },
+        {
+          "kind": "false_positive",
+          "title": "What are we to become, I wonder? A Jewish homeland, or an ugly little Spartan state?",
+          "comment_id": 49904295,
+          "source_url": "https://news.ycombinator.com/item?id=49904295"
+        },
+        {
+          "kind": "omission",
+          "title": "The Quantum Thief",
+          "comment_id": 49904395,
+          "source_url": "https://news.ycombinator.com/item?id=49904395"
+        },
+        {
+          "kind": "false_positive",
+          "title": "I've been reading the books",
+          "comment_id": 49904395,
+          "source_url": "https://news.ycombinator.com/item?id=49904395"
+        },
+        {
+          "kind": "omission",
+          "title": "The River",
+          "comment_id": 49904605,
+          "source_url": "https://news.ycombinator.com/item?id=49904605"
+        },
+        {
+          "kind": "omission",
+          "title": "A Drop of Corruption",
+          "comment_id": 49904833,
+          "source_url": "https://news.ycombinator.com/item?id=49904833"
+        },
+        {
+          "kind": "omission",
+          "title": "The Gameshouse",
+          "comment_id": 49904833,
+          "source_url": "https://news.ycombinator.com/item?id=49904833"
         },
         {
           "kind": "omission",
@@ -672,17 +2357,96 @@
         },
         {
           "kind": "false_positive",
+          "title": "what are you reading?",
+          "comment_id": 49905351,
+          "source_url": "https://news.ycombinator.com/item?id=49905351"
+        },
+        {
+          "kind": "false_positive",
+          "title": "The ending was great",
+          "comment_id": 49905443,
+          "source_url": "https://news.ycombinator.com/item?id=49905443"
+        },
+        {
+          "kind": "false_positive",
+          "title": "that it was so funny",
+          "comment_id": 49905443,
+          "source_url": "https://news.ycombinator.com/item?id=49905443"
+        },
+        {
+          "kind": "omission",
+          "title": "The Gold Standard",
+          "comment_id": 49906768,
+          "source_url": "https://news.ycombinator.com/item?id=49906768"
+        },
+        {
+          "kind": "false_positive",
+          "title": "I just started The Gold Standard",
+          "comment_id": 49906768,
+          "source_url": "https://news.ycombinator.com/item?id=49906768"
+        },
+        {
+          "kind": "omission",
+          "title": "Poor Charlie's Almanack",
+          "comment_id": 49909420,
+          "source_url": "https://news.ycombinator.com/item?id=49909420"
+        },
+        {
+          "kind": "omission",
+          "title": "Dungeon Crawler Carl",
+          "comment_id": 49910451,
+          "source_url": "https://news.ycombinator.com/item?id=49910451"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Neil Gaiman. American Gods was so unbearable I couldn't finish it. How can any decent person like this vain, pompous writer?",
+          "comment_id": 49910451,
+          "source_url": "https://news.ycombinator.com/item?id=49910451"
+        },
+        {
+          "kind": "false_positive",
+          "title": "really good",
+          "comment_id": 49910451,
+          "source_url": "https://news.ycombinator.com/item?id=49910451"
+        },
+        {
+          "kind": "false_positive",
           "title": "Only semi-related I forced my son to explain to me why so many young people knew the song \"Big Iron\"",
           "comment_id": 49910653,
           "source_url": "https://news.ycombinator.com/item?id=49910653"
         },
         {
           "kind": "omission",
+          "title": "Cryptonomicon",
+          "comment_id": 49914053,
+          "source_url": "https://news.ycombinator.com/item?id=49914053"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Stephenson",
+          "comment_id": 49914053,
+          "source_url": "https://news.ycombinator.com/item?id=49914053"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Except most of the books I read out loud to my kids when they were younger",
+          "comment_id": 49915226,
+          "source_url": "https://news.ycombinator.com/item?id=49915226"
+        },
+        {
+          "kind": "omission",
           "title": "Peace",
           "comment_id": 49915763,
           "source_url": "https://news.ycombinator.com/item?id=49915763"
+        },
+        {
+          "kind": "false_positive",
+          "title": "If your url gets linked incorrectly, put it in <angle brackets> and it should work",
+          "comment_id": 49916512,
+          "source_url": "https://news.ycombinator.com/item?id=49916512"
         }
       ]
     }
-  }
+  },
+  "processor_version": "7-luna-1:review-738ec695dae5:e782619148fc4f27"
 }

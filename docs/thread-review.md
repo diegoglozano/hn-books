@@ -84,6 +84,7 @@ Each expected mention requires these fields:
   "aliases": [],
   "authors": ["Frank Herbert"],
   "work_id": "/works/OL893414W",
+  "identity_status": "verified",
   "author_source": "inferred",
   "sentiment": "recommended",
   "strength": 0.95,
@@ -94,8 +95,14 @@ Each expected mention requires these fields:
 This is a schema example using [Open Library's Dune work](https://openlibrary.org/works/OL893414W/Dune),
 not a label for an actual thread comment. `raw` must
 appear literally in that comment's plain text. Verify the work and authors using
-bibliographic sources; use `work_id: null` when the identity should remain
-unresolved. ISBNs describe editions and do not replace a work ID. `author_source`
+bibliographic sources. `identity_status: verified` requires a checked work ID.
+Use `identity_status: ambiguous` with `work_id: null` when the identity should
+remain unresolved. Use `identity_status: pending` with `work_id: null` when the
+catalog identity has not yet been checked. Pending identities are listed in the
+report, excluded from canonicalization and abstention scoring, and prevent the
+full-thread quality gate from passing. Legacy labels without `identity_status`
+retain their previous meaning: a work ID is verified and a null ID is ambiguous.
+ISBNs describe editions and do not replace a work ID. `author_source`
 is `stated`, `context`, `inferred`, or `unknown`. Topics must come from the snapshot's
 controlled taxonomy. Strength is between 0 and 1; sentiment is `recommended`,
 `positive`, `neutral`, or `negative`.
@@ -128,9 +135,9 @@ uv run python -m app.evaluate_review \
 The evaluator accepts an API bundle or a standalone CLI snapshot. It verifies the
 snapshot digest, source association, one review entry per stored comment, source
 links, grounded label excerpts and controlled topics. A full evaluation requires
-every comment reviewed and processed, with a complete raw tree and a finished
-processing checkpoint. Old processing hashes alone cannot pass after a source
-refresh clears that checkpoint. During
+every comment reviewed and processed, with a complete raw tree, a finished
+processing checkpoint and no pending identity labels. Old processing hashes alone
+cannot pass after a source refresh clears that checkpoint. During
 review, `--allow-partial` permits a sparse subset of source-linked labels, reports
 the explicit coverage and leaves `complete_thread_review: false`. Duplicate or
 unknown comment IDs remain invalid. Unlabeled comments never contribute to the
