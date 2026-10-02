@@ -8,7 +8,14 @@ from pydantic import SecretStr
 from app.clients import MetadataClient, RemoteClient
 from app.config import Settings
 from app.db import connect, store_raw_item
-from app.luna import LunaExtractor, LunaResult, comment_input, extraction_key, validate_result
+from app.luna import (
+    LunaExtractor,
+    LunaResult,
+    comment_input,
+    deduplicate_result,
+    extraction_key,
+    validate_result,
+)
 from app.models import MentionSpan, RunMetrics
 from app.pipeline import extract_and_resolve, processor_version, refresh_aggregates
 from app.resolution import resolve_book
@@ -119,6 +126,111 @@ def test_ungrounded_outputs_are_rejected(change, error):
     result = LunaResult(mentions=[mention() | change])
     with pytest.raises(ValueError, match=error):
         validate_result(result, payload())
+
+
+def test_duplicate_titles_are_collapsed_without_retries_and_cached_with_original_evidence(
+    luna_settings,
+):
+    originals = [mention(), mention(title="DUNE!") | {"confidence": 0.9}]
+    calls = []
+    with connect(luna_settings.database_path) as conn:
+        metrics = RunMetrics()
+        extractor = LunaExtractor(
+            luna_settings,
+            conn,
+            metrics,
+            client=httpx.Client(
+                transport=httpx.MockTransport(
+                    lambda request: calls.append(request) or response(originals)
+                )
+            ),
+        )
+        result = extractor.extract(payload())
+        assert len(result.mentions) == 1
+        assert result.mentions[0].title == "Dune"
+        assert result.mentions[0].evidence()["duplicate_mentions"] == originals
+        cached = json.loads(
+            conn.execute("SELECT response_json FROM extraction_cache").fetchone()[0]
+        )
+        assert cached["mentions"] == originals
+        again = extractor.extract(payload())
+        assert again.mentions[0].evidence() == result.mentions[0].evidence()
+        assert len(calls) == metrics.llm_requests == metrics.llm_cache_hits == 1
+        extractor.close()
+
+
+@pytest.mark.parametrize("other_sentiment", ["neutral", "negative", "positive"])
+def test_conflicting_duplicate_sentiments_do_not_invent_a_recommendation(other_sentiment):
+    result = deduplicate_result(
+        LunaResult(
+            mentions=[
+                mention(),
+                mention(sentiment=other_sentiment),
+            ]
+        )
+    )
+    merged = result.mentions[0]
+    assert merged.sentiment == "neutral"
+    assert merged.classification().recommendation_strength < 0.6
+    assert merged.confidence == 0.98
+
+
+@pytest.mark.parametrize("conflict", ["author", "work_id"])
+def test_same_title_with_conflicting_identities_stays_unresolved(luna_settings, conflict):
+    originals = [mention(), mention()]
+    data = payload()
+    if conflict == "author":
+        originals[1]["author"] = "Brian Herbert"
+    else:
+        for index, original in enumerate(originals, 1):
+            original["work_id"] = f"/works/OL{index}W"
+            data["current_comment"]["links"].append(
+                [f"https://openlibrary.org/works/OL{index}W", "Dune"]
+            )
+    result = LunaResult(mentions=originals)
+    validate_result(result, data)
+    merged = deduplicate_result(result).mentions[0]
+    assert merged.author is merged.work_id is None
+    assert merged.author_source == "unknown"
+    assert merged.confidence < 0.7
+    assert merged.evidence()["duplicate_mentions"] == originals
+    remote = RemoteClient(luna_settings)
+    with connect(luna_settings.database_path) as conn:
+        metrics = RunMetrics()
+        assert resolve_book(conn, merged.span(), MetadataClient(remote, conn, metrics))[0] is None
+        assert metrics.metadata_lookups == 0
+    remote.close()
+
+
+def test_duplicate_identity_prefers_stated_author_and_keeps_supported_work_link():
+    stated = mention() | {"author_source": "stated", "confidence": 0.95}
+    linked = mention(author=None) | {"work_id": "/works/OL1W", "tags": ["history"]}
+    merged = deduplicate_result(LunaResult(mentions=[linked, stated])).mentions[0]
+    assert merged.author == "Frank Herbert"
+    assert merged.author_source == "stated"
+    assert merged.work_id == "/works/OL1W"
+    assert merged.tags == ["fiction", "history"]
+
+
+def test_invalid_evidence_in_a_duplicate_is_still_rejected_before_caching(
+    luna_settings, monkeypatch
+):
+    monkeypatch.setattr("app.luna.time.sleep", lambda _: None)
+    with connect(luna_settings.database_path) as conn:
+        extractor = LunaExtractor(
+            luna_settings,
+            conn,
+            RunMetrics(),
+            client=httpx.Client(
+                transport=httpx.MockTransport(
+                    lambda _: response([mention(), mention(raw="invented")])
+                )
+            ),
+        )
+        with pytest.raises(ValueError, match="evidence absent"):
+            extractor.extract(payload())
+        assert conn.execute("SELECT COUNT(*) FROM extraction_cache").fetchone()[0] == 0
+        extractor.close()
 
 
 def test_link_requires_actual_openlibrary_host():

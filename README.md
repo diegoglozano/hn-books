@@ -94,6 +94,13 @@ an author or explicit work link remain unresolved rather than matching an adapta
 The authenticated unresolved endpoint and the review export include the model's
 extraction data. Ingestion metrics record model requests, cache hits, and token usage.
 
+Repeated normalized titles in a model response are combined into one mention per
+comment after every original excerpt and link passes grounding validation. Original
+variants remain in the extraction cache and in `extraction.duplicate_mentions` for
+review. Conflicting sentiments become neutral; conflicting authors or work links
+remain unresolved. Duplicate output alone does not trigger a model retry or stop
+the rebuild.
+
 ## Backfill reading discussions
 
 Preview the scope, pending thread count, and estimated comment volume without ingesting:

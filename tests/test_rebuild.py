@@ -23,7 +23,7 @@ def seed_old_library(settings):
         VALUES ('Wrong old book','wrong old book','[]','yesterday','yesterday')""")
 
 
-def mocks(settings, monkeypatch, fail_metadata=False):
+def mocks(settings, monkeypatch, fail_metadata=False, duplicate_mentions=False):
     settings.extraction_backend = "luna"
     settings.openai_api_key = SecretStr("test-key")
     requests = []
@@ -73,6 +73,7 @@ def mocks(settings, monkeypatch, fail_metadata=False):
                                                     "tags": ["fiction"],
                                                 }
                                             ]
+                                            * (2 if duplicate_mentions else 1)
                                         }
                                     ),
                                 }
@@ -120,9 +121,12 @@ def test_backup_includes_wal_and_never_overwrites_existing_backup(settings):
         backup_database(settings.database_path, settings.database_path)
 
 
-def test_rebuild_publishes_only_selected_thread_and_preserves_backup(settings, monkeypatch):
+@pytest.mark.parametrize("duplicate_mentions", [False, True])
+def test_rebuild_publishes_only_selected_thread_and_preserves_backup(
+    settings, monkeypatch, duplicate_mentions
+):
     seed_old_library(settings)
-    requests, _ = mocks(settings, monkeypatch)
+    requests, _ = mocks(settings, monkeypatch, duplicate_mentions=duplicate_mentions)
     result = rebuild_thread(settings, 100)
     with connect(Path(result["backup"])) as conn:
         assert conn.execute("SELECT COUNT(*) FROM hn_threads").fetchone()[0] == 2
@@ -143,13 +147,18 @@ def test_rebuild_publishes_only_selected_thread_and_preserves_backup(settings, m
     assert report["processed_comments"] == 1
     assert report["resolved_mentions"] == 1
     assert report["mentions"][0]["extraction"]["author"] == "Frank Herbert"
+    if duplicate_mentions:
+        assert len(report["mentions"][0]["extraction"]["duplicate_mentions"]) == 2
 
 
+@pytest.mark.parametrize("duplicate_mentions", [False, True])
 def test_failed_rebuild_leaves_live_unchanged_and_resumes_without_paying_again(
-    settings, monkeypatch
+    settings, monkeypatch, duplicate_mentions
 ):
     seed_old_library(settings)
-    requests, state = mocks(settings, monkeypatch, fail_metadata=True)
+    requests, state = mocks(
+        settings, monkeypatch, fail_metadata=True, duplicate_mentions=duplicate_mentions
+    )
     with pytest.raises(RuntimeError, match="Metadata lookup failed"):
         rebuild_thread(settings, 100)
     with connect(settings.database_path) as conn:
