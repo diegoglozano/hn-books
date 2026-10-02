@@ -231,6 +231,39 @@ def test_evaluation_wrong_canonical_identity_is_counted(review_snapshot):
     }
 
 
+def test_evaluation_keeps_original_luna_omissions_and_false_positives_visible(review_snapshot):
+    snapshot = deepcopy(review_snapshot)
+    snapshot["comment_records"][0]["comment_review"] = {"original_result": {"mentions": []}}
+    snapshot["comment_records"][3]["comment_review"] = {
+        "original_result": {
+            "mentions": [
+                {
+                    "raw": "No reading",
+                    "title": "No reading",
+                    "author": None,
+                    "author_source": "unknown",
+                    "work_id": None,
+                    "confidence": 0.8,
+                    "sentiment": "recommended",
+                    "tags": ["fiction"],
+                }
+            ]
+        }
+    }
+    redigest(snapshot)
+    report = evaluate_review(snapshot, labeled_review(snapshot))
+    assert report["applied_comment_reviews"] == [101, 104]
+    assert report["results"]["saved_extractor"]["metrics"]["mention_recall"] == 1
+    original = report["results"]["original_luna_extraction"]
+    assert original["metrics"]["mention_recall"] == original["metrics"]["mention_precision"] == 0.5
+    assert {error["kind"] for error in original["errors"]} == {
+        "omission",
+        "false_positive",
+        "unresolved",
+    }
+    assert "canonicalization_accuracy" not in original["metrics"]
+
+
 def test_evaluation_blocks_pending_and_mismatched_sources(review_snapshot):
     labels = review_template(review_snapshot)
     with pytest.raises(ValueError, match="Complete evaluation"):
@@ -250,6 +283,26 @@ def test_evaluation_blocks_pending_and_mismatched_sources(review_snapshot):
     labels["source_digest"] = "different"
     with pytest.raises(ValueError, match="different source"):
         evaluate_review(review_snapshot, labels)
+
+
+def test_sparse_regression_labels_require_explicit_partial_evaluation(review_snapshot):
+    labels = labeled_review(review_snapshot)
+    labels["comments"] = [labels["comments"][0], labels["comments"][3]]
+    with pytest.raises(ValueError, match="each stored comment"):
+        evaluate_review(review_snapshot, labels)
+    report = evaluate_review(review_snapshot, labels, allow_partial=True)
+    assert report["coverage"] == {
+        "stored_comments": 4,
+        "reviewed_comments": 2,
+        "complete_thread_review": False,
+    }
+    assert report["results"]["saved_extractor"]["metrics"]["predicted"] == 1
+    labels["comments"].append(labels["comments"][0])
+    with pytest.raises(ValueError, match="each stored comment"):
+        evaluate_review(review_snapshot, labels, allow_partial=True)
+    labels["comments"][-1] = labels["comments"][-1] | {"comment_id": 999}
+    with pytest.raises(ValueError, match="each stored comment"):
+        evaluate_review(review_snapshot, labels, allow_partial=True)
 
 
 @pytest.mark.parametrize(

@@ -1,0 +1,350 @@
+{
+  "schema_version": 1,
+  "comments": [
+    {
+      "thread_id": 49893157,
+      "comment_id": 49899881,
+      "source_digest": "6312477f92c59caeec489fd386d13b3a496b2c8fe0ee42bf427d679acf28c67c",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-02",
+      "reason": "The parent names one novel; the current reply praises that novel. Retain current-comment evidence and contextual author provenance.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49899881",
+        "https://news.ycombinator.com/item?id=49895675"
+      ],
+      "case_types": [
+        "contextual-reference"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "This one is a massive banger",
+            "title": "The Brothers Karamazov",
+            "author": "Fyodor Dostoevsky",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49899889,
+      "source_digest": "4ae18bfaf230c6ee27c02901d3bf304adb6e24db1a10ece5ee729fcddc10953b",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-02",
+      "reason": "The parent names one series and its author. The reply explicitly endorses that series, rather than merely repeating another commenter.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49899889",
+        "https://news.ycombinator.com/item?id=49895061"
+      ],
+      "case_types": [
+        "contextual-reference",
+        "series"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "I also vouch for this series",
+            "title": "The Immortal Great Souls",
+            "author": "Phil Tucker",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "recommended",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900248,
+      "source_digest": "88876c5da89055c301f04d2b91e155954b9a9fccc56813095c9fb289ff01f5fa",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-02",
+      "reason": "Only Middlemarch is a named work. Brontë, Austen and Dickens are comparisons between authors, not additional book titles.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900248"
+      ],
+      "case_types": [
+        "author-only",
+        "comparison"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Middlemarch",
+            "title": "Middlemarch",
+            "author": "George Eliot",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900650,
+      "source_digest": "e2e6a4c66342d18b2b366b531ee418fbf161d37b5e5b4cd588a0fbb786636cf6",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-02",
+      "reason": "The standalone numerical phrase is the complete book title, verified in the National Library of New Zealand catalog. Naming a current read is neutral.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900650",
+        "https://natlib.govt.nz/records/22191646"
+      ],
+      "case_types": [
+        "numerical-title"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "15,000 miles in a ketch",
+            "title": "15,000 Miles in a Ketch",
+            "author": "Raymond Rallier du Baty",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": []
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49901160,
+      "source_digest": "8de8b139fa830644bea5ea2cbc0e2dc3eaa61fa4fe22f6fbfbffccc6cefcb6fa",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-02",
+      "reason": "The parent names one book and author. The current reply positively evaluates that book without an explicit recommendation.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49901160",
+        "https://news.ycombinator.com/item?id=49901146"
+      ],
+      "case_types": [
+        "contextual-reference"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Such a good one, enjoy",
+            "title": "The Cuckoo's Egg",
+            "author": "Cliff Stoll",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49901526,
+      "source_digest": "d004444dde06e8cb268ba0d5b9043d1a5382b3d7b6d32d96420ccacc42d5fd08",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-02",
+      "reason": "The commenter names authors and an unspecified George Sand novel. No exact work is identifiable; do not invent a title or transfer the parent's Middlemarch identity despite the conflicting author.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49901526",
+        "https://news.ycombinator.com/item?id=49900248"
+      ],
+      "case_types": [
+        "author-only",
+        "ambiguous-reference"
+      ],
+      "result": {
+        "mentions": []
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49901980,
+      "source_digest": "c0fe18b9c413d04af253e504068a66476978e8c60a82927939ebdb0dddb89bac",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-02",
+      "reason": "The parent names Understanding Comics and Scott McCloud. The reply describes its positive personal impact; it is not just general praise for comics.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49901980",
+        "https://news.ycombinator.com/item?id=49899665"
+      ],
+      "case_types": [
+        "contextual-reference"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "So, so good",
+            "title": "Understanding Comics",
+            "author": "Scott McCloud",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": []
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49902172,
+      "source_digest": "7144b0e9d5ad93d22d733b0377a83289135651d22ef16e2e1bdfd9c4de226bf9",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-02",
+      "reason": "The parent uniquely names The Master and Margarita by Bulgakov. The current commenter strongly praises that novel; discussion of downvotes does not negate the evaluation.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49902172",
+        "https://news.ycombinator.com/item?id=49901475"
+      ],
+      "case_types": [
+        "contextual-reference"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Its simply one of the best novels ever written",
+            "title": "The Master and Margarita",
+            "author": "Mikhail Bulgakov",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49905281,
+      "source_digest": "ef3f005c29b3f01ad0aed2edcfb8e3156584511efd3c76f15f184c8502617564",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-02",
+      "reason": "DCC denotes Dungeon Crawler Carl in this reading thread and Soundbooth Theater audiobook context. The author is independently verified by the publisher; praise belongs to this audiobook experience.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49905281",
+        "https://www.penguinrandomhouse.com/series/43C/dungeon-crawler-carl/"
+      ],
+      "case_types": [
+        "abbreviation",
+        "audiobook"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "DCC",
+            "title": "Dungeon Crawler Carl",
+            "author": "Matt Dinniman",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49915763,
+      "source_digest": "3c4f5909b80a646c52a9c8952ad7ae170331d8751b1865ecd45a151063463aa9",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-02",
+      "reason": "Both ancestors identify Peace by Gene Wolfe. The reply praises that novel; do not confuse it with other novels containing Peace in their title.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49915763",
+        "https://news.ycombinator.com/item?id=49904734",
+        "https://news.ycombinator.com/item?id=49906501"
+      ],
+      "case_types": [
+        "contextual-reference",
+        "common-word-title"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "I enjoyed it much more than I thought I would",
+            "title": "Peace",
+            "author": "Gene Wolfe",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49915795,
+      "source_digest": "afb8eca210bd4d29c6957c25476be2db1b632e75dd3707e33619f5636a5aa9d7",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-02",
+      "reason": "The parent names exactly two Vinge novels and the current plural reference positively evaluates both. One literal excerpt may support multiple separately identified works.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49915795",
+        "https://news.ycombinator.com/item?id=49900665"
+      ],
+      "case_types": [
+        "contextual-reference",
+        "multiple-works"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "those are really good",
+            "title": "A Fire Upon the Deep",
+            "author": "Vernor Vinge",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          },
+          {
+            "raw": "those are really good",
+            "title": "A Deepness in the Sky",
+            "author": "Vernor Vinge",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

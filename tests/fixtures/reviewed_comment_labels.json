@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "thread_id": 49893157,
+  "source_digest": "6cec05326320b74fbd7838c3431a9b90e9f95e1b756b7345c9db9fde386fd658",
+  "prediction_snapshot_digest": "e38b4d881abf7f4ea0ef45c93cf6d4c05269f88c64026832d95406354e346d66",
+  "reviewer": "Codex; source-checked selected regressions, pending independent human review",
+  "comments": [
+    {
+      "comment_id": 49893225,
+      "source_url": "https://news.ycombinator.com/item?id=49893225",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A literary periodical, not a book title."
+    },
+    {
+      "comment_id": 49899604,
+      "source_url": "https://news.ycombinator.com/item?id=49899604",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Links to reading discussions, not mentions of works in those discussions."
+    },
+    {
+      "comment_id": 49899881,
+      "source_url": "https://news.ycombinator.com/item?id=49899881",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "This one is a massive banger",
+          "title": "The Brothers Karamazov",
+          "authors": [
+            "Fyodor Dostoevsky"
+          ],
+          "work_id": "/works/OL272063W",
+          "author_source": "context",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ]
+        }
+      ],
+      "notes": "The parent names one novel; the current reply praises that novel. Retain current-comment evidence and contextual author provenance. Bibliographic checks: https://openlibrary.org/works/OL272063W.json; https://news.ycombinator.com/item?id=49899881, https://news.ycombinator.com/item?id=49895675"
+    },
+    {
+      "comment_id": 49900230,
+      "source_url": "https://news.ycombinator.com/item?id=49900230",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "An empty deleted comment; do not inherit the parent book."
+    },
+    {
+      "comment_id": 49900248,
+      "source_url": "https://news.ycombinator.com/item?id=49900248",
+      "status": "reviewed",
+      "case_types": [
+        "author-only",
+        "comparison"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Middlemarch",
+          "title": "Middlemarch",
+          "authors": [
+            "George Eliot"
+          ],
+          "work_id": "/works/OL20867W",
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ]
+        }
+      ],
+      "notes": "Only Middlemarch is a named work. Brontë, Austen and Dickens are comparisons between authors, not additional book titles. Bibliographic checks: https://openlibrary.org/works/OL20867W.json; https://news.ycombinator.com/item?id=49900248"
+    },
+    {
+      "comment_id": 49901063,
+      "source_url": "https://news.ycombinator.com/item?id=49901063",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Reading code; no literary work named or contextually identified."
+    },
+    {
+      "comment_id": 49901111,
+      "source_url": "https://news.ycombinator.com/item?id=49901111",
+      "status": "reviewed",
+      "case_types": [
+        "no-books",
+        "author-only"
+      ],
+      "expected_mentions": [],
+      "notes": "An author is named, without a uniquely identifiable work."
+    },
+    {
+      "comment_id": 49901160,
+      "source_url": "https://news.ycombinator.com/item?id=49901160",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Such a good one, enjoy",
+          "title": "The Cuckoo's Egg",
+          "authors": [
+            "Clifford Stoll"
+          ],
+          "work_id": "/works/OL3741565W",
+          "author_source": "context",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ]
+        }
+      ],
+      "notes": "The parent names one book and author. The current reply positively evaluates that book without an explicit recommendation. Bibliographic checks: https://openlibrary.org/works/OL3741565W.json; https://news.ycombinator.com/item?id=49901160, https://news.ycombinator.com/item?id=49901146"
+    },
+    {
+      "comment_id": 49901336,
+      "source_url": "https://news.ycombinator.com/item?id=49901336",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "LLM outputs; no literary work."
+    },
+    {
+      "comment_id": 49901526,
+      "source_url": "https://news.ycombinator.com/item?id=49901526",
+      "status": "reviewed",
+      "case_types": [
+        "author-only",
+        "ambiguous-reference"
+      ],
+      "expected_mentions": [],
+      "notes": "Author names and an unspecified novel do not identify an exact work; the parent work has a conflicting author."
+    },
+    {
+      "comment_id": 49901595,
+      "source_url": "https://news.ycombinator.com/item?id=49901595",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Claude-generated text; no literary work."
+    },
+    {
+      "comment_id": 49901980,
+      "source_url": "https://news.ycombinator.com/item?id=49901980",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "So, so good",
+          "title": "Understanding Comics",
+          "authors": [
+            "Scott McCloud"
+          ],
+          "work_id": "/works/OL276032W",
+          "author_source": "context",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": []
+        }
+      ],
+      "notes": "The parent names Understanding Comics and Scott McCloud. The reply describes its positive personal impact; it is not just general praise for comics. Bibliographic checks: https://openlibrary.org/works/OL276032W.json; https://news.ycombinator.com/item?id=49901980, https://news.ycombinator.com/item?id=49899665"
+    },
+    {
+      "comment_id": 49902715,
+      "source_url": "https://news.ycombinator.com/item?id=49902715",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A list of communications, signs and media; no literary work."
+    },
+    {
+      "comment_id": 49903807,
+      "source_url": "https://news.ycombinator.com/item?id=49903807",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "An unnamed technology blog; no literary work."
+    },
+    {
+      "comment_id": 49903812,
+      "source_url": "https://news.ycombinator.com/item?id=49903812",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "An unnamed technology blog; no literary work."
+    },
+    {
+      "comment_id": 49904372,
+      "source_url": "https://news.ycombinator.com/item?id=49904372",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "An empty dead comment."
+    },
+    {
+      "comment_id": 49905281,
+      "source_url": "https://news.ycombinator.com/item?id=49905281",
+      "status": "reviewed",
+      "case_types": [
+        "abbreviation",
+        "audiobook"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "DCC",
+          "title": "Dungeon Crawler Carl",
+          "authors": [
+            "Matt Dinniman"
+          ],
+          "work_id": "/works/OL24593432W",
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ]
+        }
+      ],
+      "notes": "DCC denotes Dungeon Crawler Carl in this reading thread and Soundbooth Theater audiobook context. The author is independently verified by the publisher; praise belongs to this audiobook experience. Bibliographic checks: https://openlibrary.org/works/OL24593432W.json; https://news.ycombinator.com/item?id=49905281, https://www.penguinrandomhouse.com/series/43C/dungeon-crawler-carl/"
+    },
+    {
+      "comment_id": 49908178,
+      "source_url": "https://news.ycombinator.com/item?id=49908178",
+      "status": "reviewed",
+      "case_types": [
+        "no-books",
+        "author-only"
+      ],
+      "expected_mentions": [],
+      "notes": "Two authors/philosophers, without a uniquely identifiable work."
+    },
+    {
+      "comment_id": 49908523,
+      "source_url": "https://news.ycombinator.com/item?id=49908523",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Claude tokens; no literary work."
+    },
+    {
+      "comment_id": 49909546,
+      "source_url": "https://news.ycombinator.com/item?id=49909546",
+      "status": "reviewed",
+      "case_types": [
+        "no-books",
+        "other-media"
+      ],
+      "expected_mentions": [],
+      "notes": "An IMDb link to a film adaptation, not a book mention."
+    },
+    {
+      "comment_id": 49910622,
+      "source_url": "https://news.ycombinator.com/item?id=49910622",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A website indexing thread books, not a particular work."
+    },
+    {
+      "comment_id": 49910653,
+      "source_url": "https://news.ycombinator.com/item?id=49910653",
+      "status": "reviewed",
+      "case_types": [
+        "no-books",
+        "other-media"
+      ],
+      "expected_mentions": [],
+      "notes": "A named song, not a literary work; the cultural-resurgence discussion does not select one of the parent books."
+    },
+    {
+      "comment_id": 49910747,
+      "source_url": "https://news.ycombinator.com/item?id=49910747",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "Praise for the thread-indexing website, not a book."
+    },
+    {
+      "comment_id": 49915763,
+      "source_url": "https://news.ycombinator.com/item?id=49915763",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "common-word-title"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "I enjoyed it much more than I thought I would",
+          "title": "Peace",
+          "authors": [
+            "Gene Wolfe"
+          ],
+          "work_id": "/works/OL14871978W",
+          "author_source": "context",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ]
+        }
+      ],
+      "notes": "Both ancestors identify Peace by Gene Wolfe. The reply praises that novel; do not confuse it with other novels containing Peace in their title. Bibliographic checks: https://openlibrary.org/works/OL14871978W.json; https://news.ycombinator.com/item?id=49915763, https://news.ycombinator.com/item?id=49904734, https://news.ycombinator.com/item?id=49906501"
+    }
+  ]
+}

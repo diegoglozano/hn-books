@@ -30,6 +30,7 @@ def mocks(
     duplicate_mentions=False,
     raw_excerpt="Dune",
     mention_overrides=None,
+    empty_mentions=False,
 ):
     settings.extraction_backend = "luna"
     settings.openai_api_key = SecretStr("test-key")
@@ -81,7 +82,13 @@ def mocks(
                                                 }
                                                 | (mention_overrides or {})
                                             ]
-                                            * (2 if duplicate_mentions else 1)
+                                            * (
+                                                0
+                                                if empty_mentions
+                                                else 2
+                                                if duplicate_mentions
+                                                else 1
+                                            )
                                         }
                                     ),
                                 }

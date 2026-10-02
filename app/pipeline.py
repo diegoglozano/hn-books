@@ -6,6 +6,7 @@ from collections.abc import Iterable
 from concurrent.futures import ThreadPoolExecutor
 
 from app.clients import MetadataClient, RemoteClient
+from app.comment_reviews import CommentReview, comment_review, review_digest
 from app.config import Settings, get_settings, library_config
 from app.db import store_raw_item, utc_now
 from app.extraction import (
@@ -23,14 +24,20 @@ from app.ranking import compute_book_scores, update_search_indexes
 from app.resolution import resolve_book
 
 logger = logging.getLogger(__name__)
-PROCESSOR_VERSION = "7-luna-" + PROMPT_VERSION + ":review-" + identity_digest()[:12]
+PROCESSOR_VERSION = "8-luna-" + PROMPT_VERSION + ":review-" + identity_digest()[:12]
 
 
 def processor_version(settings: Settings | None = None) -> str:
     settings = settings or get_settings()
     if settings.extraction_backend == "heuristic":
         return PROCESSOR_VERSION
-    return PROCESSOR_VERSION + ":" + extraction_key(settings, {})[:16]
+    return (
+        PROCESSOR_VERSION
+        + ":comments-"
+        + review_digest()[:12]
+        + ":"
+        + extraction_key(settings, {})[:16]
+    )
 
 
 def discover_threads(remote: RemoteClient, backfill: bool = False) -> list[int]:
@@ -120,16 +127,15 @@ def extract_and_resolve(
     rows = conn.execute(query + " ORDER BY id", parameters).fetchall()
     known_titles = [row[0] for row in conn.execute("SELECT canonical_title FROM books")]
     settings = metadata.remote.settings
-    extractor = (
-        LunaExtractor(settings, conn, metrics, offline=metadata.offline)
-        if settings.extraction_backend == "luna"
-        else None
-    )
+    use_luna = settings.extraction_backend == "luna"
     metrics.comments_total += len(rows)
     jobs = []
     for comment in rows:
-        payload = comment_input(conn, comment) if extractor else {}
-        source_key = extraction_key(settings, payload) if extractor else "heuristic"
+        payload = comment_input(conn, comment) if use_luna else {}
+        correction = (
+            comment_review(comment["thread_id"], comment["id"], payload) if use_luna else None
+        )
+        source_key = extraction_key(settings, payload) if use_luna else "heuristic"
         digest = hashlib.sha256(
             (processor_version(settings) + source_key + comment["raw_json"]).encode()
         ).hexdigest()
@@ -140,7 +146,10 @@ def extract_and_resolve(
         if not force and digest == comment["processed_hash"] and not has_unresolved:
             metrics.comments_skipped += 1
             continue
-        jobs.append((comment, payload, digest))
+        jobs.append((comment, payload, digest, correction))
+    extractor = (
+        LunaExtractor(settings, conn, metrics, offline=metadata.offline) if use_luna else None
+    )
     results = (
         extractor.extract_many([job[1] for job in jobs])
         if extractor
@@ -165,16 +174,22 @@ def _process_results(
     conn: sqlite3.Connection,
     metadata: MetadataClient,
     metrics: RunMetrics,
-    jobs: list[tuple[sqlite3.Row, dict, str]],
+    jobs: list[tuple[sqlite3.Row, dict, str, CommentReview | None]],
     results: Iterable[tuple[int, LunaResult]],
     known_titles: list[str],
     use_luna: bool,
 ) -> None:
     settings = metadata.remote.settings
     for index, extracted in results:
-        comment, _, digest = jobs[index]
+        comment, _, digest, correction = jobs[index]
         text = plain_text(comment["text"])
+        audit = None
         if use_luna:
+            if correction:
+                audit = correction.model_dump() | {
+                    "original_result": {"mentions": [m.evidence() for m in extracted.mentions]}
+                }
+                extracted = correction.result.model_copy(deep=True)
             mentions = [
                 (
                     m.span(),
@@ -183,6 +198,11 @@ def _process_results(
                     | {
                         "model": settings.openai_model,
                         "prompt_version": PROMPT_VERSION,
+                        **(
+                            {"comment_review": correction.model_dump(exclude={"result"})}
+                            if correction
+                            else {}
+                        ),
                     },
                 )
                 for m in extracted.mentions
@@ -209,6 +229,12 @@ def _process_results(
                 metrics.unresolved_mentions += 1
         # Replace derived rows atomically, only after all lookups complete.
         conn.execute("DELETE FROM book_mentions WHERE comment_id=?", (comment["id"],))
+        conn.execute("DELETE FROM applied_comment_reviews WHERE comment_id=?", (comment["id"],))
+        if audit:
+            conn.execute(
+                "INSERT INTO applied_comment_reviews VALUES (?, ?)",
+                (comment["id"], json.dumps(audit)),
+            )
         for span, book_id, confidence, candidates, classification, evidence in prepared:
             cursor = conn.execute(
                 """INSERT INTO book_mentions(book_id,comment_id,thread_id,raw_mention,

@@ -51,8 +51,9 @@ reason, add a source-linked regression case, and deploy through a PR. After depl
 execute the existing `python -m app.rebuild --thread 49893157` Coolify task. It takes
 a backup and uses cached extraction results while applying these matching decisions.
 
-There is no public correction endpoint. General per-comment rejection/classification
-decisions and a correction CLI remain future work; this file currently covers
+There is no public correction endpoint. A separate
+[source-bound comment correction workflow](comment-reviews.md) handles missed
+mentions, rejection and classification changes. This identity file covers
 bibliographic aliases, selected work mappings, credited authors and scoped exclusions.
 
 ## Validation scope

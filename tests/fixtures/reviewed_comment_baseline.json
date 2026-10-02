@@ -1,0 +1,688 @@
+{
+  "schema_version": 1,
+  "thread_id": 49893157,
+  "scope": "24 targeted regression comments, including confirmed failures and negative examples; not a random sample, complete-thread review or held-out accuracy benchmark.",
+  "source_digest": "6cec05326320b74fbd7838c3431a9b90e9f95e1b756b7345c9db9fde386fd658",
+  "snapshot_digest": "e38b4d881abf7f4ea0ef45c93cf6d4c05269f88c64026832d95406354e346d66",
+  "reviewer": "Codex; source-checked selected regressions, pending independent human review",
+  "coverage": {
+    "stored_comments": 870,
+    "reviewed_comments": 24,
+    "complete_thread_review": false
+  },
+  "observed_versions": {
+    "models": [
+      "gpt-6-luna"
+    ],
+    "prompts": [
+      "1"
+    ],
+    "matching": [
+      3
+    ]
+  },
+  "processor_version": "7-luna-1:review-738ec695dae5:e782619148fc4f27",
+  "labels_digest": "ad226478d4b3288db6b2d927ba2b7f2c2a3277f4d17affb73a61aa301a9e964b",
+  "evaluation_version": 2,
+  "results": {
+    "saved_extractor": {
+      "metrics": {
+        "predicted": 8,
+        "expected": 6,
+        "fp": 7,
+        "tags_fp": 1,
+        "fn": 5,
+        "tags_fn": 5,
+        "tp": 1,
+        "tags_tp": 1,
+        "sentiment_correct": 1,
+        "strength_correct": 1,
+        "provenance_correct": 1,
+        "known_works": 1,
+        "identity_correct": 1,
+        "authors_correct": 1,
+        "grounded": 8,
+        "unresolved": 7,
+        "mention_precision": 0.125,
+        "mention_recall": 0.16666666666666666,
+        "tag_precision": 0.5,
+        "tag_recall": 0.16666666666666666,
+        "sentiment_agreement": 1.0,
+        "recommendation_strength_agreement": 1.0,
+        "grounded_evidence_rate": 1.0,
+        "canonicalization_accuracy": 1.0,
+        "author_accuracy": 1.0,
+        "author_provenance_agreement": 1.0,
+        "unresolved_rate": 0.875,
+        "abstention_accuracy": null
+      },
+      "by_case": {
+        "abbreviation": {
+          "predicted": 0,
+          "expected": 1,
+          "fn": 1,
+          "tags_fn": 2,
+          "fp": 0,
+          "tags_fp": 0,
+          "mention_precision": null,
+          "mention_recall": 0.0,
+          "tag_precision": null,
+          "tag_recall": 0.0,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": null,
+          "canonicalization_accuracy": null,
+          "author_accuracy": null,
+          "author_provenance_agreement": null,
+          "unresolved_rate": null,
+          "abstention_accuracy": null
+        },
+        "ambiguous-reference": {
+          "predicted": 4,
+          "expected": 0,
+          "fp": 4,
+          "tags_fp": 1,
+          "grounded": 4,
+          "unresolved": 4,
+          "mention_precision": 0.0,
+          "mention_recall": null,
+          "tag_precision": 0.0,
+          "tag_recall": null,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": null,
+          "author_accuracy": null,
+          "author_provenance_agreement": null,
+          "unresolved_rate": 1.0,
+          "abstention_accuracy": null
+        },
+        "audiobook": {
+          "predicted": 0,
+          "expected": 1,
+          "fn": 1,
+          "tags_fn": 2,
+          "fp": 0,
+          "tags_fp": 0,
+          "mention_precision": null,
+          "mention_recall": 0.0,
+          "tag_precision": null,
+          "tag_recall": 0.0,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": null,
+          "canonicalization_accuracy": null,
+          "author_accuracy": null,
+          "author_provenance_agreement": null,
+          "unresolved_rate": null,
+          "abstention_accuracy": null
+        },
+        "author-only": {
+          "predicted": 8,
+          "expected": 1,
+          "tp": 1,
+          "tags_tp": 1,
+          "tags_fp": 1,
+          "tags_fn": 0,
+          "sentiment_correct": 1,
+          "strength_correct": 1,
+          "provenance_correct": 1,
+          "known_works": 1,
+          "identity_correct": 1,
+          "authors_correct": 1,
+          "fp": 7,
+          "grounded": 8,
+          "unresolved": 7,
+          "mention_precision": 0.125,
+          "mention_recall": 1.0,
+          "tag_precision": 0.5,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 1.0,
+          "author_accuracy": 1.0,
+          "author_provenance_agreement": 1.0,
+          "unresolved_rate": 0.875,
+          "abstention_accuracy": null
+        },
+        "common-word-title": {
+          "predicted": 0,
+          "expected": 1,
+          "fn": 1,
+          "tags_fn": 1,
+          "fp": 0,
+          "tags_fp": 0,
+          "mention_precision": null,
+          "mention_recall": 0.0,
+          "tag_precision": null,
+          "tag_recall": 0.0,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": null,
+          "canonicalization_accuracy": null,
+          "author_accuracy": null,
+          "author_provenance_agreement": null,
+          "unresolved_rate": null,
+          "abstention_accuracy": null
+        },
+        "comparison": {
+          "predicted": 4,
+          "expected": 1,
+          "tp": 1,
+          "tags_tp": 1,
+          "tags_fp": 0,
+          "tags_fn": 0,
+          "sentiment_correct": 1,
+          "strength_correct": 1,
+          "provenance_correct": 1,
+          "known_works": 1,
+          "identity_correct": 1,
+          "authors_correct": 1,
+          "fp": 3,
+          "grounded": 4,
+          "unresolved": 3,
+          "mention_precision": 0.25,
+          "mention_recall": 1.0,
+          "tag_precision": 1.0,
+          "tag_recall": 1.0,
+          "sentiment_agreement": 1.0,
+          "recommendation_strength_agreement": 1.0,
+          "grounded_evidence_rate": 1.0,
+          "canonicalization_accuracy": 1.0,
+          "author_accuracy": 1.0,
+          "author_provenance_agreement": 1.0,
+          "unresolved_rate": 0.75,
+          "abstention_accuracy": null
+        },
+        "contextual-reference": {
+          "predicted": 0,
+          "expected": 4,
+          "fn": 4,
+          "tags_fn": 3,
+          "fp": 0,
+          "tags_fp": 0,
+          "mention_precision": null,
+          "mention_recall": 0.0,
+          "tag_precision": null,
+          "tag_recall": 0.0,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": null,
+          "canonicalization_accuracy": null,
+          "author_accuracy": null,
+          "author_provenance_agreement": null,
+          "unresolved_rate": null,
+          "abstention_accuracy": null
+        },
+        "no-books": {
+          "predicted": 0,
+          "expected": 0,
+          "fp": 0,
+          "tags_fp": 0,
+          "mention_precision": null,
+          "mention_recall": null,
+          "tag_precision": null,
+          "tag_recall": null,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": null,
+          "canonicalization_accuracy": null,
+          "author_accuracy": null,
+          "author_provenance_agreement": null,
+          "unresolved_rate": null,
+          "abstention_accuracy": null
+        },
+        "other-media": {
+          "predicted": 0,
+          "expected": 0,
+          "fp": 0,
+          "tags_fp": 0,
+          "mention_precision": null,
+          "mention_recall": null,
+          "tag_precision": null,
+          "tag_recall": null,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": null,
+          "canonicalization_accuracy": null,
+          "author_accuracy": null,
+          "author_provenance_agreement": null,
+          "unresolved_rate": null,
+          "abstention_accuracy": null
+        }
+      },
+      "errors": [
+        {
+          "kind": "omission",
+          "title": "The Brothers Karamazov",
+          "comment_id": 49899881,
+          "source_url": "https://news.ycombinator.com/item?id=49899881"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Brontë",
+          "comment_id": 49900248,
+          "source_url": "https://news.ycombinator.com/item?id=49900248"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Austen",
+          "comment_id": 49900248,
+          "source_url": "https://news.ycombinator.com/item?id=49900248"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Dickens",
+          "comment_id": 49900248,
+          "source_url": "https://news.ycombinator.com/item?id=49900248"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Brontë",
+          "comment_id": 49900248,
+          "source_url": "https://news.ycombinator.com/item?id=49900248"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Austen",
+          "comment_id": 49900248,
+          "source_url": "https://news.ycombinator.com/item?id=49900248"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Dickens",
+          "comment_id": 49900248,
+          "source_url": "https://news.ycombinator.com/item?id=49900248"
+        },
+        {
+          "kind": "omission",
+          "title": "The Cuckoo's Egg",
+          "comment_id": 49901160,
+          "source_url": "https://news.ycombinator.com/item?id=49901160"
+        },
+        {
+          "kind": "false_positive",
+          "title": "George Sand novel",
+          "comment_id": 49901526,
+          "source_url": "https://news.ycombinator.com/item?id=49901526"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Brontë",
+          "comment_id": 49901526,
+          "source_url": "https://news.ycombinator.com/item?id=49901526"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Austen",
+          "comment_id": 49901526,
+          "source_url": "https://news.ycombinator.com/item?id=49901526"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Dickens",
+          "comment_id": 49901526,
+          "source_url": "https://news.ycombinator.com/item?id=49901526"
+        },
+        {
+          "kind": "unresolved",
+          "title": "George Sand novel",
+          "comment_id": 49901526,
+          "source_url": "https://news.ycombinator.com/item?id=49901526"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Brontë",
+          "comment_id": 49901526,
+          "source_url": "https://news.ycombinator.com/item?id=49901526"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Austen",
+          "comment_id": 49901526,
+          "source_url": "https://news.ycombinator.com/item?id=49901526"
+        },
+        {
+          "kind": "unresolved",
+          "title": "Dickens",
+          "comment_id": 49901526,
+          "source_url": "https://news.ycombinator.com/item?id=49901526"
+        },
+        {
+          "kind": "omission",
+          "title": "Understanding Comics",
+          "comment_id": 49901980,
+          "source_url": "https://news.ycombinator.com/item?id=49901980"
+        },
+        {
+          "kind": "omission",
+          "title": "Dungeon Crawler Carl",
+          "comment_id": 49905281,
+          "source_url": "https://news.ycombinator.com/item?id=49905281"
+        },
+        {
+          "kind": "omission",
+          "title": "Peace",
+          "comment_id": 49915763,
+          "source_url": "https://news.ycombinator.com/item?id=49915763"
+        }
+      ]
+    },
+    "heuristic_baseline": {
+      "metrics": {
+        "predicted": 21,
+        "expected": 6,
+        "fp": 21,
+        "tags_fp": 1,
+        "grounded": 21,
+        "fn": 6,
+        "tags_fn": 6,
+        "mention_precision": 0.0,
+        "mention_recall": 0.0,
+        "tag_precision": 0.0,
+        "tag_recall": 0.0,
+        "sentiment_agreement": null,
+        "recommendation_strength_agreement": null,
+        "grounded_evidence_rate": 1.0
+      },
+      "by_case": {
+        "abbreviation": {
+          "predicted": 0,
+          "expected": 1,
+          "fn": 1,
+          "tags_fn": 2,
+          "fp": 0,
+          "tags_fp": 0,
+          "mention_precision": null,
+          "mention_recall": 0.0,
+          "tag_precision": null,
+          "tag_recall": 0.0,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": null
+        },
+        "ambiguous-reference": {
+          "predicted": 0,
+          "expected": 0,
+          "fp": 0,
+          "tags_fp": 0,
+          "mention_precision": null,
+          "mention_recall": null,
+          "tag_precision": null,
+          "tag_recall": null,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": null
+        },
+        "audiobook": {
+          "predicted": 0,
+          "expected": 1,
+          "fn": 1,
+          "tags_fn": 2,
+          "fp": 0,
+          "tags_fp": 0,
+          "mention_precision": null,
+          "mention_recall": 0.0,
+          "tag_precision": null,
+          "tag_recall": 0.0,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": null
+        },
+        "author-only": {
+          "predicted": 0,
+          "expected": 1,
+          "fn": 1,
+          "tags_fn": 1,
+          "fp": 0,
+          "tags_fp": 0,
+          "mention_precision": null,
+          "mention_recall": 0.0,
+          "tag_precision": null,
+          "tag_recall": 0.0,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": null
+        },
+        "common-word-title": {
+          "predicted": 0,
+          "expected": 1,
+          "fn": 1,
+          "tags_fn": 1,
+          "fp": 0,
+          "tags_fp": 0,
+          "mention_precision": null,
+          "mention_recall": 0.0,
+          "tag_precision": null,
+          "tag_recall": 0.0,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": null
+        },
+        "comparison": {
+          "predicted": 0,
+          "expected": 1,
+          "fn": 1,
+          "tags_fn": 1,
+          "fp": 0,
+          "tags_fp": 0,
+          "mention_precision": null,
+          "mention_recall": 0.0,
+          "tag_precision": null,
+          "tag_recall": 0.0,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": null
+        },
+        "contextual-reference": {
+          "predicted": 0,
+          "expected": 4,
+          "fn": 4,
+          "tags_fn": 3,
+          "fp": 0,
+          "tags_fp": 0,
+          "mention_precision": null,
+          "mention_recall": 0.0,
+          "tag_precision": null,
+          "tag_recall": 0.0,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": null
+        },
+        "no-books": {
+          "predicted": 21,
+          "expected": 0,
+          "fp": 21,
+          "tags_fp": 1,
+          "grounded": 21,
+          "mention_precision": 0.0,
+          "mention_recall": null,
+          "tag_precision": 0.0,
+          "tag_recall": null,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": 1.0
+        },
+        "other-media": {
+          "predicted": 1,
+          "expected": 0,
+          "fp": 1,
+          "tags_fp": 0,
+          "grounded": 1,
+          "mention_precision": 0.0,
+          "mention_recall": null,
+          "tag_precision": null,
+          "tag_recall": null,
+          "sentiment_agreement": null,
+          "recommendation_strength_agreement": null,
+          "grounded_evidence_rate": 1.0
+        }
+      },
+      "errors": [
+        {
+          "kind": "false_positive",
+          "title": "Ask HN: What Are You Reading?",
+          "comment_id": 49899604,
+          "source_url": "https://news.ycombinator.com/item?id=49899604"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Ask HN: What are you reading Feb 2024",
+          "comment_id": 49899604,
+          "source_url": "https://news.ycombinator.com/item?id=49899604"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Ask HN: What are you reading these days?",
+          "comment_id": 49899604,
+          "source_url": "https://news.ycombinator.com/item?id=49899604"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Ask HN: What books are you currently reading?",
+          "comment_id": 49899604,
+          "source_url": "https://news.ycombinator.com/item?id=49899604"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Ask HN: What books are you reading?",
+          "comment_id": 49899604,
+          "source_url": "https://news.ycombinator.com/item?id=49899604"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Ask HN: What book are you reading right now?",
+          "comment_id": 49899604,
+          "source_url": "https://news.ycombinator.com/item?id=49899604"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Ask HN: What are you reading? What've you read lately?",
+          "comment_id": 49899604,
+          "source_url": "https://news.ycombinator.com/item?id=49899604"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Ask HN: What are you reading right now?",
+          "comment_id": 49899604,
+          "source_url": "https://news.ycombinator.com/item?id=49899604"
+        },
+        {
+          "kind": "false_positive",
+          "title": "What are you reading?",
+          "comment_id": 49899604,
+          "source_url": "https://news.ycombinator.com/item?id=49899604"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Feb",
+          "comment_id": 49899604,
+          "source_url": "https://news.ycombinator.com/item?id=49899604"
+        },
+        {
+          "kind": "omission",
+          "title": "The Brothers Karamazov",
+          "comment_id": 49899881,
+          "source_url": "https://news.ycombinator.com/item?id=49899881"
+        },
+        {
+          "kind": "omission",
+          "title": "Middlemarch",
+          "comment_id": 49900248,
+          "source_url": "https://news.ycombinator.com/item?id=49900248"
+        },
+        {
+          "kind": "omission",
+          "title": "The Cuckoo's Egg",
+          "comment_id": 49901160,
+          "source_url": "https://news.ycombinator.com/item?id=49901160"
+        },
+        {
+          "kind": "omission",
+          "title": "Understanding Comics",
+          "comment_id": 49901980,
+          "source_url": "https://news.ycombinator.com/item?id=49901980"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Hacker News, mostly comments, and the occasional full article",
+          "comment_id": 49902715,
+          "source_url": "https://news.ycombinator.com/item?id=49902715"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Google News and the occasional full article",
+          "comment_id": 49902715,
+          "source_url": "https://news.ycombinator.com/item?id=49902715"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Email",
+          "comment_id": 49902715,
+          "source_url": "https://news.ycombinator.com/item?id=49902715"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Slack",
+          "comment_id": 49902715,
+          "source_url": "https://news.ycombinator.com/item?id=49902715"
+        },
+        {
+          "kind": "false_positive",
+          "title": "ChatGPT/ Codex responses",
+          "comment_id": 49902715,
+          "source_url": "https://news.ycombinator.com/item?id=49902715"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Road signs",
+          "comment_id": 49902715,
+          "source_url": "https://news.ycombinator.com/item?id=49902715"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Various things in various mobile apps I use",
+          "comment_id": 49902715,
+          "source_url": "https://news.ycombinator.com/item?id=49902715"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Websites",
+          "comment_id": 49902715,
+          "source_url": "https://news.ycombinator.com/item?id=49902715"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Movie/Show subtitles",
+          "comment_id": 49902715,
+          "source_url": "https://news.ycombinator.com/item?id=49902715"
+        },
+        {
+          "kind": "false_positive",
+          "title": "AI",
+          "comment_id": 49903812,
+          "source_url": "https://news.ycombinator.com/item?id=49903812"
+        },
+        {
+          "kind": "omission",
+          "title": "Dungeon Crawler Carl",
+          "comment_id": 49905281,
+          "source_url": "https://news.ycombinator.com/item?id=49905281"
+        },
+        {
+          "kind": "false_positive",
+          "title": "Only semi-related I forced my son to explain to me why so many young people knew the song \"Big Iron\"",
+          "comment_id": 49910653,
+          "source_url": "https://news.ycombinator.com/item?id=49910653"
+        },
+        {
+          "kind": "omission",
+          "title": "Peace",
+          "comment_id": 49915763,
+          "source_url": "https://news.ycombinator.com/item?id=49915763"
+        }
+      ]
+    }
+  }
+}
