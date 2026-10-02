@@ -50,7 +50,7 @@ def work_key(value: str) -> str | None:
 def resolve_book(
     conn: sqlite3.Connection, span: MentionSpan, metadata: MetadataClient
 ) -> tuple[int | None, float, list[dict]]:
-    if span.confidence < 0.7:
+    if span.confidence < 0.7 or (span.require_author and not span.author and not span.work_id):
         return None, 0, []
     local = []
     for row in conn.execute("SELECT * FROM books"):
@@ -96,6 +96,19 @@ def resolve_book(
     # No incomplete canonical record on upstream failure. Reprocessing can retry later.
     if not work.get("title"):
         return None, selected["confidence"], evidence
+    if not span.work_id and title_similarity(span.title, work["title"]) < 0.94:
+        return None, selected["confidence"], evidence
+    work_authors = []
+    for entry in work.get("authors", []):
+        author_key = entry.get("author", {}).get("key", "")
+        if re.fullmatch(r"/authors/OL\d+A", author_key):
+            author_data = metadata.get(f"{author_key}.json")
+            if author_data.get("name"):
+                work_authors.append(author_data["name"])
+    if span.author and work.get("authors") and not work_authors:
+        return None, selected["confidence"], evidence
+    if span.author and work_authors and not author_matches(span.author, work_authors):
+        return None, selected["confidence"], evidence
     description = work.get("description", "")
     if isinstance(description, dict):
         description = description.get("value", "")
@@ -110,7 +123,7 @@ def resolve_book(
         (
             doc["title"],
             normalize_title(doc["title"]),
-            json.dumps(selected["authors"]),
+            json.dumps(work_authors or selected["authors"]),
             doc.get("first_publish_year"),
             description,
             f"https://covers.openlibrary.org/b/id/{cover}-M.jpg" if cover else None,

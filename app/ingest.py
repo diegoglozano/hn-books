@@ -11,10 +11,10 @@ from app.db import connect
 from app.discovery import discover_reading_threads
 from app.operations import configure_logging, tracked_run
 from app.pipeline import (
-    PROCESSOR_VERSION,
     discover_threads,
     extract_and_resolve,
     fetch_thread,
+    processor_version,
     refresh_aggregates,
 )
 
@@ -154,13 +154,23 @@ def main() -> int:
                                 "thread_fetch_failed",
                                 extra={"item_id": thread_id, "detail": str(exc)},
                             )
-                    extract_and_resolve(conn, MetadataClient(remote, conn, metrics), metrics)
+                    extract_and_resolve(
+                        conn,
+                        MetadataClient(remote, conn, metrics),
+                        metrics,
+                        thread_id=args.id if args.command == "thread" else None,
+                    )
                     refresh_aggregates(conn)
                     if metrics.failures == 0:
                         conn.execute(
                             """UPDATE thread_checkpoints SET processed_version=?,completed_at=?
-                            WHERE raw_complete=1""",
-                            (PROCESSOR_VERSION, datetime.now(UTC).isoformat()),
+                            WHERE raw_complete=1 AND (? IS NULL OR thread_id=?)""",
+                            (
+                                processor_version(settings),
+                                datetime.now(UTC).isoformat(),
+                                args.id if args.command == "thread" else None,
+                                args.id if args.command == "thread" else None,
+                            ),
                         )
         finally:
             remote.close()

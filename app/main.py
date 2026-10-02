@@ -181,6 +181,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                     )
                 ]
                 mention["candidates"] = json.loads(mention.pop("candidates_json"))
+                mention["extraction"] = json.loads(mention.pop("extraction_json"))
                 items.append(mention)
             return {"items": items, "total": total, "page": page, "page_size": page_size}
 
@@ -255,6 +256,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             ]
             for row in rows:
                 row["candidates"] = json.loads(row.pop("candidates_json"))
+                row["extraction"] = json.loads(row.pop("extraction_json"))
             return {
                 "items": rows,
                 "page": page,

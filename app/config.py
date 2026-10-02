@@ -1,7 +1,9 @@
 import tomllib
 from functools import lru_cache
 from pathlib import Path
+from typing import Literal
 
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -18,6 +20,10 @@ class Settings(BaseSettings):
     metadata_interval: float = 1.1
     admin_token: str = ""
     frontend_path: Path = Path("frontend/dist")
+    extraction_backend: Literal["luna", "heuristic"] = "luna"
+    openai_api_key: SecretStr = SecretStr("")
+    openai_base_url: str = "https://api.openai.com/v1"
+    openai_model: str = "gpt-6-luna"
 
     @property
     def thread_ids(self) -> list[int]:

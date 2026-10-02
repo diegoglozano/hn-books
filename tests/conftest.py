@@ -11,6 +11,8 @@ from app.db import initialize
 def settings(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Iterator[Settings]:
     path = tmp_path / "library.db"
     monkeypatch.setenv("DATABASE_PATH", str(path))
+    # The historical fixtures exercise the old baseline without paid API calls.
+    monkeypatch.setenv("EXTRACTION_BACKEND", "heuristic")
     get_settings.cache_clear()
     value = Settings(database_path=path, metadata_interval=0, frontend_path=tmp_path / "no-ui")
     initialize(path)
