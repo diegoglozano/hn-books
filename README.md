@@ -109,6 +109,15 @@ correction feedback. Failed-attempt logs include the rejected excerpt and a samp
 of the current comment; unsupported evidence still prevents publication after the
 retry limit. Existing extraction caches remain reusable.
 
+Recoverable metadata inconsistencies do not abort the rebuild: blank authors become
+null with unknown provenance; a supplied author with unknown provenance is labelled
+inferred and still requires bibliographic verification. Unsupported work links are
+cleared before normal matching, supported link variants are canonicalized, and
+unknown or duplicate topic labels are removed. Original model fields remain in the
+cache; `extraction.normalizations` and duplicate variant evidence record corrections
+for review. Empty titles and unsupported excerpts still require corrective retries;
+API errors, incomplete responses, and refusals still fail without a heuristic fallback.
+
 ## Backfill reading discussions
 
 Preview the scope, pending thread count, and estimated comment volume without ingesting:

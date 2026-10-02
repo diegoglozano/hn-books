@@ -118,15 +118,115 @@ def test_request_contract_and_cached_positive_and_empty_results(luna_settings, m
     "change,error",
     [
         ({"raw": "invented excerpt"}, "evidence absent"),
-        ({"tags": ["invented-topic"]}, "unknown topic"),
-        ({"work_id": "/works/OL123W"}, "unsupported Open Library"),
-        ({"author_source": "unknown"}, "author provenance"),
     ],
 )
 def test_ungrounded_outputs_are_rejected(change, error):
     result = LunaResult(mentions=[mention() | change])
     with pytest.raises(ValueError, match=error):
         validate_result(result, payload())
+
+
+@pytest.mark.parametrize("author", [None, "", "   ", "Frank Herbert", "  Frank Herbert  "])
+@pytest.mark.parametrize("source", ["unknown", "inferred", "stated", "context"])
+def test_author_provenance_is_normalized_without_inventing_an_author(author, source):
+    original = mention() | {"author": author, "author_source": source}
+    result = LunaResult(mentions=[original])
+    validate_result(result, payload())
+    repaired = result.mentions[0]
+    expected_author = author.strip() or None if author else None
+    assert repaired.author == expected_author
+    assert repaired.author_source == (
+        "unknown" if expected_author is None else "inferred" if source == "unknown" else source
+    )
+    assert repaired.cache_data() == original
+    # Re-validating already normalized data must not overwrite the recorded original.
+    before = repaired.evidence()
+    validate_result(result, payload())
+    assert repaired.evidence() == before
+
+
+def test_normalized_metadata_preserves_original_fields_on_cache_hits(luna_settings):
+    original = mention() | {
+        "author": "  Frank Herbert  ",
+        "author_source": "unknown",
+        "work_id": "/works/OL999W",
+        "tags": ["fiction", "unknown-topic", "fiction"],
+    }
+    calls = []
+    with connect(luna_settings.database_path) as conn:
+        metrics = RunMetrics()
+        extractor = LunaExtractor(
+            luna_settings,
+            conn,
+            metrics,
+            client=httpx.Client(
+                transport=httpx.MockTransport(
+                    lambda request: calls.append(request) or response([original])
+                )
+            ),
+        )
+        first = extractor.extract(payload()).mentions[0]
+        assert first.author == "Frank Herbert"
+        assert first.author_source == "inferred"
+        assert first.work_id is None
+        assert first.tags == ["fiction"]
+        assert first.evidence()["normalizations"]["author_source"] == {
+            "original": "unknown",
+            "normalized": "inferred",
+        }
+        cached = json.loads(
+            conn.execute("SELECT response_json FROM extraction_cache").fetchone()[0]
+        )
+        assert cached["mentions"] == [original]
+        again = extractor.extract(payload()).mentions[0]
+        assert again.evidence() == first.evidence()
+        assert len(calls) == metrics.llm_requests == metrics.llm_cache_hits == 1
+        extractor.close()
+
+
+@pytest.mark.parametrize(
+    "model_link",
+    [
+        "OL123W",
+        "/works/OL123W",
+        "https://openlibrary.org/works/OL123W/Dune?edition=1",
+    ],
+)
+def test_work_link_variants_only_bypass_matching_when_present_in_current_comment(model_link):
+    data = payload()
+    data["current_comment"]["links"] = [["https://openlibrary.org/works/OL123W/Dune", "Dune"]]
+    result = LunaResult(mentions=[mention() | {"work_id": model_link}])
+    validate_result(result, data)
+    assert result.mentions[0].work_id == "/works/OL123W"
+    # A link in an ancestor cannot authorize a current-comment link shortcut.
+    result = LunaResult(mentions=[mention() | {"work_id": model_link}])
+    data["ancestors"] = [{"text": "https://openlibrary.org/works/OL123W/Dune"}]
+    data["current_comment"]["links"] = []
+    validate_result(result, data)
+    assert result.mentions[0].work_id is None
+
+
+def test_cleared_link_and_missing_author_cannot_create_a_canonical_book(luna_settings):
+    result = LunaResult(
+        mentions=[
+            mention(author=None)
+            | {
+                "work_id": "/works/OL999W",
+                "author_source": "inferred",
+            }
+        ]
+    )
+    validate_result(result, payload())
+    remote = RemoteClient(luna_settings)
+    with connect(luna_settings.database_path) as conn:
+        metrics = RunMetrics()
+        assert (
+            resolve_book(conn, result.mentions[0].span(), MetadataClient(remote, conn, metrics))[0]
+            is None
+        )
+        assert metrics.metadata_lookups == 0
+        assert conn.execute("SELECT COUNT(*) FROM books").fetchone()[0] == 0
+    remote.close()
 
 
 @pytest.mark.parametrize(
@@ -342,10 +442,40 @@ def test_link_requires_actual_openlibrary_host():
     result = LunaResult(mentions=[mention() | {"work_id": "/works/OL123W"}])
     data = payload()
     data["current_comment"]["links"] = [["https://example.com/works/OL123W", "Dune"]]
-    with pytest.raises(ValueError, match="unsupported Open Library"):
-        validate_result(result, data)
+    validate_result(result, data)
+    assert result.mentions[0].work_id is None
+    result = LunaResult(mentions=[mention() | {"work_id": "/works/OL123W"}])
     data["current_comment"]["links"] = [["https://openlibrary.org/works/OL123W/Dune", "Dune"]]
     validate_result(result, data)
+    assert result.mentions[0].work_id == "/works/OL123W"
+
+
+def test_empty_title_retry_has_specific_correction_feedback(luna_settings, monkeypatch):
+    monkeypatch.setattr("app.luna.time.sleep", lambda _: None)
+    requests = []
+
+    def handle(request):
+        body = json.loads(request.content)
+        requests.append(body)
+        if len(requests) == 1:
+            return response([mention(title="...")])
+        assert json.loads(body["input"])["validation_feedback"] == {
+            "error": "empty_normalized_title",
+            "invalid_title": "...",
+        }
+        assert "not just whitespace or punctuation" in body["instructions"]
+        return response([mention()])
+
+    with connect(luna_settings.database_path) as conn:
+        extractor = LunaExtractor(
+            luna_settings,
+            conn,
+            RunMetrics(),
+            client=httpx.Client(transport=httpx.MockTransport(handle)),
+        )
+        assert extractor.extract(payload()).mentions[0].title == "Dune"
+        assert len(requests) == 2
+        extractor.close()
 
 
 def test_incomplete_and_invalid_outputs_never_enter_cache(luna_settings, monkeypatch):
