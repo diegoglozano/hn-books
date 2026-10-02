@@ -2,6 +2,11 @@
 
 A small, self-hosted bookshelf built from Hacker News reading discussions. Every book keeps its original recommendation evidence: comments, usernames, timestamps, thread titles, and links back to HN.
 
+The bookshelf loads more books as you scroll. Search, sorting, and topic filters
+start a fresh feed; opening a book and returning preserves the loaded books and
+your scroll position. A load-more button also supports manual browsing, and failed
+requests can be retried without clearing the books already on screen.
+
 This implements the **first meaningful milestone**, with a ranked React library, book details, topic filters, FTS5 search, and opt-in thread discovery. Ingestion and reprocessing run as CLI commands using the same image as the web app.
 
 ## Run locally

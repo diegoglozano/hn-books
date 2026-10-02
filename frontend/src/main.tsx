@@ -4,7 +4,14 @@ import "@fontsource/dm-sans/600.css";
 import "@fontsource/dm-sans/700.css";
 import "@fontsource/libre-caslon-text/400.css";
 import "@fontsource/libre-caslon-text/400-italic.css";
-import { StrictMode, useEffect, useState } from "react";
+import {
+  StrictMode,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { createRoot } from "react-dom/client";
 import {
   ArrowDownWideNarrow,
@@ -142,47 +149,204 @@ function BookCard({ book, rank }: { book: Book; rank: number }) {
   );
 }
 
-function LibraryView({ tags, stats }: { tags: Tag[]; stats: Stats | null }) {
-  const [query, setQuery] = useState("");
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [sort, setSort] = useState("all-time");
+function BookFeed({
+  params,
+  active,
+  filtered,
+  onClear,
+  onTotal,
+}: {
+  params: string;
+  active: boolean;
+  filtered: boolean;
+  onClear: () => void;
+  onTotal: (total: number) => void;
+}) {
   const [page, setPage] = useState(1);
   const [result, setResult] = useState<Page<Book> | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [retry, setRetry] = useState(0);
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+  const pending = useRef(false);
+  const sentinel = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const controller = new AbortController();
-    const timer = window.setTimeout(() => {
-      const params = new URLSearchParams({
-        q: query,
-        sort,
-        page: String(page),
-        page_size: "12",
-      });
-      selectedTags.forEach((tag) => params.append("tag", tag));
-      setLoading(true);
-      setError("");
-      api<Page<Book>>(`/books?${params}`, controller.signal)
-        .then((data) => {
-          setResult(data);
-          setLoading(false);
-        })
-        .catch((e) => {
-          if (!controller.signal.aborted) {
-            setError((e as Error).message);
+    pending.current = true;
+    setLoading(true);
+    setError("");
+    const timer = window.setTimeout(
+      () => {
+        api<Page<Book>>(
+          `/books?${params}&page=${page}&page_size=12`,
+          controller.signal,
+        )
+          .then((data) => {
+            if (controller.signal.aborted) return;
+            setResult((previous) => {
+              const items = page === 1 ? [] : (previous?.items ?? []);
+              const seen = new Set(items.map((book) => book.id));
+              return {
+                ...data,
+                items: [
+                  ...items,
+                  ...data.items.filter((book) => {
+                    if (seen.has(book.id)) return false;
+                    seen.add(book.id);
+                    return true;
+                  }),
+                ],
+              };
+            });
+            onTotal(data.total);
+            setHasMore(
+              data.items.length > 0 && data.page * data.page_size < data.total,
+            );
+            pending.current = false;
             setLoading(false);
-          }
-        });
-    }, 220);
+          })
+          .catch((e) => {
+            if (!controller.signal.aborted) {
+              setError((e as Error).message);
+              pending.current = false;
+              setLoading(false);
+            }
+          });
+      },
+      page === 1 ? 220 : 0,
+    );
     return () => {
       window.clearTimeout(timer);
       controller.abort();
     };
-  }, [query, sort, page, selectedTags, retry]);
+  }, [params, page, retry, onTotal]);
+  const loadMore = useCallback(() => {
+    if (pending.current || loading || error || !hasMore) return;
+    pending.current = true;
+    setLoading(true);
+    setPage((current) => current + 1);
+  }, [loading, error, hasMore]);
+  useEffect(() => {
+    if (
+      !active ||
+      loading ||
+      error ||
+      !hasMore ||
+      !sentinel.current ||
+      !("IntersectionObserver" in window)
+    )
+      return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) loadMore();
+      },
+      { rootMargin: "400px 0px" },
+    );
+    observer.observe(sentinel.current);
+    return () => observer.disconnect();
+  }, [active, loading, error, hasMore, loadMore]);
+  const retryLoading = () => {
+    if (pending.current) return;
+    pending.current = true;
+    setLoading(true);
+    setRetry((current) => current + 1);
+  };
+  if (!result && error)
+    return (
+      <div className="empty-state" role="alert">
+        <h3>Couldn’t load the bookshelf</h3>
+        <p>{error}</p>
+        <button onClick={retryLoading}>Try again</button>
+      </div>
+    );
+  if (!result)
+    return (
+      <div className="book-grid" aria-label="Loading books" aria-busy="true">
+        {Array.from({ length: 6 }, (_, i) => (
+          <div key={i} className="skeleton-card">
+            <div />
+            <span />
+            <span />
+          </div>
+        ))}
+      </div>
+    );
+  if (!result.items.length)
+    return (
+      <div className="empty-state">
+        <BookOpen size={40} strokeWidth={1} />
+        <div className="eyebrow">A GOOD LIBRARY STARTS SOMEWHERE</div>
+        <h3>
+          {filtered
+            ? "No books on this shelf yet."
+            : "Your next great read is waiting."}
+        </h3>
+        <p>
+          {filtered
+            ? "Try a different idea or clear your topic filters."
+            : "Ingest a reading thread to turn its conversations into your first collection."}
+        </p>
+        {filtered ? (
+          <button onClick={onClear}>Clear filters</button>
+        ) : (
+          <a className="primary-button" href="#/about">
+            Start your library <ArrowRight size={16} />
+          </a>
+        )}
+      </div>
+    );
+  return (
+    <>
+      <div className="book-grid" aria-label="Books" aria-busy={loading}>
+        {result.items.map((book, i) => (
+          <BookCard key={book.id} book={book} rank={i + 1} />
+        ))}
+      </div>
+      <div
+        ref={sentinel}
+        className="feed-status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {error ? (
+          <>
+            <p role="alert">Couldn’t load more books. {error}</p>
+            <button onClick={retryLoading}>Try again</button>
+          </>
+        ) : loading ? (
+          <p>Loading more books…</p>
+        ) : hasMore ? (
+          <button onClick={loadMore}>Load more books</button>
+        ) : (
+          <p>You’ve reached the end of the bookshelf.</p>
+        )}
+        <span>
+          {number(result.items.length)} of {number(result.total)} books
+        </span>
+      </div>
+    </>
+  );
+}
+
+function LibraryView({
+  tags,
+  stats,
+  active,
+}: {
+  tags: Tag[];
+  stats: Stats | null;
+  active: boolean;
+}) {
+  const [query, setQuery] = useState("");
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [sort, setSort] = useState("all-time");
+  const [total, setTotal] = useState<number | null>(null);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const params = new URLSearchParams({ q: query, sort });
+  selectedTags.forEach((tag) => params.append("tag", tag));
+  const feedKey = params.toString();
+  useEffect(() => setTotal(null), [feedKey]);
   function toggleTag(name: string) {
-    setPage(1);
     setSelectedTags((prev) =>
       prev.includes(name) ? prev.filter((t) => t !== name) : [...prev, name],
     );
@@ -243,8 +407,7 @@ function LibraryView({ tags, stats }: { tags: Tag[]; stats: Stats | null }) {
             </h2>
           </div>
           <span className="collection-count">
-            {number(result?.total ?? stats?.books ?? 0)} books, many
-            perspectives
+            {number(total ?? stats?.books ?? 0)} books, many perspectives
           </span>
         </div>
         <div className="search-toolbar">
@@ -256,7 +419,6 @@ function LibraryView({ tags, stats }: { tags: Tag[]; stats: Stats | null }) {
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);
-                setPage(1);
               }}
             />
             {query && (
@@ -264,7 +426,6 @@ function LibraryView({ tags, stats }: { tags: Tag[]; stats: Stats | null }) {
                 aria-label="Clear search"
                 onClick={() => {
                   setQuery("");
-                  setPage(1);
                 }}
               >
                 <X size={17} />
@@ -284,7 +445,6 @@ function LibraryView({ tags, stats }: { tags: Tag[]; stats: Stats | null }) {
               value={sort}
               onChange={(e) => {
                 setSort(e.target.value);
-                setPage(1);
               }}
             >
               <option value="all-time">All-time favorites</option>
@@ -303,7 +463,6 @@ function LibraryView({ tags, stats }: { tags: Tag[]; stats: Stats | null }) {
               className={`topic-option ${!selectedTags.length ? "selected" : ""}`}
               onClick={() => {
                 setSelectedTags([]);
-                setPage(1);
               }}
             >
               <span>
@@ -351,75 +510,17 @@ function LibraryView({ tags, stats }: { tags: Tag[]; stats: Stats | null }) {
                 <span className="status-dot" /> HN recommendations
               </span>
             </div>
-            {error ? (
-              <div className="empty-state" role="alert">
-                <h3>Couldn’t load the bookshelf</h3>
-                <p>{error}</p>
-                <button onClick={() => setRetry(retry + 1)}>Try again</button>
-              </div>
-            ) : loading ? (
-              <div
-                className="book-grid"
-                aria-label="Loading books"
-                aria-busy="true"
-              >
-                {Array.from({ length: 6 }, (_, i) => (
-                  <div key={i} className="skeleton-card">
-                    <div />
-                    <span />
-                    <span />
-                  </div>
-                ))}
-              </div>
-            ) : result?.items.length ? (
-              <>
-                <div className="book-grid">
-                  {result.items.map((book, i) => (
-                    <BookCard
-                      key={book.id}
-                      book={book}
-                      rank={(page - 1) * 12 + i + 1}
-                    />
-                  ))}
-                </div>
-                <Pagination
-                  page={page}
-                  total={result.total}
-                  pageSize={12}
-                  onPage={setPage}
-                />
-              </>
-            ) : (
-              <div className="empty-state">
-                <BookOpen size={40} strokeWidth={1} />
-                <div className="eyebrow">A GOOD LIBRARY STARTS SOMEWHERE</div>
-                <h3>
-                  {query || selectedTags.length
-                    ? "No books on this shelf yet."
-                    : "Your next great read is waiting."}
-                </h3>
-                <p>
-                  {query || selectedTags.length
-                    ? "Try a different idea or clear your topic filters."
-                    : "Ingest a reading thread to turn its conversations into your first collection."}
-                </p>
-                {query || selectedTags.length ? (
-                  <button
-                    onClick={() => {
-                      setQuery("");
-                      setSelectedTags([]);
-                      setPage(1);
-                    }}
-                  >
-                    Clear filters
-                  </button>
-                ) : (
-                  <a className="primary-button" href="#/about">
-                    Start your library <ArrowRight size={16} />
-                  </a>
-                )}
-              </div>
-            )}
+            <BookFeed
+              key={feedKey}
+              params={feedKey}
+              active={active}
+              filtered={Boolean(query || selectedTags.length)}
+              onClear={() => {
+                setQuery("");
+                setSelectedTags([]);
+              }}
+              onTotal={setTotal}
+            />
           </div>
         </div>
       </section>
@@ -742,10 +843,13 @@ function App() {
   const [hash, setHash] = useState(window.location.hash);
   const [stats, setStats] = useState<Stats | null>(null);
   const [tags, setTags] = useState<Tag[]>([]);
+  const libraryScroll = useRef(0);
+  const currentView = useRef("library");
   useEffect(() => {
     const handler = () => {
+      if (currentView.current === "library")
+        libraryScroll.current = window.scrollY;
       setHash(window.location.hash);
-      window.scrollTo(0, 0);
     };
     window.addEventListener("hashchange", handler);
     const controller = new AbortController();
@@ -769,6 +873,10 @@ function App() {
         : detail
           ? "detail"
           : "library";
+  useLayoutEffect(() => {
+    currentView.current = view;
+    window.scrollTo(0, view === "library" ? libraryScroll.current : 0);
+  }, [view]);
   return (
     <>
       <header>
@@ -802,15 +910,16 @@ function App() {
         </div>
       </header>
       <main>
+        <div hidden={view !== "library"}>
+          <LibraryView tags={tags} stats={stats} active={view === "library"} />
+        </div>
         {view === "detail" && detail ? (
           <BookDetail key={detail[1]} id={Number(detail[1])} />
         ) : view === "threads" ? (
           <ThreadsView />
         ) : view === "about" ? (
           <AboutView />
-        ) : (
-          <LibraryView tags={tags} stats={stats} />
-        )}
+        ) : null}
       </main>
       <footer>
         <a href="#/" className="footer-brand">
