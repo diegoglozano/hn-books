@@ -14,6 +14,7 @@ from app.luna import (
     comment_input,
     deduplicate_result,
     extraction_key,
+    grounded_excerpt,
     validate_result,
 )
 from app.models import MentionSpan, RunMetrics
@@ -126,6 +127,110 @@ def test_ungrounded_outputs_are_rejected(change, error):
     result = LunaResult(mentions=[mention() | change])
     with pytest.raises(ValueError, match=error):
         validate_result(result, payload())
+
+
+@pytest.mark.parametrize(
+    "source,raw",
+    [
+        ("Dune\nby Frank Herbert", "Dune by Frank Herbert"),
+        ("Dune\t\tby Frank Herbert", "Dune by Frank Herbert"),
+        ("Dune\u00a0by Frank Herbert", "Dune by Frank Herbert"),
+        ("\u201cDune\u201d by Frank Herbert", '"Dune" by Frank Herbert'),
+        ("Frank Herbert\u2019s Dune", "Frank Herbert's Dune"),
+        ("Dune\u2014great read", "Dune-great read"),
+        ("Dune...great read", "Dune\u2026great read"),
+        ("Dune", "DUNE"),
+        ("Caf\u00e9", "Cafe\u0301"),
+    ],
+)
+def test_typography_repairs_restore_a_literal_current_comment_excerpt(source, raw):
+    text = "Intro: " + source + " END"
+    result = LunaResult(mentions=[mention(raw=raw)])
+    validate_result(result, payload(text))
+    assert result.mentions[0].raw == source
+    assert result.mentions[0].raw in text
+    assert result.mentions[0].title == "Dune"
+
+
+@pytest.mark.parametrize(
+    "source,raw",
+    [
+        ("Dune and Foundation", "Dune Foundation"),
+        ("Dune. I also recommend Foundation.", "Dune ... Foundation"),
+        ("I second that!", "Dune"),
+        ("SICP", "Structure and Interpretation of Computer Programs"),
+        ("Dune", "Dunes"),
+        ("Caf\u00e9", "Cafe"),
+        ("\ufb03", "f"),
+        ("Dune", " \n\t "),
+    ],
+)
+def test_typography_matching_never_reconstructs_missing_words(source, raw):
+    assert grounded_excerpt(raw, source) is None
+
+
+def test_repair_does_not_use_ancestor_evidence():
+    data = payload("I second that!")
+    data["ancestors"] = [{"id": 101, "text": "DUNE by Frank Herbert"}]
+    with pytest.raises(ValueError, match="evidence absent"):
+        validate_result(LunaResult(mentions=[mention(raw="Dune by Frank Herbert")]), data)
+
+
+def test_invalid_excerpt_retry_explains_failure_and_preserves_all_supported_mentions(
+    luna_settings,
+    monkeypatch,
+    caplog,
+):
+    monkeypatch.setattr("app.luna.time.sleep", lambda _: None)
+    data = payload("After SICP, I recommend The Little Schemer.")
+    expanded = "Structure and Interpretation of Computer Programs"
+    requests = []
+
+    def handle(request):
+        body = json.loads(request.content)
+        requests.append(body)
+        if len(requests) == 1:
+            assert json.loads(body["input"]) == data
+        else:
+            repair_input = json.loads(body["input"])
+            assert repair_input["current_comment"] == data["current_comment"]
+            assert repair_input["validation_feedback"]["invalid_raw"] == expanded
+            assert "copy a literal, contiguous excerpt" in body["instructions"]
+            assert body["text"] == requests[0]["text"]
+        return response(
+            [
+                mention(
+                    raw=expanded if len(requests) == 1 else "SICP",
+                    title=expanded,
+                    author="Harold Abelson",
+                    sentiment="neutral",
+                ),
+                mention(
+                    raw="The Little Schemer",
+                    title="The Little Schemer",
+                    author="Daniel P. Friedman",
+                ),
+            ]
+        )
+
+    with connect(luna_settings.database_path) as conn:
+        metrics = RunMetrics()
+        extractor = LunaExtractor(
+            luna_settings,
+            conn,
+            metrics,
+            client=httpx.Client(transport=httpx.MockTransport(handle)),
+        )
+        with caplog.at_level("WARNING"):
+            result = extractor.extract(data)
+        assert [m.raw for m in result.mentions] == ["SICP", "The Little Schemer"]
+        assert metrics.llm_requests == 2
+        failure = next(r for r in caplog.records if r.message == "luna_evidence_validation_failed")
+        assert failure.detail["model_raw"] == expanded
+        assert failure.detail["current_comment"] == data["current_comment"]["text"]
+        assert extractor.extract(data) == result
+        assert len(requests) == 2
+        extractor.close()
 
 
 def test_duplicate_titles_are_collapsed_without_retries_and_cached_with_original_evidence(

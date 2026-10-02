@@ -6,6 +6,7 @@ import logging
 import re
 import sqlite3
 import time
+import unicodedata
 from collections.abc import Generator
 from concurrent.futures import FIRST_COMPLETED, Future, ThreadPoolExecutor, wait
 from dataclasses import dataclass
@@ -143,13 +144,77 @@ def extraction_key(settings: Settings, payload: dict) -> str:
     ).hexdigest()
 
 
+class EvidenceMismatch(ValueError):
+    def __init__(self, raw: str) -> None:
+        self.raw = raw
+        super().__init__(
+            f"Luna returned evidence absent from the current comment; raw={raw[:200]!r}"
+        )
+
+
+def canonical_evidence(text: str) -> tuple[str, list[tuple[int, int]]]:
+    """Normalize typography while mapping every character back to the literal source."""
+    replacements = str.maketrans(
+        {
+            "‘": "'",
+            "’": "'",
+            "‚": "'",
+            "“": '"',
+            "”": '"',
+            "„": '"',
+            "‐": "-",
+            "‑": "-",
+            "‒": "-",
+            "–": "-",
+            "—": "-",
+            "−": "-",
+        }
+    )
+    characters: list[str] = []
+    positions: list[tuple[int, int]] = []
+    for index, source in enumerate(text):
+        for char in unicodedata.normalize("NFKD", source).translate(replacements).casefold():
+            if char.isspace():
+                char = " "
+                if characters and characters[-1] == " ":
+                    positions[-1] = (positions[-1][0], index + 1)
+                    continue
+            characters.append(char)
+            positions.append((index, index + 1))
+    return "".join(characters), positions
+
+
+def grounded_excerpt(raw: str, text: str) -> str | None:
+    if not raw.strip():
+        return None
+    if raw in text:
+        return raw
+    expected, _ = canonical_evidence(raw.strip())
+    normalized, positions = canonical_evidence(text)
+    offset = normalized.find(expected)
+    while offset >= 0:
+        candidate = text[positions[offset][0] : positions[offset + len(expected) - 1][1]]
+        # A partial match inside an expanded Unicode character is not an excerpt.
+        if canonical_evidence(candidate)[0] == expected:
+            return candidate
+        offset = normalized.find(expected, offset + 1)
+    return None
+
+
 def validate_result(result: LunaResult, payload: dict) -> None:
     text = payload["current_comment"]["text"]
     source_links = [url for url, _ in payload["current_comment"]["links"]]
     # Only links present in the current comment may bypass bibliographic matching.
     for mention in result.mentions:
-        if not mention.raw.strip() or mention.raw not in text:
-            raise ValueError("Luna returned evidence absent from the current comment")
+        matched = grounded_excerpt(mention.raw, text)
+        if matched is None:
+            raise EvidenceMismatch(mention.raw)
+        if matched != mention.raw:
+            logger.info(
+                "luna_evidence_formatting_repaired",
+                extra={"detail": {"model_raw": mention.raw[:200], "source_raw": matched[:200]}},
+            )
+            mention.raw = matched
         if mention.work_id and (
             not re.fullmatch(r"/works/OL\d+W", mention.work_id)
             or not any(
@@ -359,13 +424,12 @@ class LunaExtractor:
         schema["$defs"]["LunaMention"]["properties"]["tags"]["items"]["enum"] = sorted(
             library_config()["topics"]
         )
+        instructions = INSTRUCTIONS + "\nTopic names: " + ", ".join(library_config()["topics"])
         body = {
             "model": self.settings.openai_model,
             "store": False,
             "reasoning": {"effort": "none"},
-            "instructions": INSTRUCTIONS
-            + "\nTopic names: "
-            + ", ".join(library_config()["topics"]),
+            "instructions": instructions,
             "input": json.dumps(payload, ensure_ascii=False),
             "text": {
                 "format": {
@@ -414,6 +478,34 @@ class LunaExtractor:
                     exc.response.status_code != 429 and exc.response.status_code < 500
                 ):
                     raise
+                if isinstance(exc, EvidenceMismatch):
+                    logger.warning(
+                        "luna_evidence_validation_failed",
+                        extra={
+                            "detail": {
+                                "attempt": attempt + 1,
+                                "model_raw": exc.raw[:1000],
+                                "current_comment": payload["current_comment"]["text"][:1000],
+                            }
+                        },
+                    )
+                    body["instructions"] = instructions + (
+                        "\nCorrection: raw must copy a literal, contiguous excerpt from "
+                        "current_comment.text. Do not paraphrase, combine separate passages, "
+                        "expand abbreviations in raw, or copy evidence from ancestors. "
+                        "An expanded title belongs in title; raw keeps the source abbreviation. "
+                        "Re-extract all supported mentions using the validation_feedback below."
+                    )
+                    body["input"] = json.dumps(
+                        payload
+                        | {
+                            "validation_feedback": {
+                                "error": "raw_not_from_current_comment",
+                                "invalid_raw": exc.raw[:1000],
+                            }
+                        },
+                        ensure_ascii=False,
+                    )
                 if attempt == 2:
                     raise
                 time.sleep(2**attempt)

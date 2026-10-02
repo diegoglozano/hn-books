@@ -101,6 +101,14 @@ review. Conflicting sentiments become neutral; conflicting authors or work links
 remain unresolved. Duplicate output alone does not trigger a model retry or stop
 the rebuild.
 
+Evidence matching tolerates Unicode typography, capitalization, and whitespace
+differences, then stores the actual contiguous excerpt from the current comment.
+It does not use fuzzy matching, paraphrases, combined passages, or evidence found
+only in ancestors. A genuinely absent excerpt triggers a retry with specific
+correction feedback. Failed-attempt logs include the rejected excerpt and a sample
+of the current comment; unsupported evidence still prevents publication after the
+retry limit. Existing extraction caches remain reusable.
+
 ## Backfill reading discussions
 
 Preview the scope, pending thread count, and estimated comment volume without ingesting:
