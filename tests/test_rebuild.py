@@ -163,7 +163,7 @@ def test_backup_includes_wal_and_never_overwrites_existing_backup(settings):
 
 
 @pytest.mark.parametrize("duplicate_mentions", [False, True])
-@pytest.mark.parametrize("raw_excerpt", ["Dune", "DUNE"])
+@pytest.mark.parametrize("raw_excerpt", ["Dune", "DUNE", '"Dune"', "**Dune**"])
 def test_rebuild_publishes_only_selected_thread_and_preserves_backup(
     settings, monkeypatch, duplicate_mentions, raw_excerpt
 ):
@@ -197,7 +197,7 @@ def test_rebuild_publishes_only_selected_thread_and_preserves_backup(
 
 
 @pytest.mark.parametrize("duplicate_mentions", [False, True])
-@pytest.mark.parametrize("raw_excerpt", ["Dune", "DUNE"])
+@pytest.mark.parametrize("raw_excerpt", ["Dune", "DUNE", '"Dune"', "**Dune**"])
 def test_failed_rebuild_leaves_live_unchanged_and_resumes_without_paying_again(
     settings, monkeypatch, duplicate_mentions, raw_excerpt
 ):
