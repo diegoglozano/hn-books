@@ -178,7 +178,7 @@ def _process_results(
                 (
                     m.span(),
                     m.classification(),
-                    m.model_dump()
+                    m.evidence()
                     | {
                         "model": settings.openai_model,
                         "prompt_version": PROMPT_VERSION,
