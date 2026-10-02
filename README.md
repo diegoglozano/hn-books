@@ -45,6 +45,7 @@ Run these from the repository root, prefixed by `uv run` locally. Inside the Doc
 | `python -m app.rebuild --thread 49893157` | Back up the library, rebuild only this thread using Luna in staging, then replace the library |
 | `python -m app.review --thread 49893157 --output data/latest-thread-review.json` | Export all resolved/unresolved extractions with comment evidence for review |
 | `python -m app.evaluate_review --snapshot <JSON> --labels <JSON>` | Evaluate saved outputs against reviewed labels, with a same-comment heuristic baseline; no network calls |
+| `python -m app.comment_reviews --help` | Prepare validated source-bound mention corrections for deployment through a PR |
 | `python -m app.recompute rankings` | Rebuild scores and FTS5 index |
 | `python -m app.evaluate` | Print golden extraction, matching, tag, and strength metrics offline |
 
@@ -141,6 +142,11 @@ Source-linked [identity reviews](docs/identity-reviews.md) add verified full-nam
 aliases, specific work mappings, credited-author corrections and scoped adaptation
 exclusions. Original provider records remain inspectable. The review digest changes
 processing versions while retaining the Luna extraction cache.
+
+[Source-bound comment reviews](docs/comment-reviews.md) provide a correction CLI
+for missed mentions, false entries, sentiment and topics. Decisions survive
+rebuilds, preserve original model outputs, and remain separate from raw Luna
+accuracy in offline evaluation.
 
 ## Backfill reading discussions
 

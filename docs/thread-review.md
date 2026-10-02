@@ -54,6 +54,13 @@ The snapshot reads SQLite in a single read-only transaction. It contains:
 a comment with unresolved mentions is still represented in the main comment list.
 Processing success and resolution success are separate.
 
+Applied [comment corrections](comment-reviews.md) appear as `comment_review` on
+each affected comment, including rejected empty outputs. This includes the
+original validated Luna result; corrected mentions also carry review provenance.
+Evaluation lists applied corrections and reports original Luna extraction metrics
+separately when corrections are present. The saved pipeline result includes
+review decisions and must not be represented as raw model accuracy.
+
 `source_digest` identifies source text, comment identities, authors and tree
 relationships. HN vote changes alone do not invalidate labels. `snapshot_digest`
 also identifies saved predictions, metadata, processing state, taxonomy and run
@@ -124,8 +131,10 @@ links, grounded label excerpts and controlled topics. A full evaluation requires
 every comment reviewed and processed, with a complete raw tree and a finished
 processing checkpoint. Old processing hashes alone cannot pass after a source
 refresh clears that checkpoint. During
-review, `--allow-partial` reports the explicit coverage and leaves
-`complete_thread_review: false`.
+review, `--allow-partial` permits a sparse subset of source-linked labels, reports
+the explicit coverage and leaves `complete_thread_review: false`. Duplicate or
+unknown comment IDs remain invalid. Unlabeled comments never contribute to the
+reported partial metrics.
 
 It compares the saved extractor and the legacy heuristic on the **same reviewed
 comments**, reporting overall and per-case results. Matching uses normalized titles
@@ -158,9 +167,10 @@ and contributor-versus-author issues, compare misses against unresolved detectio
 and record corrections. Metadata fixes deployed as code require a rebuild task to
 be reflected in stored results; exporting alone does not reprocess anything.
 
-This workflow does not yet persist corrections back into the library. The next
-implementation is explicit canonical mappings and rejection decisions that survive
-reprocessing, followed by a versioned golden dataset, held-out cases and agreed
-quality/cost targets. Only then resume the selected historical corpus. Keep saved
+Review labels do not mutate the library. Verified
+[identity mappings](identity-reviews.md) and
+[source-bound comment corrections](comment-reviews.md) are persisted through Git
+and applied on the next rebuild. Continue complete labeling, held-out cases and
+agreed quality/cost targets before resuming the selected historical corpus. Keep saved
 production exports under ignored `data/`; commit deliberately curated public HN
 fixtures with review provenance, without tokens or private deployment information.

@@ -20,6 +20,10 @@ CREATE TABLE IF NOT EXISTS hn_comments (
     last_fetched_at TEXT NOT NULL, processed_hash TEXT
 );
 CREATE INDEX IF NOT EXISTS comments_thread ON hn_comments(thread_id);
+CREATE TABLE IF NOT EXISTS applied_comment_reviews (
+    comment_id INTEGER PRIMARY KEY REFERENCES hn_comments(id) ON DELETE CASCADE,
+    review_json TEXT NOT NULL
+);
 CREATE TABLE IF NOT EXISTS books (
     id INTEGER PRIMARY KEY, canonical_title TEXT NOT NULL, normalized_title TEXT NOT NULL,
     authors TEXT NOT NULL DEFAULT '[]', publication_year INTEGER, description TEXT,

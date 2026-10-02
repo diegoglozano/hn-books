@@ -65,6 +65,17 @@ def thread_report(database_path: Path, thread_id: int) -> dict:
         for mention in mentions:
             by_comment[mention["comment_id"]].append(mention["id"])
         comments = []
+        has_reviews = conn.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='applied_comment_reviews'"
+        ).fetchone()
+        applied_reviews = (
+            {
+                row["comment_id"]: json.loads(row["review_json"])
+                for row in conn.execute("SELECT * FROM applied_comment_reviews")
+            }
+            if has_reviews
+            else {}
+        )
         for row in rows:
             raw = json.loads(row["raw_json"])
             comments.append(
@@ -81,6 +92,7 @@ def thread_report(database_path: Path, thread_id: int) -> dict:
                     "dead": bool(raw.get("dead")),
                     "input": comment_input(conn, row),
                     "mention_ids": by_comment[row["id"]],
+                    "comment_review": applied_reviews.get(row["id"]),
                     "hn_url": f"https://news.ycombinator.com/item?id={row['id']}",
                 }
             )

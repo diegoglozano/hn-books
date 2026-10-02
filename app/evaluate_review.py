@@ -15,6 +15,7 @@ from app.extraction import (
     normalize_author,
     normalize_title,
 )
+from app.luna import LunaMention
 from app.review import content_digest
 
 
@@ -81,6 +82,28 @@ def heuristic_predictions(comment: dict) -> list[dict]:
                 "recommendation_strength": classification.recommendation_strength,
                 "tags": classification.tags,
                 "extraction": {"sentiment": sentiment},
+            }
+        )
+    return predictions
+
+
+def original_luna_predictions(comment: dict, stored: list[dict]) -> list[dict]:
+    correction = comment.get("comment_review")
+    if not correction:
+        return stored
+    predictions = []
+    for fields in correction["original_result"]["mentions"]:
+        mention = LunaMention.model_validate(
+            {key: value for key, value in fields.items() if key in LunaMention.model_fields}
+        )
+        classification = mention.classification()
+        predictions.append(
+            {
+                "title": mention.title,
+                "raw_mention": mention.raw,
+                "recommendation_strength": classification.recommendation_strength,
+                "tags": classification.tags,
+                "extraction": fields,
             }
         )
     return predictions
@@ -168,9 +191,14 @@ def evaluate_review(snapshot: dict, labels: dict, *, allow_partial: bool = False
     if len(comments) != len(snapshot["comment_records"]):
         raise ValueError("Snapshot contains duplicate comments")
     reviewed = {c["comment_id"]: c for c in labels["comments"]}
-    if len(reviewed) != len(labels["comments"]) or reviewed.keys() != comments.keys():
+    if (
+        len(reviewed) != len(labels["comments"])
+        or not reviewed.keys() <= comments.keys()
+        or (not allow_partial and reviewed.keys() != comments.keys())
+    ):
         raise ValueError(
-            "Review must include each stored comment exactly once, including empty results"
+            "Review must include each stored comment exactly once, including empty results; "
+            "--allow-partial permits an explicit subset without duplicates or unknown IDs"
         )
     ready = []
     for comment_id, label in reviewed.items():
@@ -223,12 +251,18 @@ def evaluate_review(snapshot: dict, labels: dict, *, allow_partial: bool = False
             mention | {"title": mention["extraction"].get("title") or mention["normalized_mention"]}
         )
     outputs = {}
-    for name in ("saved_extractor", "heuristic_baseline"):
+    applied = [comment["comment_id"] for comment, _, _ in ready if comment.get("comment_review")]
+    names = ["saved_extractor", "heuristic_baseline"]
+    if applied:
+        names.append("original_luna_extraction")
+    for name in names:
         total, by_case, errors = Counter(), defaultdict(Counter), []
         for comment, label, expected in ready:
             actual = (
                 predictions[comment["comment_id"]]
                 if name == "saved_extractor"
+                else original_luna_predictions(comment, predictions[comment["comment_id"]])
+                if name == "original_luna_extraction"
                 else heuristic_predictions(comment)
             )
             counts, mistakes = score_comment(
@@ -252,6 +286,7 @@ def evaluate_review(snapshot: dict, labels: dict, *, allow_partial: bool = False
     return {
         "thread_id": snapshot["thread_id"],
         "reviewer": labels["reviewer"],
+        "applied_comment_reviews": applied,
         "coverage": {
             "stored_comments": len(comments),
             "reviewed_comments": len(ready),
@@ -264,7 +299,7 @@ def evaluate_review(snapshot: dict, labels: dict, *, allow_partial: bool = False
         "processing_checkpoint": snapshot["processing_checkpoint"],
         "recorded_rebuild_runs": snapshot["recorded_rebuild_runs"],
         "taxonomy_digest": content_digest(snapshot["taxonomy"]),
-        "evaluation_version": 1,
+        "evaluation_version": 2,
         "results": outputs,
     }
 
