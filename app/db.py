@@ -55,6 +55,10 @@ CREATE TABLE IF NOT EXISTS book_mention_tags (
 CREATE TABLE IF NOT EXISTS metadata_cache (
     cache_key TEXT PRIMARY KEY, response_json TEXT NOT NULL, fetched_at TEXT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS extraction_cache (
+    cache_key TEXT PRIMARY KEY, model TEXT NOT NULL, response_json TEXT NOT NULL,
+    usage_json TEXT NOT NULL, created_at TEXT NOT NULL
+);
 CREATE TABLE IF NOT EXISTS ingestion_runs (
     id INTEGER PRIMARY KEY, command TEXT NOT NULL, started_at TEXT NOT NULL,
     finished_at TEXT, status TEXT NOT NULL, metrics_json TEXT NOT NULL DEFAULT '{}', error TEXT
@@ -97,6 +101,11 @@ def initialize(path: Path | None = None) -> None:
     with connect(path) as conn:
         conn.execute("PRAGMA journal_mode = WAL")
         conn.executescript(SCHEMA)
+        columns = {row[1] for row in conn.execute("PRAGMA table_info(book_mentions)")}
+        if "extraction_json" not in columns:
+            conn.execute(
+                "ALTER TABLE book_mentions ADD COLUMN extraction_json TEXT NOT NULL DEFAULT '{}'"
+            )
         conn.executemany(
             "INSERT OR IGNORE INTO tags(name, description) VALUES (?, ?)",
             [(name, name.replace("-", " ")) for name in library_config()["topics"]],

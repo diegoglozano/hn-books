@@ -23,7 +23,7 @@ def main() -> int:
             and not conn.execute("SELECT 1 FROM hn_threads WHERE id=?", (args.thread,)).fetchone()
         ):
             raise ValueError(f"HN thread {args.thread} has not been ingested")
-        if args.stage == "mentions":
+        if args.stage == "mentions" or settings.extraction_backend == "luna":
             remote = RemoteClient(settings)
             try:
                 extract_and_resolve(

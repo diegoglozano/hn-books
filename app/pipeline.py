@@ -5,7 +5,7 @@ import sqlite3
 from concurrent.futures import ThreadPoolExecutor
 
 from app.clients import MetadataClient, RemoteClient
-from app.config import library_config
+from app.config import Settings, get_settings, library_config
 from app.db import store_raw_item, utc_now
 from app.extraction import (
     classify_mention,
@@ -14,12 +14,20 @@ from app.extraction import (
     normalize_title,
     plain_text,
 )
+from app.luna import PROMPT_VERSION, LunaExtractor, comment_input, extraction_key
 from app.models import RunMetrics
 from app.ranking import compute_book_scores, update_search_indexes
 from app.resolution import resolve_book
 
 logger = logging.getLogger(__name__)
-PROCESSOR_VERSION = "4"
+PROCESSOR_VERSION = "5-luna-" + PROMPT_VERSION
+
+
+def processor_version(settings: Settings | None = None) -> str:
+    settings = settings or get_settings()
+    if settings.extraction_backend == "heuristic":
+        return PROCESSOR_VERSION
+    return PROCESSOR_VERSION + ":" + extraction_key(settings, {})[:16]
 
 
 def discover_threads(remote: RemoteClient, backfill: bool = False) -> list[int]:
@@ -96,62 +104,105 @@ def extract_and_resolve(
         parameters = (thread_id,)
     rows = conn.execute(query + " ORDER BY id", parameters).fetchall()
     known_titles = [row[0] for row in conn.execute("SELECT canonical_title FROM books")]
-    for comment in rows:
-        digest = hashlib.sha256((PROCESSOR_VERSION + comment["raw_json"]).encode()).hexdigest()
-        has_unresolved = conn.execute(
-            "SELECT 1 FROM book_mentions WHERE comment_id=? AND status='unresolved'",
-            (comment["id"],),
-        ).fetchone()
-        if not force and digest == comment["processed_hash"] and not has_unresolved:
-            continue
-        text = plain_text(comment["text"])
-        spans = extract_mentions(comment["text"], known_titles)
-        prepared = []
-        for span in spans:
-            book_id, confidence, candidates = resolve_book(conn, span, metadata)
-            classification = classify_mention(mention_context(text, span.raw), span.title)
-            prepared.append((span, book_id, confidence, candidates, classification))
-            metrics.mentions_extracted += 1
-            metrics.classifications_performed += 1
-            if book_id:
-                metrics.books_resolved += 1
+    settings = metadata.remote.settings
+    extractor = (
+        LunaExtractor(settings, conn, metrics, offline=metadata.offline)
+        if settings.extraction_backend == "luna"
+        else None
+    )
+    try:
+        for comment in rows:
+            payload = comment_input(conn, comment) if extractor else None
+            source_key = extraction_key(settings, payload) if payload is not None else "heuristic"
+            digest = hashlib.sha256(
+                (processor_version(settings) + source_key + comment["raw_json"]).encode()
+            ).hexdigest()
+            has_unresolved = conn.execute(
+                "SELECT 1 FROM book_mentions WHERE comment_id=? AND status='unresolved'",
+                (comment["id"],),
+            ).fetchone()
+            if not force and digest == comment["processed_hash"] and not has_unresolved:
+                continue
+            text = plain_text(comment["text"])
+            if extractor and payload is not None:
+                extracted = extractor.extract(payload)
+                mentions = [
+                    (
+                        m.span(),
+                        m.classification(),
+                        m.model_dump()
+                        | {
+                            "model": settings.openai_model,
+                            "prompt_version": PROMPT_VERSION,
+                        },
+                    )
+                    for m in extracted.mentions
+                ]
             else:
-                metrics.unresolved_mentions += 1
-        # Replace derived rows atomically, only after all lookups complete.
-        conn.execute("DELETE FROM book_mentions WHERE comment_id=?", (comment["id"],))
-        for span, book_id, confidence, candidates, classification in prepared:
-            cursor = conn.execute(
-                """INSERT INTO book_mentions(book_id,comment_id,thread_id,raw_mention,
-                normalized_mention,context_text,extraction_confidence,resolution_confidence,
-                recommendation_strength,sentiment,status,candidates_json,created_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-                (
-                    book_id,
-                    comment["id"],
-                    comment["thread_id"],
-                    span.raw,
-                    normalize_title(span.title),
-                    text,
-                    span.confidence,
-                    confidence,
-                    classification.recommendation_strength,
-                    classification.sentiment,
-                    "resolved" if book_id else "unresolved",
-                    json.dumps(candidates),
-                    utc_now(),
-                ),
-            )
-            for tag, tag_confidence in classification.tags.items():
-                conn.execute(
-                    """INSERT INTO book_mention_tags(mention_id,tag_id,confidence)
-                    SELECT ?, id, ? FROM tags WHERE name=?""",
-                    (cursor.lastrowid, tag_confidence, tag),
+                mentions = [
+                    (span, classify_mention(mention_context(text, span.raw), span.title), {})
+                    for span in extract_mentions(comment["text"], known_titles)
+                ]
+            prepared = []
+            for span, classification, evidence in mentions:
+                book_id, confidence, candidates = resolve_book(conn, span, metadata)
+                prepared.append((span, book_id, confidence, candidates, classification, evidence))
+                metrics.mentions_extracted += 1
+                metrics.classifications_performed += 1
+                if book_id:
+                    metrics.books_resolved += 1
+                else:
+                    metrics.unresolved_mentions += 1
+            # Replace derived rows atomically, only after all lookups complete.
+            conn.execute("DELETE FROM book_mentions WHERE comment_id=?", (comment["id"],))
+            for span, book_id, confidence, candidates, classification, evidence in prepared:
+                cursor = conn.execute(
+                    """INSERT INTO book_mentions(book_id,comment_id,thread_id,raw_mention,
+                    normalized_mention,context_text,extraction_confidence,resolution_confidence,
+                    recommendation_strength,sentiment,status,candidates_json,created_at,extraction_json)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                    (
+                        book_id,
+                        comment["id"],
+                        comment["thread_id"],
+                        span.raw,
+                        normalize_title(span.title),
+                        text,
+                        span.confidence,
+                        confidence,
+                        classification.recommendation_strength,
+                        classification.sentiment,
+                        "resolved" if book_id else "unresolved",
+                        json.dumps(candidates),
+                        utc_now(),
+                        json.dumps(evidence),
+                    ),
                 )
-        conn.execute("UPDATE hn_comments SET processed_hash=? WHERE id=?", (digest, comment["id"]))
-        conn.commit()
+                for tag, tag_confidence in classification.tags.items():
+                    conn.execute(
+                        """INSERT INTO book_mention_tags(mention_id,tag_id,confidence)
+                        SELECT ?, id, ? FROM tags WHERE name=?""",
+                        (cursor.lastrowid, tag_confidence, tag),
+                    )
+            conn.execute(
+                "UPDATE hn_comments SET processed_hash=? WHERE id=?", (digest, comment["id"])
+            )
+            conn.commit()
+            if extractor and (metrics.llm_requests + metrics.llm_cache_hits) % 25 == 0:
+                logger.info(
+                    "luna_processing_progress",
+                    extra={"item_id": comment["id"], "metrics": metrics.model_dump()},
+                )
+    finally:
+        if extractor:
+            extractor.close()
 
 
 def classify_mentions(conn: sqlite3.Connection) -> int:
+    if get_settings().extraction_backend == "luna":
+        raise ValueError(
+            "Use reprocess mentions to refresh Luna classifications from cached extraction"
+        )
     count = 0
     for mention in conn.execute(
         """SELECT m.*, b.canonical_title FROM book_mentions m

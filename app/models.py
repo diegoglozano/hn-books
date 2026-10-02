@@ -7,6 +7,8 @@ class MentionSpan(BaseModel):
     author: str | None = None
     confidence: float = Field(ge=0, le=1)
     work_id: str | None = None
+    author_source: str = "unknown"
+    require_author: bool = False
 
 
 class Classification(BaseModel):
@@ -30,3 +32,8 @@ class RunMetrics(BaseModel):
     classifications_performed: int = 0
     failures: int = 0
     runtime_seconds: float = 0
+    llm_requests: int = 0
+    llm_cache_hits: int = 0
+    llm_input_tokens: int = 0
+    llm_cached_input_tokens: int = 0
+    llm_output_tokens: int = 0

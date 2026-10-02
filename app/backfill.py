@@ -6,7 +6,7 @@ import sqlite3
 from app.clients import MetadataClient, RemoteClient
 from app.db import utc_now
 from app.models import RunMetrics
-from app.pipeline import PROCESSOR_VERSION, extract_and_resolve, fetch_thread, refresh_aggregates
+from app.pipeline import extract_and_resolve, fetch_thread, processor_version, refresh_aggregates
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +16,7 @@ def completed_threads(conn: sqlite3.Connection) -> set[int]:
         row[0]
         for row in conn.execute(
             "SELECT thread_id FROM thread_checkpoints WHERE raw_complete=1 AND processed_version=?",
-            (PROCESSOR_VERSION,),
+            (processor_version(),),
         )
     }
 
@@ -40,7 +40,7 @@ def ingest_backfill(
             not refresh
             and checkpoint
             and checkpoint["raw_complete"]
-            and (checkpoint["processed_version"] == PROCESSOR_VERSION)
+            and (checkpoint["processed_version"] == processor_version(remote.settings))
         ):
             metrics.threads_skipped += 1
             continue
@@ -67,7 +67,7 @@ def ingest_backfill(
                 conn.execute(
                     """UPDATE thread_checkpoints SET processed_version=?,completed_at=?
                     WHERE thread_id=? AND raw_complete=1""",
-                    (PROCESSOR_VERSION, utc_now(), thread_id),
+                    (processor_version(remote.settings), utc_now(), thread_id),
                 )
                 conn.commit()
             logger.info(
