@@ -7,6 +7,8 @@ start a fresh feed; opening a book and returning preserves the loaded books and
 your scroll position. A load-more button also supports manual browsing, and failed
 requests can be retried without clearing the books already on screen.
 
+See the [next-steps roadmap](docs/next-steps.md) for milestones and quality gates.
+
 This implements the **first meaningful milestone**, with a ranked React library, book details, topic filters, FTS5 search, and opt-in thread discovery. Ingestion and reprocessing run as CLI commands using the same image as the web app.
 
 ## Run locally
