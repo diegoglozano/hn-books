@@ -162,6 +162,40 @@ def test_backup_includes_wal_and_never_overwrites_existing_backup(settings):
         backup_database(settings.database_path, settings.database_path)
 
 
+def test_matching_upgrade_reprocesses_staging_using_cached_luna_without_changing_book_id(
+    settings, monkeypatch
+):
+    seed_old_library(settings)
+    requests, _ = mocks(settings, monkeypatch)
+    with monkeypatch.context() as old_processor:
+        old_processor.setattr("app.pipeline.PROCESSOR_VERSION", "old-matching-version")
+        previous = rebuild_thread(settings, 100)
+    staging = Path(previous["staging"])
+    with connect(staging) as conn:
+        book = conn.execute("SELECT * FROM books").fetchone()
+        original_id = book["id"]
+        metadata = json.loads(book["metadata_json"])
+        metadata.pop("resolution_version")
+        conn.execute(
+            "UPDATE books SET authors=?,metadata_json=? WHERE id=?",
+            (json.dumps(["Frank Herbert", "Frank Herbert"]), json.dumps(metadata), original_id),
+        )
+        conn.commit()
+    result = rebuild_thread(settings, 100)
+    assert result["metrics"]["comments_processed"] == 1
+    assert result["metrics"]["llm_cache_hits"] == 1
+    assert result["metrics"]["llm_requests"] == 0
+    assert requests.count("/v1/responses") == 1
+    with connect(settings.database_path) as conn:
+        book = conn.execute("SELECT * FROM books").fetchone()
+        assert book["id"] == original_id
+        assert json.loads(book["authors"]) == ["Frank Herbert"]
+        assert book["mention_count"] == book["recommendation_count"] == 1
+    # Repeating the completed upgrade skips extraction entirely.
+    assert rebuild_thread(settings, 100)["metrics"]["comments_skipped"] == 1
+    assert requests.count("/v1/responses") == 1
+
+
 @pytest.mark.parametrize("duplicate_mentions", [False, True])
 @pytest.mark.parametrize("raw_excerpt", ["Dune", "DUNE", '"Dune"', "**Dune**"])
 def test_rebuild_publishes_only_selected_thread_and_preserves_backup(

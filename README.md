@@ -126,6 +126,14 @@ cache; `extraction.normalizations` and duplicate variant evidence record correct
 for review. Empty titles and unsupported excerpts still require corrective retries;
 API errors, incomplete responses, and refusals still fail without a heuristic fallback.
 
+Metadata matching prefers exact full titles and the supplied authors over subtitle
+or contributor variants. Duplicate Open Library records for the same full title,
+author identities, and format share a bibliographic identity; the record with more
+ISBNs, then an earlier publication year and work ID is selected. Different authors,
+collaborators, or graphic/prose formats remain ambiguous. Displayed author names are
+deduplicated. Matching upgrades reverify old canonical records in staging using the
+existing Luna and metadata caches when the rebuild task runs again.
+
 ## Backfill reading discussions
 
 Preview the scope, pending thread count, and estimated comment volume without ingesting:
