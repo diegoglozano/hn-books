@@ -201,19 +201,27 @@ def canonical_evidence(text: str) -> tuple[str, list[tuple[int, int]]]:
 
 
 def grounded_excerpt(raw: str, text: str) -> str | None:
+    """Restore literal evidence, allowing typography and balanced formatting wrappers."""
     if not raw.strip():
         return None
     if raw in text:
         return raw
     expected, _ = canonical_evidence(raw.strip())
     normalized, positions = canonical_evidence(text)
-    offset = normalized.find(expected)
-    while offset >= 0:
-        candidate = text[positions[offset][0] : positions[offset + len(expected) - 1][1]]
-        # A partial match inside an expanded Unicode character is not an excerpt.
-        if canonical_evidence(candidate)[0] == expected:
-            return candidate
-        offset = normalized.find(expected, offset + 1)
+    while expected:
+        offset = normalized.find(expected)
+        while offset >= 0:
+            candidate = text[positions[offset][0] : positions[offset + len(expected) - 1][1]]
+            # A partial match inside an expanded Unicode character is not an excerpt.
+            if canonical_evidence(candidate)[0] == expected:
+                return candidate
+            offset = normalized.find(expected, offset + 1)
+        # Models sometimes wrap a title in quotes/emphasis absent from the source, or
+        # move a sentence's period outside its quotes. Try the unchanged inner text;
+        # never remove internal punctuation, words, or arbitrary sentence endings.
+        if len(expected) < 3 or expected[0] not in "\"'`*_" or expected[-1] != expected[0]:
+            break
+        expected = expected[1:-1].strip()
     return None
 
 
@@ -249,6 +257,7 @@ def validate_result(result: LunaResult, payload: dict) -> None:
                 "luna_evidence_formatting_repaired",
                 extra={"detail": {"model_raw": mention.raw[:200], "source_raw": matched[:200]}},
             )
+            mention._normalizations["raw"] = {"original": mention.raw, "normalized": matched}
             mention.raw = matched
         if not normalize_title(mention.title):
             raise InvalidTitle(mention.title)

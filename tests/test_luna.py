@@ -253,6 +253,109 @@ def test_typography_repairs_restore_a_literal_current_comment_excerpt(source, ra
 
 
 @pytest.mark.parametrize(
+    "source,raw,expected",
+    [
+        ("I enjoyed Dune.", '"Dune"', "Dune"),
+        ('I enjoyed "Dune."', '"Dune"', "Dune"),
+        ("I enjoyed “Dune.”", '"Dune"', "Dune"),
+        ("I enjoyed Dune.", "'Dune'", "Dune"),
+        ("I enjoyed Dune.", "“Dune”", "Dune"),
+        ("I enjoyed Dune.", "**Dune**", "Dune"),
+        ("I enjoyed Dune.", "__Dune__", "Dune"),
+        ("I enjoyed Dune.", '`"Dune"`', "Dune"),
+        (
+            "I enjoyed Dune.\nby Frank Herbert",
+            '" DUNE. by Frank Herbert "',
+            "Dune.\nby Frank Herbert",
+        ),
+        ('I enjoyed "Dune".', '"Dune"', '"Dune"'),
+    ],
+)
+def test_balanced_wrappers_restore_only_a_contiguous_source_span(source, raw, expected):
+    assert grounded_excerpt(raw, source) == expected
+
+
+@pytest.mark.parametrize(
+    "source,raw",
+    [
+        ("Dune", '"Dune."'),
+        ("Dune and Foundation", '"Dune Foundation"'),
+        ("Dune. I recommend Foundation.", "**Dune ... Foundation**"),
+        ("Dune", '"Dunes"'),
+        ("Dune", '"Dune'),
+        ("Dune", 'Dune"'),
+        ("Frank Herbert Dune", '"Frank Herbert\'s Dune"'),
+        ("Café", '"Cafe"'),
+        ("Dune", '" "'),
+        ("Dune", '**""**'),
+    ],
+)
+def test_wrapper_repair_preserves_internal_text_and_requires_content(source, raw):
+    assert grounded_excerpt(raw, source) is None
+
+
+@pytest.mark.parametrize(
+    "text,source_raw,sentiment",
+    [
+        (
+            "I don’t know if this is considered a classic, but I recently read and thoroughly "
+            "enjoyed Daphne Du Maurier’s “Rebecca”. I think I might have read it in a single "
+            "sitting.\nI was lead to Rebecca after I found and read a discarded copy of Donna "
+            "Tartt’s “The Secret History”. I wanted more and Googled “books like\nRebecca”. "
+            "Sadly, I thought Tartt’s “The Goldfinch”, which lots of people raved about, "
+            "was not very good.",
+            "“The Goldfinch”",
+            "negative",
+        ),
+        (
+            "Diff'rent strokes. In the depths of a 1.75-year-long major depressive episode "
+            "in 2015-2016, one of the VERY few books that completely made me forget my misery "
+            "while I read it was \"The Goldfinch.\" The others: Patrick O'Brian's "
+            "Aubrey–Maturin series.",
+            "The Goldfinch",
+            "positive",
+        ),
+    ],
+)
+def test_goldfinch_thread_comments_extract_once_and_preserve_original_evidence_in_cache(
+    luna_settings, text, source_raw, sentiment
+):
+    # Actual text from latest-thread comments 49903449 and 49910697.
+    original = mention(
+        raw='"The Goldfinch"', title="The Goldfinch", author="Donna Tartt", sentiment=sentiment
+    )
+    calls = []
+    with connect(luna_settings.database_path) as conn:
+        metrics = RunMetrics()
+        extractor = LunaExtractor(
+            luna_settings,
+            conn,
+            metrics,
+            client=httpx.Client(
+                transport=httpx.MockTransport(
+                    lambda request: calls.append(request) or response([original])
+                )
+            ),
+        )
+        result = extractor.extract(payload(text))
+        extracted = result.mentions[0]
+        assert extracted.raw == source_raw
+        assert extracted.raw in text
+        assert extracted.sentiment == sentiment
+        assert extracted.evidence()["normalizations"]["raw"] == {
+            "original": original["raw"],
+            "normalized": source_raw,
+        }
+        cached = json.loads(
+            conn.execute("SELECT response_json FROM extraction_cache").fetchone()[0]
+        )
+        assert cached["mentions"] == [original]
+        assert extractor.extract(payload(text)).mentions[0].evidence() == extracted.evidence()
+        assert len(calls) == metrics.llm_requests == metrics.llm_cache_hits == 1
+        extractor.close()
+
+
+@pytest.mark.parametrize(
     "source,raw",
     [
         ("Dune and Foundation", "Dune Foundation"),
@@ -274,6 +377,8 @@ def test_repair_does_not_use_ancestor_evidence():
     data["ancestors"] = [{"id": 101, "text": "DUNE by Frank Herbert"}]
     with pytest.raises(ValueError, match="evidence absent"):
         validate_result(LunaResult(mentions=[mention(raw="Dune by Frank Herbert")]), data)
+    with pytest.raises(ValueError, match="evidence absent"):
+        validate_result(LunaResult(mentions=[mention(raw='"Dune"')]), data)
 
 
 def test_invalid_excerpt_retry_explains_failure_and_preserves_all_supported_mentions(
