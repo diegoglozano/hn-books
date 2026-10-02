@@ -25,6 +25,9 @@ class RunMetrics(BaseModel):
     threads_remaining: int = 0
     comments_fetched: int = 0
     new_comments: int = 0
+    comments_total: int = 0
+    comments_processed: int = 0
+    comments_skipped: int = 0
     mentions_extracted: int = 0
     books_resolved: int = 0
     unresolved_mentions: int = 0

@@ -11,7 +11,7 @@ from pathlib import Path
 from app.clients import MetadataClient, RemoteClient
 from app.config import Settings, get_settings
 from app.db import connect, initialize, store_raw_item
-from app.operations import configure_logging, tracked_run, writer_lock
+from app.operations import configure_logging, progress_phase, tracked_run, writer_lock
 from app.pipeline import extract_and_resolve, fetch_thread, processor_version, refresh_aggregates
 
 logger = logging.getLogger(__name__)
@@ -110,15 +110,17 @@ def rebuild_thread(
     with writer_lock(settings):
         with writer_lock(staged_settings):
             if live.exists():
-                backup_database(live, backup_path)
+                with progress_phase("backing_up_library"):
+                    backup_database(live, backup_path)
                 logger.info("library_backup_verified", extra={"path": str(backup_path)})
-            if not staging_path.exists():
-                if live.exists():
-                    seed_staging(backup_path, staging_path, thread_id)
+            with progress_phase("preparing_staging"):
+                if not staging_path.exists():
+                    if live.exists():
+                        seed_staging(backup_path, staging_path, thread_id)
+                    else:
+                        initialize(staging_path)
                 else:
                     initialize(staging_path)
-            else:
-                initialize(staging_path)
         with tracked_run(staged_settings, f"rebuild thread {thread_id}") as metrics:
             remote = RemoteClient(staged_settings)
             try:
@@ -156,7 +158,7 @@ def rebuild_thread(
             finally:
                 remote.close()
         # Publish after the completed run commits, still holding the live writer lock.
-        with writer_lock(staged_settings):
+        with writer_lock(staged_settings), progress_phase("publishing_library", metrics):
             publish_staging(staging_path, live, thread_id, processor_version(settings))
     result = {
         "thread_id": thread_id,

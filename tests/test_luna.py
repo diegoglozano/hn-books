@@ -1,4 +1,5 @@
 import json
+from threading import Barrier, Lock, get_ident
 
 import httpx
 import pytest
@@ -254,7 +255,9 @@ def test_failed_luna_call_preserves_old_mentions_and_processed_hash(luna_setting
         def fail(self, payload):
             raise ValueError("incomplete model response")
 
-        monkeypatch.setattr(LunaExtractor, "extract", fail)
+        monkeypatch.setattr(
+            LunaExtractor, "_request", lambda self, payload, metrics: fail(self, payload)
+        )
         remote = RemoteClient(luna_settings)
         with pytest.raises(ValueError, match="incomplete"):
             extract_and_resolve(conn, MetadataClient(remote, conn, RunMetrics()), RunMetrics())
@@ -306,6 +309,148 @@ def test_luna_is_the_default_backend(monkeypatch):
     settings = Settings(_env_file=None)
     assert settings.extraction_backend == "luna"
     assert settings.openai_model == "gpt-6-luna"
+    assert settings.luna_workers == 4
+
+
+@pytest.mark.parametrize("workers", [1, 3])
+def test_concurrent_requests_are_bounded_and_sqlite_stays_on_owner_thread(luna_settings, workers):
+    luna_settings.luna_workers = workers
+    barrier = Barrier(workers)
+    lock = Lock()
+    active = peak = calls = 0
+    owner = get_ident()
+    sql_threads = []
+
+    def handle(request):
+        nonlocal active, peak, calls
+        assert get_ident() != owner
+        with lock:
+            active += 1
+            calls += 1
+            peak = max(peak, active)
+        barrier.wait(timeout=5)
+        with lock:
+            active -= 1
+        return response([])
+
+    with connect(luna_settings.database_path) as conn:
+        conn.set_trace_callback(lambda _: sql_threads.append(get_ident()))
+        metrics = RunMetrics()
+        extractor = LunaExtractor(
+            luna_settings,
+            conn,
+            metrics,
+            client=httpx.Client(transport=httpx.MockTransport(handle)),
+        )
+        data = [payload(f"No book in comment {i}") for i in range(6)]
+        results = list(extractor.extract_many(data))
+        assert sorted(index for index, _ in results) == list(range(6))
+        assert all(result.mentions == [] for _, result in results)
+        assert calls == metrics.llm_requests == 6
+        assert peak == workers
+        assert set(sql_threads) == {owner}
+        assert metrics.llm_input_tokens == 3000
+        assert metrics.llm_output_tokens == 480
+        assert metrics.llm_cached_input_tokens == 600
+        assert len(list(extractor.extract_many(data))) == 6
+        assert calls == 6
+        assert metrics.llm_cache_hits == 6
+        extractor.close()
+
+
+def test_identical_pending_inputs_share_one_request(luna_settings):
+    calls = []
+    with connect(luna_settings.database_path) as conn:
+        metrics = RunMetrics()
+        extractor = LunaExtractor(
+            luna_settings,
+            conn,
+            metrics,
+            client=httpx.Client(
+                transport=httpx.MockTransport(lambda request: calls.append(request) or response([]))
+            ),
+        )
+        assert len(list(extractor.extract_many([payload("Thanks!")] * 5))) == 5
+        assert len(calls) == metrics.llm_requests == 1
+        assert metrics.llm_cache_hits == 4
+        extractor.close()
+
+
+def test_failure_keeps_other_inflight_results_for_resume(luna_settings):
+    luna_settings.luna_workers = 3
+    barrier = Barrier(3)
+    calls = []
+
+    def handle(request):
+        text = json.loads(json.loads(request.content)["input"])["current_comment"]["text"]
+        calls.append(text)
+        barrier.wait(timeout=5)
+        return httpx.Response(401) if text == "fail" else response([])
+
+    with connect(luna_settings.database_path) as conn:
+        metrics = RunMetrics()
+        extractor = LunaExtractor(
+            luna_settings,
+            conn,
+            metrics,
+            client=httpx.Client(transport=httpx.MockTransport(handle)),
+        )
+        with pytest.raises(httpx.HTTPStatusError):
+            list(extractor.extract_many([payload("fail"), payload("one"), payload("two")]))
+        assert len(calls) == 3
+        assert conn.execute("SELECT COUNT(*) FROM extraction_cache").fetchone()[0] == 2
+        assert metrics.llm_requests == 2
+        assert len(list(extractor.extract_many([payload("one"), payload("two")]))) == 2
+        assert len(calls) == 3
+        extractor.close()
+
+
+def test_closing_iteration_caches_other_inflight_responses(luna_settings):
+    luna_settings.luna_workers = 3
+    barrier = Barrier(3)
+
+    def handle(request):
+        barrier.wait(timeout=5)
+        return response([])
+
+    with connect(luna_settings.database_path) as conn:
+        extractor = LunaExtractor(
+            luna_settings,
+            conn,
+            RunMetrics(),
+            client=httpx.Client(transport=httpx.MockTransport(handle)),
+        )
+        results = extractor.extract_many([payload(str(i)) for i in range(3)])
+        next(results)
+        results.close()
+        assert conn.execute("SELECT COUNT(*) FROM extraction_cache").fetchone()[0] == 3
+        extractor.close()
+
+
+def test_pipeline_reports_each_comment_and_skips_completed_work(luna_settings, monkeypatch, caplog):
+    api = httpx.Client(transport=httpx.MockTransport(lambda _: response([])))
+    monkeypatch.setattr(
+        "app.pipeline.LunaExtractor",
+        lambda settings, conn, metrics, offline: LunaExtractor(
+            settings, conn, metrics, offline=offline, client=api
+        ),
+    )
+    remote = RemoteClient(luna_settings)
+    with connect(luna_settings.database_path) as conn:
+        seed(conn, "Thanks!")
+        seed(conn, "Interesting!", comment_id=102)
+        seed(conn, "", comment_id=103)
+        metrics = RunMetrics()
+        with caplog.at_level("INFO"):
+            extract_and_resolve(conn, MetadataClient(remote, conn, metrics), metrics)
+        assert metrics.comments_total == metrics.comments_processed == 3
+        assert metrics.llm_requests == 2
+        assert sum(r.message == "luna_processing_progress" for r in caplog.records) == 3
+        resumed = RunMetrics()
+        extract_and_resolve(conn, MetadataClient(remote, conn, resumed), resumed)
+        assert resumed.comments_total == resumed.comments_skipped == 3
+        assert resumed.comments_processed == resumed.llm_requests == 0
+    remote.close()
 
 
 @pytest.mark.parametrize(

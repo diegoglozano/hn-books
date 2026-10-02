@@ -5,6 +5,9 @@ import json
 import re
 import sqlite3
 import time
+from collections.abc import Generator
+from concurrent.futures import FIRST_COMPLETED, Future, ThreadPoolExecutor, wait
+from dataclasses import dataclass
 from typing import Literal
 
 import httpx
@@ -162,6 +165,14 @@ def validate_result(result: LunaResult, payload: dict) -> None:
         raise ValueError("Luna returned duplicate book mentions")
 
 
+@dataclass
+class RequestOutcome:
+    metrics: RunMetrics
+    result: LunaResult | None = None
+    usage: dict | None = None
+    error: Exception | None = None
+
+
 class LunaExtractor:
     def __init__(
         self,
@@ -177,7 +188,7 @@ class LunaExtractor:
     def close(self) -> None:
         self.client.close()
 
-    def extract(self, payload: dict) -> LunaResult:
+    def cached(self, payload: dict) -> LunaResult | None:
         key = extraction_key(self.settings, payload)
         cached = self.conn.execute(
             "SELECT response_json FROM extraction_cache WHERE cache_key=?", (key,)
@@ -193,6 +204,100 @@ class LunaExtractor:
             raise RuntimeError("No cached Luna extraction for this comment; run without --offline")
         if not self.settings.openai_api_key.get_secret_value():
             raise RuntimeError("OPENAI_API_KEY is required for Luna extraction")
+        return None
+
+    def extract(self, payload: dict) -> LunaResult:
+        cached = self.cached(payload)
+        if cached is not None:
+            return cached
+        return self.save(payload, self.request(payload))
+
+    def save(self, payload: dict, outcome: RequestOutcome) -> LunaResult:
+        """Merge worker accounting and commit its result on the SQLite owner thread."""
+        self.account(outcome)
+        if outcome.error is not None:
+            raise outcome.error
+        if outcome.result is None:
+            raise RuntimeError("Luna request returned no result")
+        self.conn.execute(
+            "INSERT OR REPLACE INTO extraction_cache VALUES (?, ?, ?, ?, ?)",
+            (
+                extraction_key(self.settings, payload),
+                self.settings.openai_model,
+                outcome.result.model_dump_json(),
+                json.dumps(outcome.usage),
+                utc_now(),
+            ),
+        )
+        self.conn.commit()
+        return outcome.result
+
+    def account(self, outcome: RequestOutcome) -> None:
+        for name in (
+            "llm_requests",
+            "llm_input_tokens",
+            "llm_output_tokens",
+            "llm_cached_input_tokens",
+        ):
+            setattr(
+                self.metrics, name, getattr(self.metrics, name) + getattr(outcome.metrics, name)
+            )
+
+    def extract_many(self, payloads: list[dict]) -> Generator[tuple[int, LunaResult]]:
+        """Bound concurrent HTTP requests; SQLite and shared metrics stay on the caller."""
+        pool = ThreadPoolExecutor(max_workers=self.settings.luna_workers)
+        pending: dict[Future, tuple[dict, list[int]]] = {}
+        by_key: dict[str, Future] = {}
+        index = 0
+        try:
+            while index < len(payloads) or pending:
+                while index < len(payloads) and len(pending) < self.settings.luna_workers:
+                    current = index
+                    payload = payloads[current]
+                    index += 1
+                    cached = self.cached(payload)
+                    if cached is not None:
+                        yield current, cached
+                        continue
+                    key = extraction_key(self.settings, payload)
+                    if key in by_key:
+                        pending[by_key[key]][1].append(current)
+                        continue
+                    future = pool.submit(self.request, payload)
+                    pending[future] = (payload, [current])
+                    by_key[key] = future
+                if not pending:
+                    continue
+                completed, _ = wait(pending, return_when=FIRST_COMPLETED)
+                for future in completed:
+                    payload, indexes = pending.pop(future)
+                    del by_key[extraction_key(self.settings, payload)]
+                    result = self.save(payload, future.result())
+                    for offset, current in enumerate(indexes):
+                        self.metrics.llm_cache_hits += int(offset > 0)
+                        yield current, result
+        finally:
+            # Persist other successful in-flight responses even when one request fails or
+            # metadata processing aborts. A retry can reuse them without another charge.
+            pool.shutdown(wait=True, cancel_futures=True)
+            for future, (payload, _) in pending.items():
+                if not future.cancelled():
+                    outcome = future.result()
+                    if outcome.error is None:
+                        self.save(payload, outcome)
+                    else:
+                        self.account(outcome)
+
+    def request(self, payload: dict) -> RequestOutcome:
+        """Perform network work only; safe to run on an HTTP worker thread."""
+        outcome = RequestOutcome(metrics=RunMetrics())
+        try:
+            outcome.result, outcome.usage = self._request(payload, outcome.metrics)
+        except Exception as exc:
+            outcome.error = exc
+        return outcome
+
+    def _request(self, payload: dict, metrics: RunMetrics) -> tuple[LunaResult, dict]:
         schema = LunaResult.model_json_schema()
         schema["$defs"]["LunaMention"]["properties"]["tags"]["items"]["enum"] = sorted(
             library_config()["topics"]
@@ -226,13 +331,13 @@ class LunaExtractor:
                 )
                 response.raise_for_status()
                 data = response.json()
-                self.metrics.llm_requests += 1
+                metrics.llm_requests += 1
                 usage = data.get("usage") or {}
-                self.metrics.llm_input_tokens += usage.get("input_tokens", 0)
-                self.metrics.llm_output_tokens += usage.get("output_tokens", 0)
-                self.metrics.llm_cached_input_tokens += (
-                    usage.get("input_tokens_details") or {}
-                ).get("cached_tokens", 0)
+                metrics.llm_input_tokens += usage.get("input_tokens", 0)
+                metrics.llm_output_tokens += usage.get("output_tokens", 0)
+                metrics.llm_cached_input_tokens += (usage.get("input_tokens_details") or {}).get(
+                    "cached_tokens", 0
+                )
                 if data.get("status") != "completed":
                     raise ValueError("Luna response was incomplete; extraction was not cached")
                 parts = [
@@ -246,18 +351,7 @@ class LunaExtractor:
                 raw = "".join(part["text"] for part in parts if part.get("type") == "output_text")
                 result = LunaResult.model_validate_json(raw)
                 validate_result(result, payload)
-                self.conn.execute(
-                    "INSERT OR REPLACE INTO extraction_cache VALUES (?, ?, ?, ?, ?)",
-                    (
-                        key,
-                        self.settings.openai_model,
-                        result.model_dump_json(),
-                        json.dumps(usage),
-                        utc_now(),
-                    ),
-                )
-                self.conn.commit()
-                return result
+                return result, usage
             except (httpx.TransportError, httpx.HTTPStatusError, ValueError) as exc:
                 if isinstance(exc, httpx.HTTPStatusError) and (
                     exc.response.status_code != 429 and exc.response.status_code < 500

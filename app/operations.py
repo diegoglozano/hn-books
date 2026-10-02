@@ -4,10 +4,13 @@ import logging
 import time
 from collections.abc import Iterator
 from contextlib import contextmanager
+from threading import Event, Thread
 
 from app.config import Settings
 from app.db import connect, initialize, utc_now
 from app.models import RunMetrics
+
+PROGRESS_INTERVAL = 15
 
 
 class JsonFormatter(logging.Formatter):
@@ -26,6 +29,40 @@ def configure_logging() -> None:
     handler.setFormatter(JsonFormatter())
     logging.basicConfig(level=logging.INFO, handlers=[handler], force=True)
     logging.getLogger("httpx").setLevel(logging.WARNING)
+
+
+@contextmanager
+def progress_phase(phase: str, metrics: RunMetrics | None = None) -> Iterator[None]:
+    """Report slow network phases without touching SQLite from the heartbeat thread."""
+    stopped = Event()
+    started = time.monotonic()
+
+    def report(event: str) -> None:
+        logging.getLogger(__name__).info(
+            event,
+            extra={
+                "detail": {"phase": phase, "elapsed_seconds": round(time.monotonic() - started, 1)},
+                "metrics": metrics.model_dump() if metrics else {},
+            },
+        )
+
+    def heartbeat() -> None:
+        while not stopped.wait(PROGRESS_INTERVAL):
+            report("processing_heartbeat")
+
+    report("processing_phase_started")
+    thread = Thread(target=heartbeat, name="processing-progress", daemon=True)
+    thread.start()
+    try:
+        yield
+    except BaseException:
+        report("processing_phase_failed")
+        raise
+    else:
+        report("processing_phase_finished")
+    finally:
+        stopped.set()
+        thread.join()
 
 
 @contextmanager

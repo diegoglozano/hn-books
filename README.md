@@ -73,6 +73,16 @@ comments instead of reusing a complete staged tree. Each retry takes a new backu
 `--backup` can supply a unique destination and `--staging` an alternate path.
 All writer commands share the live database lock during the rebuild.
 
+Luna requests run concurrently (`LUNA_WORKERS=4`, configurable from 1 to 16).
+Open Library verification remains sequential and rate limited. Cache writes and
+comment updates stay on the main thread. Identical pending inputs share a request,
+and successful in-flight outputs are cached if another request fails. The model,
+prompt, and cache keys are unchanged, so previous staging work remains reusable.
+Phase start/end logs and a heartbeat every 15 seconds identify backup, staging,
+HN fetching, extraction/verification, and publishing. Each processed comment logs
+progress with total, processed, and skipped counts; heartbeats indicate that the
+process is alive, while increasing counts demonstrate completed work.
+
 Luna receives each complete comment, its book links, the thread title/body, and
 up to two ancestors (each capped at 6,000 characters). It extracts complete titles,
 authors with stated/context/inferred provenance, exact evidence excerpts, per-book
@@ -123,6 +133,7 @@ Settings read environment variables and an optional local `.env`. `.env` and dat
 | --- | --- |
 | `OPENAI_API_KEY` | Required secret for uncached Luna extraction |
 | `OPENAI_MODEL` | `gpt-6-luna` |
+| `LUNA_WORKERS` | 4 concurrent Luna requests; allowed range 1–16 |
 | `OPENAI_BASE_URL` | `https://api.openai.com/v1` |
 | `EXTRACTION_BACKEND` | `luna`; `heuristic` is an explicit legacy comparison mode |
 | `DATABASE_PATH` | `data/hn_books.db` locally; `/data/hn_books.db` in Docker |
