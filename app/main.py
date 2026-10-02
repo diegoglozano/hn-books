@@ -13,6 +13,7 @@ from app.config import Settings, get_settings
 from app.db import connect, initialize
 from app.extraction import plain_text
 from app.ranking import aggregate_tags
+from app.review import review_template, thread_report
 
 
 def serialize_book(conn: sqlite3.Connection, row: sqlite3.Row) -> dict:
@@ -242,6 +243,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                     "SELECT COUNT(*) FROM hn_comments WHERE thread_id=?", (thread_id,)
                 ).fetchone()[0],
             }
+
+    @app.get("/api/admin/threads/{thread_id}/review", dependencies=[Depends(require_admin)])
+    def review_thread(thread_id: int) -> dict:
+        try:
+            report = thread_report(settings.database_path, thread_id)
+        except ValueError as error:
+            raise HTTPException(404, "Thread not found") from error
+        return {"snapshot": report, "review_template": review_template(report)}
 
     @app.get("/api/admin/unresolved-mentions", dependencies=[Depends(require_admin)])
     def unresolved(page: Annotated[int, Query(ge=1)] = 1) -> dict:
