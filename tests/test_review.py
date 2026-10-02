@@ -311,6 +311,21 @@ def test_review_source_digest_ignores_votes_but_tracks_changed_text(settings, re
     )
 
 
+@pytest.mark.parametrize("missing_field", ["processed_version", "completed_at"])
+def test_old_comment_hashes_do_not_pass_an_unfinished_processing_checkpoint(
+    review_snapshot, missing_field
+):
+    snapshot = deepcopy(review_snapshot)
+    assert all(comment["processed_hash"] for comment in snapshot["comment_records"])
+    snapshot["processing_checkpoint"][missing_field] = None
+    redigest(snapshot)
+    labels = labeled_review(snapshot)
+    with pytest.raises(ValueError, match="finished processing checkpoint"):
+        evaluate_review(snapshot, labels)
+    report = evaluate_review(snapshot, labels, allow_partial=True)
+    assert not report["coverage"]["complete_thread_review"]
+
+
 def test_explicit_aliases_and_verified_duplicate_work_ids(review_snapshot):
     labels = labeled_review(review_snapshot)
     dune = labels["comments"][0]["expected_mentions"][0]
