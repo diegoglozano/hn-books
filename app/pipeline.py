@@ -15,6 +15,7 @@ from app.extraction import (
     normalize_title,
     plain_text,
 )
+from app.identity import identity_digest
 from app.luna import PROMPT_VERSION, LunaExtractor, LunaResult, comment_input, extraction_key
 from app.models import RunMetrics
 from app.operations import progress_phase
@@ -22,7 +23,7 @@ from app.ranking import compute_book_scores, update_search_indexes
 from app.resolution import resolve_book
 
 logger = logging.getLogger(__name__)
-PROCESSOR_VERSION = "6-luna-" + PROMPT_VERSION
+PROCESSOR_VERSION = "7-luna-" + PROMPT_VERSION + ":review-" + identity_digest()[:12]
 
 
 def processor_version(settings: Settings | None = None) -> str:
