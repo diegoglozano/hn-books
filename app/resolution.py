@@ -8,9 +8,17 @@ from rapidfuzz.fuzz import ratio
 from app.clients import MetadataClient
 from app.db import utc_now
 from app.extraction import normalize_author, normalize_title, title_similarity
+from app.identity import (
+    author_display,
+    author_identity,
+    identity_digest,
+    identity_reviews,
+    title_is_reviewed,
+    work_review,
+)
 from app.models import MentionSpan
 
-RESOLUTION_VERSION = 2
+RESOLUTION_VERSION = 3
 
 
 def unique_authors(authors: list[str]) -> list[str]:
@@ -18,14 +26,17 @@ def unique_authors(authors: list[str]) -> list[str]:
     seen = set()
     result = []
     for author in authors:
-        key = normalize_author(author)
+        key = author_identity(author)
         if key and key not in seen:
             seen.add(key)
-            result.append(author.strip())
+            result.append(author_display(author))
     return result
 
 
 def author_parts(author: str) -> list[str]:
+    comma_parts = re.split(r",\s*(?:and\s+)?", author)
+    if len(comma_parts) > 1 and all(len(part.split()) >= 2 for part in comma_parts):
+        return [name for part in comma_parts for name in author_parts(part)]
     parts = re.split(r"\s+(?:and|&)\s+", author)
     if len(parts) > 1:
         surname = parts[-1].split()[-1]
@@ -48,9 +59,9 @@ def author_matches(author: str | None, authors: list[str]) -> bool:
     if len(parts) > 1:
         # Shared surnames: "Ann and Jeff VanderMeer" names two distinct authors.
         return all(author_matches(part, authors) for part in parts)
-    expected = normalize_author(author)
+    expected = author_identity(author)
     return any(
-        ratio(expected, normalize_author(value)) >= 87
+        ratio(expected, author_identity(value)) >= 87
         or (
             len(author.split()) == 1
             and normalize_author(value).split()[-len(expected.split()) :] == expected.split()
@@ -72,6 +83,45 @@ def complete_author_match(author: str, authors: list[str]) -> bool:
     )
 
 
+def preferred_review(span: MentionSpan) -> dict | None:
+    if span.work_id or not span.author:
+        return None
+    return next(
+        (
+            r
+            for r in identity_reviews()["works"]
+            if title_is_reviewed(span.title, r) and complete_author_match(span.author, r["authors"])
+        ),
+        None,
+    )
+
+
+def implicit_exclusion(span: MentionSpan, key: str) -> dict | None:
+    if span.work_id == key or not span.author:
+        return None
+    return next(
+        (
+            r
+            for r in identity_reviews()["implicit_exclusions"]
+            if r["work_id"] == key and complete_author_match(span.author, r["authors"])
+        ),
+        None,
+    )
+
+
+def reviewed_title_score(span: MentionSpan, key: str, title: str) -> float:
+    review = work_review(key)
+    if (
+        review
+        and span.author
+        and complete_author_match(span.author, review["authors"])
+        and title_is_reviewed(span.title, review)
+        and title_is_reviewed(title, review)
+    ):
+        return 1.0
+    return title_similarity(span.title, title)
+
+
 def resolve_book(
     conn: sqlite3.Connection, span: MentionSpan, metadata: MetadataClient
 ) -> tuple[int | None, float, list[dict]]:
@@ -79,6 +129,8 @@ def resolve_book(
         return None, 0, []
     local = []
     for row in conn.execute("SELECT * FROM books"):
+        if implicit_exclusion(span, row["openlibrary_id"]):
+            continue
         score = title_similarity(span.title, row["canonical_title"])
         if (span.work_id and row["openlibrary_id"] == span.work_id) or (
             not span.work_id
@@ -89,7 +141,11 @@ def resolve_book(
         ):
             # Reprocess matching changes against cached source metadata, not stale
             # canonical records. Luna caches are independent of this version.
-            if json.loads(row["metadata_json"]).get("resolution_version") != RESOLUTION_VERSION:
+            stored = json.loads(row["metadata_json"])
+            if (
+                stored.get("resolution_version") != RESOLUTION_VERSION
+                or stored.get("identity_review_digest") != identity_digest()
+            ):
                 continue
             local.append((row["id"], score))
     if len(local) == 1:
@@ -116,6 +172,11 @@ def resolve_book(
             # Search can reject abbreviated/coordinated author names. Candidate validation
             # still requires the extracted authors to agree; the title threshold is unchanged.
             docs = metadata.search(span.title)
+        preferred = preferred_review(span)
+        if preferred and not any(d.get("key") == preferred["work_id"] for d in docs):
+            # A reviewed subtitle may not be indexed by the provider. Reuse the normal
+            # canonical-title search cache; author/work verification still follows.
+            docs = [*docs, *metadata.search(preferred["title"], preferred["authors"][0])]
     selected, confidence, evidence = select_candidate(span, docs)
     if selected is None:
         return None, confidence, evidence
@@ -125,7 +186,10 @@ def resolve_book(
     # No incomplete canonical record on upstream failure. Reprocessing can retry later.
     if not work.get("title"):
         return None, selected["confidence"], evidence
-    if not span.work_id and title_similarity(span.title, work["title"]) < 0.94:
+    if not span.work_id and reviewed_title_score(span, key, work["title"]) < 0.94:
+        return None, selected["confidence"], evidence
+    review = work_review(key)
+    if review and not title_is_reviewed(work["title"], review):
         return None, selected["confidence"], evidence
     work_authors = []
     for entry in work.get("authors", []):
@@ -136,7 +200,8 @@ def resolve_book(
                 work_authors.append(author_data["name"])
     if span.author and work.get("authors") and not work_authors:
         return None, selected["confidence"], evidence
-    if span.author and work_authors and not author_matches(span.author, work_authors):
+    canonical_authors = review["authors"] if review else work_authors or selected["authors"]
+    if span.author and canonical_authors and not author_matches(span.author, canonical_authors):
         return None, selected["confidence"], evidence
     description = work.get("description", "")
     if isinstance(description, dict):
@@ -156,9 +221,9 @@ def resolve_book(
         isbn_10=excluded.isbn_10, isbn_13=excluded.isbn_13,
         metadata_json=excluded.metadata_json, updated_at=excluded.updated_at""",
         (
-            doc["title"],
-            normalize_title(doc["title"]),
-            json.dumps(unique_authors(work_authors or selected["authors"])),
+            review["title"] if review else doc["title"],
+            normalize_title(review["title"] if review else doc["title"]),
+            json.dumps(unique_authors(canonical_authors)),
             doc.get("first_publish_year"),
             description,
             f"https://covers.openlibrary.org/b/id/{cover}-M.jpg" if cover else None,
@@ -171,6 +236,8 @@ def resolve_book(
                     "search": doc,
                     "work": work,
                     "resolution_version": RESOLUTION_VERSION,
+                    "identity_review_digest": identity_digest(),
+                    "identity_review": review,
                 }
             ),
             now,
@@ -193,7 +260,9 @@ def select_candidate(
         key = work_key(doc.get("key", ""))
         if not key:
             continue
-        score = 1.0 if span.work_id == key else title_similarity(span.title, doc.get("title", ""))
+        score = (
+            1.0 if span.work_id == key else reviewed_title_score(span, key, doc.get("title", ""))
+        )
         candidates.append(
             {
                 "key": key,
@@ -207,8 +276,14 @@ def select_candidate(
     eligible = [
         c
         for c in candidates
-        if c["confidence"] >= 0.94 and author_matches(span.author, c["authors"])
+        if c["confidence"] >= 0.94
+        and author_matches(span.author, c["authors"])
+        and not implicit_exclusion(span, c["key"])
     ]
+    preferred = preferred_review(span)
+    reviewed = [c for c in eligible if preferred and c["key"] == preferred["work_id"]]
+    if reviewed:
+        eligible = reviewed
     # A title with a colon can identify a sequel or adaptation, not just a subtitle.
     # Prefer the full title whenever the catalog provides an exact title/author match.
     exact = [c for c in eligible if normalize_title(c["title"]) == normalize_title(span.title)]
@@ -224,7 +299,7 @@ def select_candidate(
     identities = {
         (
             normalize_title(c["title"]),
-            tuple(sorted(normalize_author(a) for a in c["authors"])),
+            tuple(sorted(author_identity(a) for a in c["authors"])),
             any(
                 re.search(r"\b(?:comics?|graphic novels?|manga)\b", subject, re.I)
                 for subject in c["doc"].get("subject", [])
@@ -248,6 +323,14 @@ def select_candidate(
         if eligible
         else False
     )
-    evidence = [{k: v for k, v in c.items() if k != "doc"} for c in candidates]
+    evidence = []
+    for candidate in candidates:
+        item = {k: v for k, v in candidate.items() if k != "doc"}
+        exclusion = implicit_exclusion(span, candidate["key"])
+        review = work_review(candidate["key"])
+        if exclusion or review:
+            item["identity_review"] = exclusion or review
+            item["excluded_by_review"] = exclusion is not None
+        evidence.append(item)
     selected = eligible[0] if eligible and (not ambiguous or catalog_duplicates) else None
     return selected, candidates[0]["confidence"] if candidates else 0, evidence

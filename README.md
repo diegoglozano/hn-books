@@ -137,6 +137,11 @@ collaborators, or graphic/prose formats remain ambiguous. Displayed author names
 deduplicated. Matching upgrades reverify old canonical records in staging using the
 existing Luna and metadata caches when the rebuild task runs again.
 
+Source-linked [identity reviews](docs/identity-reviews.md) add verified full-name
+aliases, specific work mappings, credited-author corrections and scoped adaptation
+exclusions. Original provider records remain inspectable. The review digest changes
+processing versions while retaining the Luna extraction cache.
+
 ## Backfill reading discussions
 
 Preview the scope, pending thread count, and estimated comment volume without ingesting:

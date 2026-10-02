@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "reviewed_on": "2026-10-02",
+  "reviewed_by": "Codex; source-checked bibliographic rules, pending independent human review",
+  "authors": [
+    {
+      "name": "Fyodor Dostoevsky",
+      "display_name": "Fyodor Dostoevsky",
+      "aliases": ["Fyodor Dostoyevsky", "Fiódor Dostoievski", "Фёдор Михайлович Достоевский", "Федор Михайлович Достоевский"],
+      "sources": ["https://openlibrary.org/authors/OL22242A.json"]
+    },
+    {
+      "name": "Haruki Murakami",
+      "display_name": "Haruki Murakami",
+      "aliases": ["村上春樹", "村上春树", "Murakami Haruki"],
+      "sources": ["https://openlibrary.org/authors/OL382524A.json"]
+    },
+    {
+      "name": "Cixin Liu",
+      "display_name": "Cixin Liu",
+      "aliases": ["刘慈欣", "Liu Cixin"],
+      "sources": ["https://openlibrary.org/authors/OL7044246A.json"]
+    },
+    {
+      "name": "Katherine Addison",
+      "aliases": ["Sarah Monette", "Sarah Elizabeth Monette"],
+      "sources": ["https://openlibrary.org/authors/OL1434466A.json", "https://www.katherineaddison.com/bio"]
+    }
+  ],
+  "works": [
+    {
+      "work_id": "/works/OL272063W",
+      "title": "The Brothers Karamazov",
+      "authors": ["Fyodor Dostoevsky"],
+      "titles": ["The Brothers Karamazov"],
+      "sources": ["https://openlibrary.org/works/OL272063W.json", "https://openlibrary.org/authors/OL22242A.json"],
+      "reason": "Verified original work and author identity; keep translator and narrator records separate."
+    },
+    {
+      "work_id": "/works/OL15029001W",
+      "title": "1Q84",
+      "authors": ["Haruki Murakami"],
+      "titles": ["1Q84"],
+      "sources": ["https://openlibrary.org/works/OL15029001W.json", "https://openlibrary.org/authors/OL382524A.json"],
+      "reason": "Verified complete work; separately numbered parts are not interchangeable."
+    },
+    {
+      "work_id": "/works/OL17270804W",
+      "title": "The Goblin Emperor",
+      "authors": ["Katherine Addison"],
+      "titles": ["The Goblin Emperor"],
+      "sources": ["https://openlibrary.org/works/OL17270804W.json", "https://www.katherineaddison.com/bio"],
+      "reason": "Sarah Monette writes this work as Katherine Addison."
+    },
+    {
+      "work_id": "/works/OL16314245W",
+      "title": "The Dark Forest",
+      "authors": ["Cixin Liu"],
+      "titles": ["The Dark Forest", "The Dark Forest (The Three-Body Problem Series Book 2)"],
+      "sources": ["https://openlibrary.org/works/OL16314245W.json", "https://us.macmillan.com/books/9780765377081/thedarkforest/"],
+      "reason": "The catalog's series qualifier names this specific second novel, not the whole series."
+    },
+    {
+      "work_id": "/works/OL16809803W",
+      "title": "The Goldfinch",
+      "authors": ["Donna Tartt"],
+      "titles": ["The Goldfinch"],
+      "sources": ["https://www.hachettebookgroup.com/titles/donna-tartt/the-goldfinch/9780316055437/", "https://openlibrary.org/works/OL16809803W.json"],
+      "reason": "Publisher credits Donna Tartt as the author; preserve extra catalog contributors in original metadata."
+    },
+    {
+      "work_id": "/works/OL3737036W",
+      "title": "Thinking in Systems",
+      "authors": ["Donella H. Meadows"],
+      "titles": ["Thinking in Systems", "Thinking in Systems: A Primer"],
+      "sources": ["https://chelseagreen.co.uk/book/thinking-in-systems/", "https://openlibrary.org/works/OL3737036W.json"],
+      "reason": "Verified subtitle and primary author; Diana Wright is the editor."
+    }
+  ],
+  "implicit_exclusions": [
+    {
+      "work_id": "/works/OL20185071W",
+      "authors": ["James S. A. Corey"],
+      "sources": ["https://openlibrary.org/works/OL20185071W.json", "https://www.boom-studios.com/archives/the-expanse-origins-original-graphic-novel-debuts-in-february-2018/", "https://www.hachettebookgroup.com/series/james-s-a-corey/the-expanse/"],
+      "reason": "This is a graphic adaptation, not a canonical identity for the prose series. A grounded explicit work link or different specific credits can still identify the comic."
+    }
+  ]
+}
