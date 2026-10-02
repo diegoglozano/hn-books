@@ -9,7 +9,7 @@ requests can be retried without clearing the books already on screen.
 
 See the [next-steps roadmap](docs/next-steps.md) for milestones and quality gates.
 
-This implements the **first meaningful milestone**, with a ranked React library, book details, topic filters, FTS5 search, and opt-in thread discovery. Ingestion and reprocessing run as CLI commands using the same image as the web app.
+The core app includes a ranked React library, book details, topic filters, FTS5 search, and opt-in thread discovery. The roadmap's verified-thread milestone still requires a complete review of real extraction results. Ingestion and reprocessing run as CLI commands using the same image as the web app.
 
 ## Run locally
 
@@ -44,6 +44,7 @@ Run these from the repository root, prefixed by `uv run` locally. Inside the Doc
 | `python -m app.reprocess tags` | Reuse Luna extraction to refresh classifications, then rebuild scores/search |
 | `python -m app.rebuild --thread 49893157` | Back up the library, rebuild only this thread using Luna in staging, then replace the library |
 | `python -m app.review --thread 49893157 --output data/latest-thread-review.json` | Export all resolved/unresolved extractions with comment evidence for review |
+| `python -m app.evaluate_review --snapshot <JSON> --labels <JSON>` | Evaluate saved outputs against reviewed labels, with a same-comment heuristic baseline; no network calls |
 | `python -m app.recompute rankings` | Rebuild scores and FTS5 index |
 | `python -m app.evaluate` | Print golden extraction, matching, tag, and strength metrics offline |
 
@@ -208,6 +209,7 @@ Interactive schemas are available at `/docs`.
 | `GET /api/threads` | Paginated source thread list |
 | `GET /api/threads/{id}` | Stored thread and paginated plain-text comments |
 | `GET /api/admin/unresolved-mentions` | Paginated uncertain spans and candidate match evidence |
+| `GET /api/admin/threads/{id}/review` | Complete consistent review snapshot and a pending checklist for every comment |
 | `GET /api/admin/ingestion-status` | Last 30 runs, status, metrics and failures |
 
 Sort values: `all-time`, `recent`, `mentions`, `recommendations`. Multiple topic filters intersect. Search is lexical; it safely tokenizes input rather than accepting raw FTS syntax. Debug routes require `Authorization: Bearer <ADMIN_TOKEN>` and expose no destructive operations. Raw HN HTML is retained in SQLite; React displays plain text and never injects HN HTML.
@@ -261,8 +263,8 @@ The existing golden set measures the legacy heuristic baseline, not Luna accurac
 New offline tests mock the Responses API to verify strict request shape, evidence
 validation, cache invalidation, per-book classification persistence, metadata author
 validation, and safe backup/rebuild/resume behavior. They do not measure a real
-model's accuracy. Review the latest thread's exported results after the first paid
-run, including unresolved identities and comments with no extracted books. Inferred
+model's accuracy. Follow the [complete-thread review workflow](docs/thread-review.md)
+to label actual saved results, including unresolved identities and comments with no extracted books. Inferred
 authors and ambiguous follow-up references still need scrutiny. HN comment scores
 are unavailable from the official API, so ranking uses thread score and context length.
 
