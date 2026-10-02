@@ -23,7 +23,7 @@ def seed_old_library(settings):
         VALUES ('Wrong old book','wrong old book','[]','yesterday','yesterday')""")
 
 
-def mocks(settings, monkeypatch, fail_metadata=False, duplicate_mentions=False):
+def mocks(settings, monkeypatch, fail_metadata=False, duplicate_mentions=False, raw_excerpt="Dune"):
     settings.extraction_backend = "luna"
     settings.openai_api_key = SecretStr("test-key")
     requests = []
@@ -63,7 +63,7 @@ def mocks(settings, monkeypatch, fail_metadata=False, duplicate_mentions=False):
                                         {
                                             "mentions": [
                                                 {
-                                                    "raw": "Dune",
+                                                    "raw": raw_excerpt,
                                                     "title": "Dune",
                                                     "author": "Frank Herbert",
                                                     "author_source": "inferred",
@@ -122,11 +122,14 @@ def test_backup_includes_wal_and_never_overwrites_existing_backup(settings):
 
 
 @pytest.mark.parametrize("duplicate_mentions", [False, True])
+@pytest.mark.parametrize("raw_excerpt", ["Dune", "DUNE"])
 def test_rebuild_publishes_only_selected_thread_and_preserves_backup(
-    settings, monkeypatch, duplicate_mentions
+    settings, monkeypatch, duplicate_mentions, raw_excerpt
 ):
     seed_old_library(settings)
-    requests, _ = mocks(settings, monkeypatch, duplicate_mentions=duplicate_mentions)
+    requests, _ = mocks(
+        settings, monkeypatch, duplicate_mentions=duplicate_mentions, raw_excerpt=raw_excerpt
+    )
     result = rebuild_thread(settings, 100)
     with connect(Path(result["backup"])) as conn:
         assert conn.execute("SELECT COUNT(*) FROM hn_threads").fetchone()[0] == 2
@@ -147,17 +150,23 @@ def test_rebuild_publishes_only_selected_thread_and_preserves_backup(
     assert report["processed_comments"] == 1
     assert report["resolved_mentions"] == 1
     assert report["mentions"][0]["extraction"]["author"] == "Frank Herbert"
+    assert report["mentions"][0]["raw_mention"] == "Dune"
     if duplicate_mentions:
         assert len(report["mentions"][0]["extraction"]["duplicate_mentions"]) == 2
 
 
 @pytest.mark.parametrize("duplicate_mentions", [False, True])
+@pytest.mark.parametrize("raw_excerpt", ["Dune", "DUNE"])
 def test_failed_rebuild_leaves_live_unchanged_and_resumes_without_paying_again(
-    settings, monkeypatch, duplicate_mentions
+    settings, monkeypatch, duplicate_mentions, raw_excerpt
 ):
     seed_old_library(settings)
     requests, state = mocks(
-        settings, monkeypatch, fail_metadata=True, duplicate_mentions=duplicate_mentions
+        settings,
+        monkeypatch,
+        fail_metadata=True,
+        duplicate_mentions=duplicate_mentions,
+        raw_excerpt=raw_excerpt,
     )
     with pytest.raises(RuntimeError, match="Metadata lookup failed"):
         rebuild_thread(settings, 100)
