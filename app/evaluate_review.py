@@ -203,11 +203,17 @@ def evaluate_review(snapshot: dict, labels: dict, *, allow_partial: bool = False
                 raise ValueError(f"Unknown review topic in comment {comment_id}")
         ready.append((comments[comment_id], label, expected))
     complete = len(ready) == len(comments)
-    processed = all(comment["processed"] for comment in comments.values())
-    raw_complete = bool((snapshot["processing_checkpoint"] or {}).get("raw_complete"))
+    checkpoint = snapshot["processing_checkpoint"] or {}
+    processed = (
+        all(comment["processed"] for comment in comments.values())
+        and bool(checkpoint.get("processed_version"))
+        and bool(checkpoint.get("completed_at"))
+    )
+    raw_complete = bool(checkpoint.get("raw_complete"))
     if not allow_partial and not (complete and processed and raw_complete):
         raise ValueError(
-            "Complete evaluation requires every comment reviewed, processed and a complete raw tree"
+            "Complete evaluation requires every comment reviewed, processed, a complete raw tree "
+            "and a finished processing checkpoint"
         )
     if not ready:
         raise ValueError("No reviewed comments to evaluate")

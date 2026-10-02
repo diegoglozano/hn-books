@@ -121,7 +121,9 @@ uv run python -m app.evaluate_review \
 The evaluator accepts an API bundle or a standalone CLI snapshot. It verifies the
 snapshot digest, source association, one review entry per stored comment, source
 links, grounded label excerpts and controlled topics. A full evaluation requires
-every comment reviewed and processed, with a complete raw-tree checkpoint. During
+every comment reviewed and processed, with a complete raw tree and a finished
+processing checkpoint. Old processing hashes alone cannot pass after a source
+refresh clears that checkpoint. During
 review, `--allow-partial` reports the explicit coverage and leaves
 `complete_thread_review: false`.
 
