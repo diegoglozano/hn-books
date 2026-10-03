@@ -471,6 +471,45 @@ h2 > span,
 .topic-option:hover {
   background: #eeeee5;
 }
+.topic-controls {
+  margin-bottom: 12px;
+}
+.topic-mode {
+  display: flex;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 3px;
+  gap: 3px;
+}
+.topic-mode button {
+  flex: 1;
+  border: 0;
+  border-radius: 3px;
+  background: none;
+  color: #787e6d;
+  min-height: 40px;
+  font-size: 11px;
+}
+.topic-mode button[aria-pressed="true"] {
+  background: #e9eade;
+  color: #414b35;
+  font-weight: 600;
+}
+.topic-controls p {
+  margin: 9px 3px 0;
+  font-size: 10px;
+  line-height: 1.6;
+  color: #787e6d;
+}
+.topic-option.excluded,
+.selected-filters button.excluded {
+  background: #f3e7df;
+  color: #8c4d36;
+  border-color: #ddc5b7;
+}
+.topic-option.excluded > span:last-child {
+  color: inherit;
+}
 .sidebar-note {
   border-top: 1px solid var(--line);
   margin-top: 25px;
@@ -1495,6 +1534,10 @@ footer > span {
     display: flex;
     flex-wrap: wrap;
     gap: 7px;
+  }
+  .topic-controls {
+    width: 100%;
+    margin-bottom: 5px;
   }
   .sidebar-heading,
   .sidebar-note {
