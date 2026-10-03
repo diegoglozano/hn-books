@@ -764,7 +764,7 @@ def test_luna_is_the_default_backend(monkeypatch):
     assert settings.luna_workers == 4
 
 
-@pytest.mark.parametrize("workers", [1, 3])
+@pytest.mark.parametrize("workers", [1, 3, 4])
 def test_concurrent_requests_are_bounded_and_sqlite_stays_on_owner_thread(luna_settings, workers):
     luna_settings.luna_workers = workers
     barrier = Barrier(workers)
@@ -794,19 +794,19 @@ def test_concurrent_requests_are_bounded_and_sqlite_stays_on_owner_thread(luna_s
             metrics,
             client=httpx.Client(transport=httpx.MockTransport(handle)),
         )
-        data = [payload(f"No book in comment {i}") for i in range(6)]
+        data = [payload(f"No book in comment {i}") for i in range(workers * 2)]
         results = list(extractor.extract_many(data))
-        assert sorted(index for index, _ in results) == list(range(6))
+        assert sorted(index for index, _ in results) == list(range(len(data)))
         assert all(result.mentions == [] for _, result in results)
-        assert calls == metrics.llm_requests == 6
+        assert calls == metrics.llm_requests == len(data)
         assert peak == workers
         assert set(sql_threads) == {owner}
-        assert metrics.llm_input_tokens == 3000
-        assert metrics.llm_output_tokens == 480
-        assert metrics.llm_cached_input_tokens == 600
-        assert len(list(extractor.extract_many(data))) == 6
-        assert calls == 6
-        assert metrics.llm_cache_hits == 6
+        assert metrics.llm_input_tokens == 500 * len(data)
+        assert metrics.llm_output_tokens == 80 * len(data)
+        assert metrics.llm_cached_input_tokens == 100 * len(data)
+        assert len(list(extractor.extract_many(data))) == len(data)
+        assert calls == len(data)
+        assert metrics.llm_cache_hits == len(data)
         extractor.close()
 
 

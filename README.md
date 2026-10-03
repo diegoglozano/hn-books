@@ -38,6 +38,7 @@ Run these from the repository root, prefixed by `uv run` locally. Inside the Doc
 | `python -m app.ingest` | Refresh configured and already stored threads; suitable for daily scheduling |
 | `python -m app.ingest discover` | Discover the first Algolia result page for each configured Ask HN query, then ingest |
 | `python -m app.ingest backfill --years 5` | Resume five years of date-bounded reading-thread discovery and ingestion |
+| `python -m app.ingest reading --years 5` | Add What/Which are you reading threads with more than 100 comments, newest first; skip completed threads |
 | `python -m app.reprocess mentions` | Re-extract stored comments; reuse local books/cache and look up missing metadata |
 | `python -m app.reprocess mentions --offline` | Re-extract with no network calls; requires cached Luna results and metadata |
 | `python -m app.reprocess mentions --thread <HN_ID>` | Re-extract one stored thread without fetching its HN comments again |
@@ -149,6 +150,49 @@ rebuilds, preserve original model outputs, and remain separate from raw Luna
 accuracy in offline evaluation.
 
 ## Backfill reading discussions
+
+### Engaged reading threads
+
+For the selected expansion, use a five-year window and keep only indexed
+What/Which (book/books) are you reading questions with **more than 100 comments**:
+
+```bash
+python -m app.ingest reading --years 5 --dry-run
+python -m app.ingest reading --years 5
+```
+
+This dedicated collection searches titles, then checks the actual question and
+comment count. It excludes incidental reading matches such as news headlines,
+blogs and PDF workflows. The default threshold is 101 (inclusive); adjust it with
+`--min-comments`. HN's count includes nested replies and does not measure the
+number of book recommendations. Eligibility uses Algolia's indexed count at
+discovery time, which can change or differ from the stored raw-tree size.
+
+Threads are processed newest first, and completed threads under the current
+processor version are skipped. Existing threads, books, review decisions and
+extraction caches are retained. Use `--limit 3` for bounded batches; rerunning
+resumes the pending threads. `--order oldest` changes the order. The date bounds,
+scope, threshold and order are included in the recorded run command. Dry runs
+report the pending batch, source links and estimated comment count without model
+requests or ingestion writes.
+
+Luna sends up to **four concurrent requests** by default (`LUNA_WORKERS=4`,
+configurable from 1 to 16). Comment-tree fetching also runs concurrently. Catalog
+verification observes `METADATA_INTERVAL`; changing discovery does not change
+model prompts or invalidate existing extraction caches.
+
+After deployment, change the existing Coolify task to
+**`python -m app.ingest reading --years 5`**, set its timeout to **36000 seconds**,
+and tap **Execute Now**. It appends to the existing library. The single-thread
+`app.rebuild` command replaces the library with one thread; use
+`python -m app.reprocess mentions` to reprocess a stored corpus while keeping
+all its threads. Daily `python -m app.ingest` refreshes the configured and stored
+corpus; the dedicated reading command discovers newly eligible threads.
+
+See [the source-linked discovery snapshot](docs/engaged-reading-threads.md)
+for the first selected addition and the current review scope.
+
+### Broad book discussions
 
 Preview the scope, pending thread count, and estimated comment volume without ingesting:
 

@@ -8,7 +8,7 @@ from app.backfill import completed_threads, ingest_backfill
 from app.clients import MetadataClient, RemoteClient
 from app.config import get_settings
 from app.db import connect
-from app.discovery import discover_reading_threads
+from app.discovery import ThreadCandidate, discover_reading_threads
 from app.operations import configure_logging, tracked_run
 from app.pipeline import (
     discover_threads,
@@ -23,6 +23,13 @@ def positive_int(value: str) -> int:
     number = int(value)
     if number < 1:
         raise argparse.ArgumentTypeError("Must be a positive integer")
+    return number
+
+
+def nonnegative_int(value: str) -> int:
+    number = int(value)
+    if number < 0:
+        raise argparse.ArgumentTypeError("Must be zero or a positive integer")
     return number
 
 
@@ -48,39 +55,78 @@ def main() -> int:
     commands = parser.add_subparsers(dest="command")
     single = commands.add_parser("thread", help="Ingest a complete comment tree")
     single.add_argument("id", type=int)
-    historical = commands.add_parser("backfill", help="Resume historical reading-thread ingestion")
-    period = historical.add_mutually_exclusive_group()
-    period.add_argument("--years", type=positive_int, help="Years before the end date (default: 5)")
-    period.add_argument("--since", type=date.fromisoformat, help="Inclusive start date: YYYY-MM-DD")
-    historical.add_argument(
-        "--until", type=date.fromisoformat, help="Exclusive end date: YYYY-MM-DD (default: now UTC)"
-    )
-    historical.add_argument(
-        "--scope",
-        choices=["ask-hn", "stories"],
-        default="ask-hn",
-        help="Search Ask HN titles or all HN story titles",
-    )
-    historical.add_argument("--limit", type=positive_int, help="Process at most N pending threads")
-    historical.add_argument(
-        "--dry-run", action="store_true", help="Discover and report; do not ingest"
-    )
-    historical.add_argument("--refresh", action="store_true", help="Refetch completed threads too")
+    for name, help_text in (
+        ("backfill", "Resume historical book-discussion ingestion"),
+        ("reading", "Add engaged What/Which are you reading threads to the existing library"),
+    ):
+        historical = commands.add_parser(name, help=help_text)
+        historical.set_defaults(collection="reading" if name == "reading" else "discussions")
+        period = historical.add_mutually_exclusive_group()
+        period.add_argument(
+            "--years", type=positive_int, help="Years before the end date (default: 5)"
+        )
+        period.add_argument(
+            "--since", type=date.fromisoformat, help="Inclusive start date: YYYY-MM-DD"
+        )
+        historical.add_argument(
+            "--until",
+            type=date.fromisoformat,
+            help="Exclusive end date: YYYY-MM-DD (default: now UTC)",
+        )
+        historical.add_argument(
+            "--scope",
+            choices=["ask-hn", "stories"],
+            default="ask-hn",
+            help="Search Ask HN titles or all HN story titles",
+        )
+        historical.add_argument(
+            "--min-comments",
+            type=nonnegative_int,
+            default=101 if name == "reading" else 0,
+            help="Minimum indexed comment count, inclusive (reading: 101; backfill: 0)",
+        )
+        historical.add_argument(
+            "--order",
+            choices=["oldest", "newest"],
+            default="newest" if name == "reading" else "oldest",
+            help="Thread processing order (reading: newest first; backfill: oldest first)",
+        )
+        historical.add_argument(
+            "--limit", type=positive_int, help="Process at most N pending threads"
+        )
+        historical.add_argument(
+            "--dry-run", action="store_true", help="Discover and report; do not ingest"
+        )
+        historical.add_argument(
+            "--refresh", action="store_true", help="Refetch completed threads too"
+        )
     commands.add_parser("discover", help="Discover the first page of each configured query")
     args = parser.parse_args()
     bounds = None
-    if args.command == "backfill":
+    if args.command in {"backfill", "reading"}:
         try:
             bounds = backfill_period(args)
         except ValueError as exc:
             parser.error(str(exc))
     settings = get_settings()
     configure_logging()
-    if args.command == "backfill" and args.dry_run:
+
+    def discover(remote: RemoteClient) -> list[ThreadCandidate]:
+        assert bounds is not None
+        candidates = discover_reading_threads(
+            remote,
+            *bounds,
+            scope=args.scope,
+            collection=args.collection,
+            min_comments=args.min_comments,
+        )
+        return list(reversed(candidates)) if args.order == "newest" else candidates
+
+    if bounds and args.dry_run:
         assert bounds is not None
         remote = RemoteClient(settings)
         try:
-            candidates = discover_reading_threads(remote, *bounds, scope=args.scope)
+            candidates = discover(remote)
             done: set[int] = set()
             if settings.database_path.exists():
                 with connect() as conn:
@@ -94,15 +140,25 @@ def main() -> int:
                     {
                         "dry_run": True,
                         "scope": args.scope,
+                        "collection": args.collection,
+                        "min_comments": args.min_comments,
+                        "order": args.order,
                         "since": datetime.fromtimestamp(bounds[0], UTC).isoformat(),
                         "until": datetime.fromtimestamp(bounds[1], UTC).isoformat(),
                         "threads_discovered": len(candidates),
                         "threads_pending": len(pending),
+                        "threads_skipped": len(candidates) - len(pending),
                         "threads_to_process": min(len(pending), args.limit or len(pending)),
                         "estimated_comments": sum(c.comments for c in pending[: args.limit]),
                         "preview": [
-                            {"id": c.id, "title": c.title, "comments": c.comments}
-                            for c in pending[:10]
+                            {
+                                "id": c.id,
+                                "title": c.title,
+                                "comments": c.comments,
+                                "created_at": datetime.fromtimestamp(c.created_at, UTC).isoformat(),
+                                "hn_url": f"https://news.ycombinator.com/item?id={c.id}",
+                            }
+                            for c in pending[: args.limit][:10]
                         ],
                     },
                     indent=2,
@@ -113,14 +169,17 @@ def main() -> int:
         return 0
     run_command = args.command or "daily"
     if bounds:
-        run_command += f" since={bounds[0]} until={bounds[1]} scope={args.scope}"
+        run_command += (
+            f" since={bounds[0]} until={bounds[1]} scope={args.scope}"
+            f" collection={args.collection} min_comments={args.min_comments} order={args.order}"
+        )
     with tracked_run(settings, run_command) as metrics:
         remote = RemoteClient(settings)
         try:
             with connect() as conn:
-                if args.command == "backfill":
+                if bounds:
                     assert bounds is not None
-                    candidates = discover_reading_threads(remote, *bounds, scope=args.scope)
+                    candidates = discover(remote)
                     metrics.threads_discovered = len(candidates)
                     ingest_backfill(
                         conn,

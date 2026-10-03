@@ -1,9 +1,12 @@
 # Complete-thread review
 
 Start with thread [49893157](https://news.ycombinator.com/item?id=49893157).
-The [roadmap](next-steps.md) requires every stored comment to be reviewed before
-historical ingestion expands. A successful rebuild, a resolved-book count, and
-mocked model tests do not establish extraction accuracy.
+The [roadmap](next-steps.md) retains complete-thread review as a milestone. The
+selected [engaged-thread expansion](engaged-reading-threads.md) proceeds within
+a five-year window while review remains incomplete: 184 of the latest thread's
+870 stored comments are source-checked. Newly ingested threads also need separate
+source review. A successful rebuild, a resolved-book count, and mocked model
+tests do not establish extraction accuracy.
 
 ## Capture the results
 
