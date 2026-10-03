@@ -105,6 +105,30 @@
       "titles": ["Poor Charlie's Almanack"],
       "sources": ["https://openlibrary.org/works/OL8928012W.json", "https://openlibrary.org/authors/OL3085123A.json", "https://openlibrary.org/authors/OL6590452A.json", "https://press.stripe.com/poor-charlies-almanack"],
       "reason": "Publisher identifies Charlie Munger as Charles T. Munger and Peter D. Kaufman as editor. Collapse the catalog's duplicate Munger credits while preserving original metadata; exclude summaries and editor-only records."
+    },
+    {
+      "work_id": "/works/OL15701417W",
+      "title": "The Pale King",
+      "authors": ["David Foster Wallace"],
+      "titles": ["The Pale King"],
+      "sources": ["https://openlibrary.org/works/OL15701417W.json", "https://openlibrary.org/authors/OL448939A.json", "https://www.hachettebookgroup.com/titles/david-foster-wallace/the-pale-king/9780316175296/", "https://www.hachettebookgroup.com/hachette-book-group-news/hbg-big-news-this-week-september-17-21-2018/"],
+      "reason": "Publisher credits David Foster Wallace as novelist and identifies Michael Pietsch as the editor who assembled the posthumous novel. Keep the editorial contributor in original catalog metadata."
+    },
+    {
+      "work_id": "/works/OL20764348W",
+      "title": "Beyond Tube-and-Wing",
+      "authors": ["Bruce I. Larrimer"],
+      "titles": ["Beyond Tube-and-Wing", "Beyond Tube-and-Wing: The X-48 Blended Wing-Body and NASA's Quest to Reshape Future Transport Aircraft"],
+      "sources": ["https://openlibrary.org/works/OL20764348W.json", "https://openlibrary.org/authors/OL7909568A.json", "https://www.nasa.gov/aeronautics/beyond-tube-and-wing/", "https://www.nasa.gov/wp-content/uploads/2020/11/beyond_tube-and-wing_tagged.pdf"],
+      "reason": "NASA credits Bruce I. Larrimer as the author. Preserve the original catalog record and its additional Richard Hallion credit without assigning coauthorship. The publisher verifies the full subtitle."
+    },
+    {
+      "work_id": "/works/OL20153382W",
+      "title": "Say Nothing",
+      "authors": ["Patrick Radden Keefe"],
+      "titles": ["Say Nothing", "Say Nothing: A True Story of Murder and Memory in Northern Ireland"],
+      "sources": ["https://openlibrary.org/works/OL20153382W.json", "https://openlibrary.org/authors/OL6511583A.json", "https://www.penguinrandomhouse.com/books/90837/say-nothing-by-patrick-radden-keefe/"],
+      "reason": "Publisher credits Patrick Radden Keefe as author. Preserve the upstream Ariel Font Prades contributor credit in original metadata without assigning coauthorship."
     }
   ],
   "implicit_exclusions": [

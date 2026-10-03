@@ -1,9 +1,11 @@
 # Source-bound comment corrections
 
-The verified rebuild completed on October 2, 2026 at 23:50 UTC with all 32 review
-decisions applied: 870 comments, 924 resolved and 509 unresolved mentions across
-585 books. It reused 864 cached Luna results, made no new model requests, performed
-seven metadata lookups and recorded zero failures in 40.8 seconds. These counts
+The last verified full rebuild completed on October 3, 2026 at 03:00 UTC with all
+32 then-deployed review decisions applied: 870 comments, 930 resolved and 503
+unresolved mentions across 588 books. It reused 864 cached Luna results, made no
+new model requests, performed eight metadata lookups and recorded zero failures
+in 44.3 seconds. A subsequent unresolved-only retry completed at 03:28 UTC with
+the same library totals and no model requests or failures. These counts
 establish processing coverage;
 they do not establish extraction accuracy.
 
@@ -27,12 +29,34 @@ parent instead of choosing Ra from an older ancestor. Energy and Civilization
 is nonfiction history, so its science-fiction tag is removed. All decisions bind
 to the current comment and its actual ancestor context.
 
+The next batch adds 30 complete comments: the first remaining live, nonempty
+comments of at most 250 characters, ordered by comment ID. This is a systematic
+short-comment batch, with titles, replies, lists, praise and reading intentions.
+It adds 15 persisted comment decisions and revises the existing parenting-title
+decision, bringing the correction file to 47 decisions. These changes still need
+the next production rebuild.
+
+Examples include identifying authors on Private Revolutions, Quantum Break:
+Zero State and the two Patrick Radden Keefe books; retaining a neutral request
+about Gibbon's abridgements; and distinguishing manga adaptations from original
+Lovecraft prose. The comment does not identify the manga creators, so those
+references remain unresolved rather than acquiring guessed adaptation credits.
+The quoted Carryx series and The Captive's War are one series reference. The
+Selfish Gene is evolutionary biology, for which the controlled taxonomy has no
+tag; it must not be tagged science fiction. The Mistborn catalog record describes
+a complete trilogy bundle and is retained, with its fantasy topic corrected.
+
 The source-linked [regression labels](../tests/fixtures/reviewed_comment_labels.json)
-cover 104 comments: selected failures and reviewed negative examples. Of 42
-expected mentions, 32 have catalog-checked identities and ten still require
-catalog verification. The
-[saved baseline](../tests/fixtures/reviewed_comment_baseline.json) records eight
-omissions and 38 false entries in this selected set, before applying corrections.
+now cover 134 comments. Of 83 expected mentions, 60 have catalog-checked
+identities, 19 still require catalog verification and four have genuinely
+ambiguous identities: unspecified Bible editions and manga creators. The
+[saved baseline](../tests/fixtures/reviewed_comment_baseline.json) was recomputed
+against the enlarged labels and records ten omissions and 39 false entries before
+applying corrections. The earlier 104-comment baseline recorded eight omissions
+and 38 false entries.
+These are different label sets, not an improvement in the model. The parenting
+book's publisher title is Ten Things I Wish You Knew About Raising Boys by Billy
+Garvey; evaluation also accepts the commenter's paraphrase as a title alias.
 Those figures describe these regressions, not accuracy across the thread. No full comments, credentials
 or deployment logs are committed in the fixtures.
 
@@ -46,21 +70,23 @@ uv run python -m app.evaluate_review \
   --output data/comment-regression-evaluation.json
 ```
 
-Coverage remains 104 of 870 comments. Full evaluation still requires every comment
+Coverage is 134 of 870 comments. Full evaluation still requires every comment
 to be present and reviewed, with no pending identity labels. Do not treat a selected
 regression set as satisfying the complete-thread quality gate. A pending catalog
 check is distinct from a genuinely ambiguous identity: it does not score as a
 correct abstention or contribute to canonicalization accuracy. Mention, sentiment,
 strength and topic metrics can still be evaluated independently of that check.
 
-The October 2 corrected production export matches all 42 expected mentions and
-all 27 identities that were checked at that time. The October 3
-[identity review](identity-reviews.md) checks five more labels and adds matching
-preferences for three unresolved works. Applying those preferences still requires
-the existing rebuild task; the offline projection matches all 32 checked identities.
-The separate original-Luna
-comparison still records eight omissions and 38 false entries. This verifies
-the repairs without presenting curated outputs as improved model accuracy.
+The October 3 production export verified all six repaired mentions from the prior
+[identity review](identity-reviews.md), including all 32 then-checked identities.
+The new offline projection matches all 83 expected mentions, all 60 checked work
+and author identities, and all four required abstentions in the enlarged selected
+set. It processes complete comments through the normal resolver using saved
+extractions and metadata lookups, with zero model requests. It is a local
+simulation, not a completed production rebuild or full-thread accuracy result.
+The separate original-Luna comparison still reports ten omissions and 39 false
+entries against these same enlarged labels. This verifies the repairs without
+presenting curated outputs as improved model accuracy.
 
 ## Scope and evidence
 

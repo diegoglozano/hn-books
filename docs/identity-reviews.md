@@ -21,6 +21,9 @@ not a complete manual labeling of the thread or held-out extraction evaluation.
 | Prefer the original Anne of Green Gables novel by Lucy Maud Montgomery over duplicate, adapted and omnibus candidates | [Catalog](https://openlibrary.org/works/OL77746W.json), [publisher](https://www.penguinrandomhouse.com/books/557098/anne-of-green-gables-by-l-m-montgomery/9780143131854/) |
 | Prefer Neil Gaiman's American Gods prose novel; retain explicit graphic-work links as separate identities | [Catalog](https://openlibrary.org/works/OL679360W.json), [author](https://neilgaiman.com/works/Books/American_Gods) |
 | Match Charlie Munger with Charles T. Munger on Poor Charlie's Almanack; collapse duplicate author credits and preserve Peter D. Kaufman's editorial role in source metadata | [Catalog](https://openlibrary.org/works/OL8928012W.json), [publisher](https://press.stripe.com/poor-charlies-almanack) |
+| Credit David Foster Wallace as novelist on The Pale King; retain Michael Pietsch's editorial contribution in original metadata | [Publisher](https://www.hachettebookgroup.com/titles/david-foster-wallace/the-pale-king/9780316175296/), [editor attribution](https://www.hachettebookgroup.com/hachette-book-group-news/hbg-big-news-this-week-september-17-21-2018/) |
+| Credit Bruce I. Larrimer on Beyond Tube-and-Wing and accept its full subtitle; preserve additional catalog contributor credits | [NASA](https://www.nasa.gov/aeronautics/beyond-tube-and-wing/), [book title page](https://www.nasa.gov/wp-content/uploads/2020/11/beyond_tube-and-wing_tagged.pdf) |
+| Credit Patrick Radden Keefe on Say Nothing while preserving additional catalog contributor credits in original metadata | [Publisher](https://www.penguinrandomhouse.com/books/90837/say-nothing-by-patrick-radden-keefe/) |
 | Keep implicit James S. A. Corey references to The Expanse unresolved instead of assigning the prose series to the comic work | [Novels](https://www.hachettebookgroup.com/series/james-s-a-corey/the-expanse/), [graphic novel](https://www.boom-studios.com/archives/the-expanse-origins-original-graphic-novel-debuts-in-february-2018/) |
 
 The last exclusion is scoped to one reviewed work and author identity. An actual
@@ -62,7 +65,7 @@ bibliographic aliases, selected work mappings, credited authors and scoped exclu
 ## Validation scope
 
 [tests/fixtures/reviewed_identity_cases.json](../tests/fixtures/reviewed_identity_cases.json)
-contains ten source-linked mention-level metadata regressions. They test the
+contains 13 source-linked mention-level metadata regressions. They test the
 confirmed identity decisions on saved candidate metadata. Integration tests cover
 subtitle lookup, original contributor preservation, cached reprocessing, and explicit
 comic links/credits, Munger's nickname, duplicate author records, and catalog-order
@@ -73,7 +76,7 @@ before extending ingestion.
 The October 3 review also verified the existing catalog matches for Outdoor Kids
 in an Inside World ([work](https://openlibrary.org/works/OL24784465W.json)) and
 A Drop of Corruption ([work](https://openlibrary.org/works/OL42983060W.json)). The
-104-comment regression set now has 32 checked identities and ten pending checks.
+104-comment regression set then had 32 checked identities and ten pending checks.
 The pre-correction baseline was recomputed against these expanded identity labels
 using the same saved source and prediction snapshot; its eight omissions and
 38 false entries are unchanged.
@@ -83,6 +86,17 @@ checked work/author metadata, resolves six previously unresolved mentions across
 the three newly preferred works. It preserves each mention's sentiment, strength
 and source evidence. The projection matches all 32 checked identities and author
 credits in the selected regression set, with no network or model requests.
-This is an offline check, not a completed production rebuild or evidence of
-full-thread accuracy. Production matching changes take effect after the existing
-Coolify rebuild task runs.
+The October 3 production export verified all six repairs and all 32 checked
+identities after the Coolify rebuild. The live library contains 588 books,
+930 resolved and 503 unresolved mentions; all 588 public scores match the corrected
+source data. This establishes the repairs, not full-thread accuracy.
+
+The next 30-comment batch expands the regression set to 134 comments and 60
+checked identities, with 19 pending checks and four deliberately unresolved
+adaptation/edition identities. It also verifies author-versus-contributor roles
+on The Pale King, Beyond Tube-and-Wing and Say Nothing. New integration cases
+check that original multi-contributor metadata survives the primary-author
+correction and that verified records can be reused without network requests.
+Separate tests ensure that unspecified manga creators cannot become prose works.
+These changes need the next Coolify rebuild; the current projection is an offline
+check, not proof that the new batch has been applied in production.
