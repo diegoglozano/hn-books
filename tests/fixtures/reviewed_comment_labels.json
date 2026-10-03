@@ -1181,6 +1181,257 @@
       "notes": "Nine named reads or series, with no personal endorsement. The outdoor-parenting title is Outdoor Kids in an Inside World by Steven Rinella; There Are No Children Here and Richard Louv are unsupported substitutions. DCC repeats one series, not a second mention. Sources: https://news.ycombinator.com/item?id=49899719, https://penguinrandomhouselibrary.com/book/?isbn=9780593129685, https://openlibrary.org/works/OL20464319W.json, https://openlibrary.org/works/OL38495W.json, https://openlibrary.org/works/OL24593432W.json Catalog identity checked October 3, 2026: https://openlibrary.org/works/OL24784465W.json, https://openlibrary.org/authors/OL1436909A.json. Publisher title and author checked October 3: https://www.penguin.com.au/books/ten-things-i-wish-you-knew-about-raising-boys-9781761620850. Catalog identity remains pending."
     },
     {
+      "comment_id": 49899789,
+      "source_url": "https://news.ycombinator.com/item?id=49899789",
+      "status": "reviewed",
+      "case_types": [
+        "positive",
+        "subtitle"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Lost Worlds",
+          "title": "Lost Worlds",
+          "authors": [
+            "Patrick Wyman"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "history"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "One explicitly credited history book; the commenter personally calls it fascinating and amazing. Sources: https://news.ycombinator.com/item?id=49899789, https://books.google.com/books?id=WIaCEQAAQBAJ"
+    },
+    {
+      "comment_id": 49899813,
+      "source_url": "https://news.ycombinator.com/item?id=49899813",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "reading-intention"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Exit Party",
+          "title": "Exit Party",
+          "authors": [
+            "Emily St. John Mandel"
+          ],
+          "author_source": "context",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": "/works/OL46028544W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Borrowing a book and looking forward to reading it is an intention, not a review; the parent supplies its author. Sources: https://news.ycombinator.com/item?id=49899813, https://www.penguinrandomhouse.com/books/692736/exit-party-by-emily-st-john-mandel/, https://openlibrary.org/works/OL46028544W.json"
+    },
+    {
+      "comment_id": 49899817,
+      "source_url": "https://news.ycombinator.com/item?id=49899817",
+      "status": "reviewed",
+      "case_types": [
+        "multiple-books",
+        "mixed-sentiment"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Quantum Radio",
+          "title": "Quantum Radio",
+          "authors": [
+            "A.G. Riddle"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": "/works/OL28458685W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Rainbows End",
+          "title": "Rainbows End",
+          "authors": [
+            "Vernor Vinge"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": "/works/OL1975712W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Two reads receive qualified, mixed assessments: okay but not great, and better but still lacking. Neither is a clear personal endorsement. Sources: https://news.ycombinator.com/item?id=49899817, https://www.agriddle.com/Quantum-Radio, https://openlibrary.org/works/OL28458685W.json, https://openlibrary.org/works/OL1975712W.json"
+    },
+    {
+      "comment_id": 49899825,
+      "source_url": "https://news.ycombinator.com/item?id=49899825",
+      "status": "reviewed",
+      "case_types": [
+        "positive",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Amusing Ourselves to Death",
+          "title": "Amusing Ourselves to Death",
+          "authors": [
+            "Neil Postman"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "history",
+            "philosophy"
+          ],
+          "work_id": "/works/OL137916W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The current reader praises Postman’s book and its argument about television and culture. Sources: https://news.ycombinator.com/item?id=49899825, https://openlibrary.org/works/OL137916W.json"
+    },
+    {
+      "comment_id": 49899832,
+      "source_url": "https://news.ycombinator.com/item?id=49899832",
+      "status": "reviewed",
+      "case_types": [
+        "reading-intention"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Antigone",
+          "title": "Antigone",
+          "authors": [
+            "Sophocles"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL40578468W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "A named play and its author, without an evaluation. Sources: https://news.ycombinator.com/item?id=49899832, https://openlibrary.org/works/OL40578468W.json"
+    },
+    {
+      "comment_id": 49899862,
+      "source_url": "https://news.ycombinator.com/item?id=49899862",
+      "status": "reviewed",
+      "case_types": [
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The Neverending Story",
+          "title": "The Neverending Story",
+          "authors": [
+            "Michael Ende"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL31587398W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The named fantasy novel is a recurring read; Always alone does not supply a personal evaluation. Sources: https://news.ycombinator.com/item?id=49899862, https://openlibrary.org/works/OL31587398W.json"
+    },
+    {
+      "comment_id": 49899866,
+      "source_url": "https://news.ycombinator.com/item?id=49899866",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "recommended"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "This is an excellent book",
+          "title": "A Philosophy of Software Design",
+          "authors": [
+            "John K. Ousterhout"
+          ],
+          "author_source": "inferred",
+          "sentiment": "recommended",
+          "strength": 0.95,
+          "tags": [
+            "software-design"
+          ],
+          "work_id": "/works/OL21221785W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The parent uniquely identifies the book. Excellent plus giving a copy to every new teammate is a personal endorsement. The author is inferred because the parent does not name him. Sources: https://news.ycombinator.com/item?id=49899866, https://openlibrary.org/works/OL21221785W.json"
+    },
+    {
+      "comment_id": 49899875,
+      "source_url": "https://news.ycombinator.com/item?id=49899875",
+      "status": "reviewed",
+      "case_types": [
+        "abbreviation",
+        "multiple-books",
+        "author-context"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Amusing Ourselves",
+          "title": "Amusing Ourselves to Death",
+          "authors": [
+            "Neil Postman"
+          ],
+          "author_source": "context",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history",
+            "philosophy"
+          ],
+          "work_id": "/works/OL137916W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Technopoly",
+          "title": "Technopoly",
+          "authors": [
+            "Neil Postman"
+          ],
+          "author_source": "context",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history",
+            "philosophy"
+          ],
+          "work_id": "/works/OL137911W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Two named reads by the Postman identified in the parent. Praise for the thinker does not automatically endorse each book. Sources: https://news.ycombinator.com/item?id=49899875, https://openlibrary.org/works/OL137916W.json, https://openlibrary.org/works/OL137911W.json"
+    },
+    {
       "comment_id": 49899881,
       "source_url": "https://news.ycombinator.com/item?id=49899881",
       "status": "reviewed",
@@ -1206,6 +1457,914 @@
       "notes": "The parent names one novel; the current reply praises that novel. Retain current-comment evidence and contextual author provenance. Bibliographic checks: https://openlibrary.org/works/OL272063W.json; https://news.ycombinator.com/item?id=49899881, https://news.ycombinator.com/item?id=49895675"
     },
     {
+      "comment_id": 49899889,
+      "source_url": "https://news.ycombinator.com/item?id=49899889",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "series",
+        "recommended"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "this series",
+          "title": "The Immortal Great Souls",
+          "authors": [
+            "Phil Tucker"
+          ],
+          "author_source": "context",
+          "sentiment": "recommended",
+          "strength": 0.95,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "The parent uniquely identifies the fantasy series and author. Vouching for it is an explicit endorsement, without identifying one particular volume. Sources: https://news.ycombinator.com/item?id=49899889"
+    },
+    {
+      "comment_id": 49899915,
+      "source_url": "https://news.ycombinator.com/item?id=49899915",
+      "status": "reviewed",
+      "case_types": [
+        "multiple-books",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Biological War",
+          "title": "Biological War",
+          "authors": [
+            "Annie Jacobsen"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL45937241W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "The Left Hand of Darkness",
+          "title": "The Left Hand of Darkness",
+          "authors": [
+            "Ursula K. Le Guin"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": "/works/OL59800W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "The Nerd Reich",
+          "title": "The Nerd Reich",
+          "authors": [
+            "Gil Durán"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL45908582W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "What Happened to Liberal Democracy?",
+          "title": "What Happened to Liberal Democracy?",
+          "authors": [
+            "Daron Acemoglu"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history",
+            "economics"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "Four current or completed reads, without recommendations; the warfare scenario is nonfiction, not a science-fiction novel. Sources: https://news.ycombinator.com/item?id=49899915, https://www.penguinrandomhouse.com/books/783250/biological-war-by-annie-jacobsen/, https://www.penguinrandomhouse.com/books/815318/what-happened-to-liberal-democracy-by-daron-acemoglu/9798217182169/, https://openlibrary.org/works/OL45937241W.json, https://openlibrary.org/works/OL59800W.json, https://openlibrary.org/works/OL45908582W.json"
+    },
+    {
+      "comment_id": 49899920,
+      "source_url": "https://news.ycombinator.com/item?id=49899920",
+      "status": "reviewed",
+      "case_types": [
+        "author-context",
+        "positive"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Exhalation",
+          "title": "Exhalation",
+          "authors": [
+            "Ted Chiang"
+          ],
+          "author_source": "context",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": "/works/OL20149336W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The parent supplies the author. The commenter praises the collection overall despite individual weak stories. Sources: https://news.ycombinator.com/item?id=49899920, https://openlibrary.org/works/OL20149336W.json"
+    },
+    {
+      "comment_id": 49899923,
+      "source_url": "https://news.ycombinator.com/item?id=49899923",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "series",
+        "numbered-volume",
+        "mixed-sentiment"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "the books",
+          "title": "The Wheel of Time series",
+          "authors": [
+            "Robert Jordan"
+          ],
+          "author_source": "context",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous",
+          "aliases": [
+            "The Wheel of Time"
+          ]
+        },
+        {
+          "raw": "book 3 of Otherland",
+          "title": "Mountain of Black Glass",
+          "authors": [
+            "Tad Williams"
+          ],
+          "author_source": "inferred",
+          "sentiment": "negative",
+          "strength": 0,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": "/works/OL2250816W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Enjoyment and pacing criticism concern the Wheel of Time series. Otherland book three is specifically Mountain of Black Glass; do not assign it to the series’ first novel. An uncertain Wheel of Time volume number does not identify a particular volume. Sources: https://news.ycombinator.com/item?id=49899923, https://www.penguinrandomhouse.com/books/332220/otherland-3-mountain-of-black-glass-by-tad-williams/paperback/, https://openlibrary.org/works/OL2250816W.json"
+    },
+    {
+      "comment_id": 49899924,
+      "source_url": "https://news.ycombinator.com/item?id=49899924",
+      "status": "reviewed",
+      "case_types": [
+        "series",
+        "translation",
+        "negative"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Chanur books",
+          "title": "Chanur series",
+          "authors": [
+            "C.J. Cherryh"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous",
+          "aliases": [
+            "Chanur",
+            "The Chanur series"
+          ]
+        },
+        {
+          "raw": "Alliance-Union novels",
+          "title": "Alliance-Union",
+          "authors": [
+            "C.J. Cherryh"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous",
+          "aliases": [
+            "Alliance–Union universe",
+            "Alliance-Union universe"
+          ]
+        },
+        {
+          "raw": "Old English Exodus",
+          "title": "The Old English Exodus",
+          "authors": [
+            "J.R.R. Tolkien"
+          ],
+          "author_source": "stated",
+          "sentiment": "negative",
+          "strength": 0,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL14933462W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Two named fictional series/universes are not particular volumes. The Old English Exodus is Tolkien’s text, translation and commentary, and its proofreading experience is criticized; preserve that specific scholarly book rather than the biblical Exodus. Sources: https://news.ycombinator.com/item?id=49899924, https://www.harperreach.com/products/myths-and-legends-boxed-set-2-the-old-english-exodus-finn-and-hengest-the-story-of-kullervo-the-lay-of-aotrou-itroun-the-battle-of-maldon-j-r-r-tolkien-9780008795184/, https://openlibrary.org/works/OL14933462W.json"
+    },
+    {
+      "comment_id": 49899929,
+      "source_url": "https://news.ycombinator.com/item?id=49899929",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "negative",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Don't bother with this",
+          "title": "The Selfish Gene",
+          "authors": [
+            "Richard Dawkins"
+          ],
+          "author_source": "context",
+          "sentiment": "negative",
+          "strength": 0,
+          "tags": [],
+          "work_id": "/works/OL1966488W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Information and Meaning in Evolutionary Processes",
+          "title": "Information and Meaning in Evolutionary Processes",
+          "authors": [
+            "William F. Harms"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "philosophy"
+          ],
+          "work_id": "/works/OL25660014W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The negative reply concerns the uniquely named Dawkins book in the parent. Reading Harms’s critique does not itself recommend the Harms book. Evolutionary biology is not science fiction. Sources: https://news.ycombinator.com/item?id=49899929, https://www.cambridge.org/core/books/information-and-meaning-in-evolutionary-processes/7FDEB0B92246F597B33CCCDCCD92C0F8, https://openlibrary.org/works/OL1966488W.json, https://openlibrary.org/works/OL25660014W.json"
+    },
+    {
+      "comment_id": 49899957,
+      "source_url": "https://news.ycombinator.com/item?id=49899957",
+      "status": "reviewed",
+      "case_types": [
+        "series",
+        "adaptation",
+        "ambiguous"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Grimgar of Fantasy and Ash",
+          "title": "Grimgar of Fantasy and Ash",
+          "authors": [],
+          "author_source": "unknown",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous"
+        }
+      ],
+      "notes": "The commenter praises the named franchise but links an overview that covers novel, manga and anime forms. No particular volume or format is identified; do not guess a manga creator or map it to volume one. Sources: https://news.ycombinator.com/item?id=49899957, https://sevenseasentertainment.com/series/grimgar-of-fantasy-and-ash-light-novel/"
+    },
+    {
+      "comment_id": 49899964,
+      "source_url": "https://news.ycombinator.com/item?id=49899964",
+      "status": "reviewed",
+      "case_types": [
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "You've Been Pooping All Wrong",
+          "title": "You've Been Pooping All Wrong",
+          "authors": [
+            "Trisha Pasricha"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "A nonfiction title and credited author followed by a summary of advice, without an explicit book evaluation. The controlled taxonomy has no health category. Sources: https://news.ycombinator.com/item?id=49899964, https://www.penguinrandomhouse.com/books/776380/youve-been-pooping-all-wrong-by-trisha-pasricha-md-mph/9780593855133/"
+    },
+    {
+      "comment_id": 49899984,
+      "source_url": "https://news.ycombinator.com/item?id=49899984",
+      "status": "reviewed",
+      "case_types": [
+        "numbered-volume",
+        "translation"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The first volume of Software Foundations",
+          "title": "Logical Foundations",
+          "authors": [
+            "Benjamin C. Pierce",
+            "Arthur Azevedo de Amorim",
+            "Chris Casinghino",
+            "Marco Gaboardi",
+            "Michael Greenberg",
+            "Cătălin Hriţcu",
+            "Vilhelm Sjöberg",
+            "Brent Yorgey"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "programming-languages"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        },
+        {
+          "raw": "the first volume of À la recherche du temps perdu",
+          "title": "Du côté de chez Swann",
+          "authors": [
+            "Marcel Proust"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "Specific first volumes identify Logical Foundations and Swann’s Way rather than entire series. The official Logical Foundations title page credits eight primary authors and separately lists additional contributors. Sources: https://news.ycombinator.com/item?id=49899984, https://softwarefoundations.cis.upenn.edu/lf-current/index.html"
+    },
+    {
+      "comment_id": 49899990,
+      "source_url": "https://news.ycombinator.com/item?id=49899990",
+      "status": "reviewed",
+      "case_types": [
+        "positive",
+        "author-provenance"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The Soul of a new Machine",
+          "title": "The Soul of a New Machine",
+          "authors": [
+            "Tracy Kidder"
+          ],
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "engineering",
+            "history"
+          ],
+          "work_id": "/works/OL98218W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The reader says the book was good despite stopping partway through; the parent does not state its author. Sources: https://news.ycombinator.com/item?id=49899990, https://openlibrary.org/works/OL98218W.json"
+    },
+    {
+      "comment_id": 49899991,
+      "source_url": "https://news.ycombinator.com/item?id=49899991",
+      "status": "reviewed",
+      "case_types": [
+        "no-books"
+      ],
+      "expected_mentions": [],
+      "notes": "A reply about kiwi preparation does not discuss any literary work. Sources: https://news.ycombinator.com/item?id=49899991"
+    },
+    {
+      "comment_id": 49900006,
+      "source_url": "https://news.ycombinator.com/item?id=49900006",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "adaptation",
+        "series"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "forget most of it",
+          "title": "The Wheel of Time series",
+          "authors": [
+            "Robert Jordan"
+          ],
+          "author_source": "context",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous",
+          "aliases": [
+            "The Wheel of Time"
+          ]
+        }
+      ],
+      "notes": "The reader refers to remembering the book series before watching its adaptation. Preserve a neutral reference to the books; criticism of the television series must not become a negative book recommendation. Sources: https://news.ycombinator.com/item?id=49900006"
+    },
+    {
+      "comment_id": 49900009,
+      "source_url": "https://news.ycombinator.com/item?id=49900009",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "comparison",
+        "no-false-titles"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "This is my K2",
+          "title": "The Brothers Karamazov",
+          "authors": [
+            "Fyodor Dostoevsky"
+          ],
+          "author_source": "context",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL272063W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Grapes of Wrath",
+          "title": "The Grapes of Wrath",
+          "authors": [
+            "John Steinbeck"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL23205W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "A climbing metaphor compares two difficult reads. The parent uniquely identifies Karamazov; K2 and Everest are not book titles. Difficulty completing Steinbeck is not an explicit judgment of its quality. Sources: https://news.ycombinator.com/item?id=49900009, https://openlibrary.org/works/OL272063W.json, https://openlibrary.org/works/OL23205W.json"
+    },
+    {
+      "comment_id": 49900012,
+      "source_url": "https://news.ycombinator.com/item?id=49900012",
+      "status": "reviewed",
+      "case_types": [
+        "series",
+        "numbered-volume",
+        "quoted-comparison"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "2nd Mistborn trilogy",
+          "title": "Mistborn: Wax and Wayne",
+          "authors": [
+            "Brandon Sanderson"
+          ],
+          "author_source": "context",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous"
+        }
+      ],
+      "notes": "The quoted claim about the parent’s book is not a new personal opinion. The reply identifies Sanderson’s second Mistborn sequence, not the original trilogy or a specific volume, and reports an emotional response. Sources: https://news.ycombinator.com/item?id=49900012"
+    },
+    {
+      "comment_id": 49900033,
+      "source_url": "https://news.ycombinator.com/item?id=49900033",
+      "status": "reviewed",
+      "case_types": [
+        "multiple-books",
+        "title-spelling",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Nickeled and Dimed",
+          "title": "Nickel and Dimed",
+          "authors": [
+            "Barbara Ehrenreich"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "economics",
+            "history"
+          ],
+          "work_id": "/works/OL2520811W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Dancing in the Streets",
+          "title": "Dancing in the Streets",
+          "authors": [
+            "Barbara Ehrenreich"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL2520830W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Natural Causes",
+          "title": "Natural Causes",
+          "authors": [
+            "Barbara Ehrenreich"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [],
+          "work_id": "/works/OL19736248W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Three reads share the explicitly stated author. Correct the Nickel title spelling; reading a binge alone does not classify every title as recommended. Sources: https://news.ycombinator.com/item?id=49900033, https://openlibrary.org/works/OL2520811W.json, https://openlibrary.org/works/OL2520830W.json, https://openlibrary.org/works/OL19736248W.json"
+    },
+    {
+      "comment_id": 49900058,
+      "source_url": "https://news.ycombinator.com/item?id=49900058",
+      "status": "reviewed",
+      "case_types": [
+        "multiple-books",
+        "recommended",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Hiroshima",
+          "title": "Hiroshima",
+          "authors": [
+            "John Hersey"
+          ],
+          "author_source": "inferred",
+          "sentiment": "recommended",
+          "strength": 0.95,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL2700123W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "The Doomsday Machine",
+          "title": "The Doomsday Machine",
+          "authors": [
+            "Daniel Ellsberg"
+          ],
+          "author_source": "inferred",
+          "sentiment": "recommended",
+          "strength": 0.95,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL34647116W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Command and Control",
+          "title": "Command and Control",
+          "authors": [
+            "Eric Schlosser"
+          ],
+          "author_source": "inferred",
+          "sentiment": "recommended",
+          "strength": 0.95,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL16809886W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The current reader explicitly recommends all three nuclear-history books. Context distinguishes the nonfiction Doomsday Machine from science fiction. Sources: https://news.ycombinator.com/item?id=49900058, https://openlibrary.org/works/OL2700123W.json, https://openlibrary.org/works/OL34647116W.json, https://openlibrary.org/works/OL16809886W.json"
+    },
+    {
+      "comment_id": 49900130,
+      "source_url": "https://news.ycombinator.com/item?id=49900130",
+      "status": "reviewed",
+      "case_types": [
+        "plural-reference",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "these",
+          "title": "Hiroshima",
+          "authors": [
+            "John Hersey"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL2700123W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "these",
+          "title": "The Doomsday Machine",
+          "authors": [
+            "Daniel Ellsberg"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL34647116W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "these",
+          "title": "Command and Control",
+          "authors": [
+            "Eric Schlosser"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL16809886W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "These refers collectively to the three books in the parent. The tentative darkly encouraging interpretation is neutral, and the parent’s endorsement must not be inherited. Sources: https://news.ycombinator.com/item?id=49900130, https://openlibrary.org/works/OL2700123W.json, https://openlibrary.org/works/OL34647116W.json, https://openlibrary.org/works/OL16809886W.json"
+    },
+    {
+      "comment_id": 49900136,
+      "source_url": "https://news.ycombinator.com/item?id=49900136",
+      "status": "reviewed",
+      "case_types": [
+        "series",
+        "multiple-books",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Garrett P.I. series",
+          "title": "Garrett P.I. series",
+          "authors": [
+            "Glen Cook"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous",
+          "aliases": [
+            "Garrett P.I."
+          ]
+        },
+        {
+          "raw": "Deadly Quicksilver Lies",
+          "title": "Deadly Quicksilver Lies",
+          "authors": [
+            "Glen Cook"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL1976779W",
+          "identity_status": "verified",
+          "aliases": [
+            "Deadly Quicksilver Lies (Garrett Files)"
+          ]
+        }
+      ],
+      "notes": "The series is a perennial favorite; the explicitly named current volume is merely being read. Preserve the series reference separately without mapping it to a volume. Sources: https://news.ycombinator.com/item?id=49900136, https://openlibrary.org/works/OL1976779W.json"
+    },
+    {
+      "comment_id": 49900165,
+      "source_url": "https://news.ycombinator.com/item?id=49900165",
+      "status": "reviewed",
+      "case_types": [
+        "recommended"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The Age of Surveillance Capitalism",
+          "title": "The Age of Surveillance Capitalism",
+          "authors": [
+            "Shoshana Zuboff"
+          ],
+          "author_source": "stated",
+          "sentiment": "recommended",
+          "strength": 0.95,
+          "tags": [
+            "economics"
+          ],
+          "work_id": "/works/OL18201749W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The reader explicitly recommends the named book, with a stated author. Sources: https://news.ycombinator.com/item?id=49900165, https://openlibrary.org/works/OL18201749W.json"
+    },
+    {
+      "comment_id": 49900182,
+      "source_url": "https://news.ycombinator.com/item?id=49900182",
+      "status": "reviewed",
+      "case_types": [
+        "abbreviation",
+        "series",
+        "multiple-books"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Carl",
+          "title": "Dungeon Crawler Carl series",
+          "authors": [
+            "Matt Dinniman"
+          ],
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous",
+          "aliases": [
+            "Dungeon Crawler Carl"
+          ]
+        },
+        {
+          "raw": "Nettle and Bone",
+          "title": "Nettle & Bone",
+          "authors": [
+            "T. Kingfisher"
+          ],
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL24510090W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Some desperate glory",
+          "title": "Some Desperate Glory",
+          "authors": [
+            "Emily Tesh"
+          ],
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": "/works/OL26522636W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "East of Eden",
+          "title": "East of Eden",
+          "authors": [
+            "John Steinbeck"
+          ],
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL23166W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Carl abbreviates the series explicitly named in the thread body, without specifying a volume. The other three titles receive personal positive assessments. Sources: https://news.ycombinator.com/item?id=49900182, https://openlibrary.org/works/OL24510090W.json, https://openlibrary.org/works/OL26522636W.json, https://openlibrary.org/works/OL23166W.json"
+    },
+    {
+      "comment_id": 49900197,
+      "source_url": "https://news.ycombinator.com/item?id=49900197",
+      "status": "reviewed",
+      "case_types": [
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "On the Road",
+          "title": "On the Road",
+          "authors": [
+            "Jack Kerouac"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL65906W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Calling a first read a trip is an ambiguous play on its subject, not an unqualified endorsement. Sources: https://news.ycombinator.com/item?id=49900197, https://openlibrary.org/works/OL65906W.json"
+    },
+    {
+      "comment_id": 49900213,
+      "source_url": "https://news.ycombinator.com/item?id=49900213",
+      "status": "reviewed",
+      "case_types": [
+        "link-title",
+        "series",
+        "contextual-reference"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "https://en.wikipedia.org/wiki/Garrett_P.I.",
+          "title": "Garrett P.I. series",
+          "authors": [
+            "Glen Cook"
+          ],
+          "author_source": "context",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous",
+          "aliases": [
+            "Garrett P.I."
+          ]
+        }
+      ],
+      "notes": "A link identifies the literary series from the parent without endorsing it or selecting one of its novels. Sources: https://news.ycombinator.com/item?id=49900213"
+    },
+    {
       "comment_id": 49900230,
       "source_url": "https://news.ycombinator.com/item?id=49900230",
       "status": "reviewed",
@@ -1214,6 +2373,50 @@
       ],
       "expected_mentions": [],
       "notes": "An empty deleted comment; do not inherit the parent book."
+    },
+    {
+      "comment_id": 49900238,
+      "source_url": "https://news.ycombinator.com/item?id=49900238",
+      "status": "reviewed",
+      "case_types": [
+        "multiple-books",
+        "subtitle",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "President Lincoln",
+          "title": "President Lincoln",
+          "authors": [
+            "William Lee Miller"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "biography",
+            "history"
+          ],
+          "work_id": "/works/OL2952835W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "God's Middle Finger: Into the Lawless Heart of the Sierra Madre",
+          "title": "God's Middle Finger",
+          "authors": [
+            "Richard Grant"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "biography"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "Two explicitly credited nonfiction books are summarized without personal recommendations; preserve the complete known subtitle as an accepted alias. Sources: https://news.ycombinator.com/item?id=49900238, https://openlibrary.org/works/OL2952835W.json"
     },
     {
       "comment_id": 49900248,
@@ -1242,6 +2445,270 @@
       "notes": "Only Middlemarch is a named work. Brontë, Austen and Dickens are comparisons between authors, not additional book titles. Bibliographic checks: https://openlibrary.org/works/OL20867W.json; https://news.ycombinator.com/item?id=49900248"
     },
     {
+      "comment_id": 49900259,
+      "source_url": "https://news.ycombinator.com/item?id=49900259",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "negative"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "a whole book for this",
+          "title": "You've Been Pooping All Wrong",
+          "authors": [
+            "Trisha Pasricha"
+          ],
+          "author_source": "context",
+          "sentiment": "negative",
+          "strength": 0,
+          "tags": [],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "The skeptical question specifically concerns the need for the book named by the parent, not an unknown generic book. Sources: https://news.ycombinator.com/item?id=49900259"
+    },
+    {
+      "comment_id": 49900260,
+      "source_url": "https://news.ycombinator.com/item?id=49900260",
+      "status": "reviewed",
+      "case_types": [
+        "multiple-books",
+        "numbered-volume",
+        "adaptation"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Dune Messiah",
+          "title": "Dune Messiah",
+          "authors": [
+            "Frank Herbert"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": "/works/OL893461W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Analysis I",
+          "title": "Analysis I",
+          "authors": [
+            "Terence Tao"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "mathematics"
+          ],
+          "work_id": "/works/OL8016096W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Thinking in bets",
+          "title": "Thinking in Bets",
+          "authors": [
+            "Annie Duke"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "psychology"
+          ],
+          "work_id": "/works/OL19736287W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Three current reads are neutral. The movie explanation identifies Dune Messiah and does not add a separate Dune mention. Sources: https://news.ycombinator.com/item?id=49900260, https://openlibrary.org/works/OL893461W.json, https://openlibrary.org/works/OL8016096W.json, https://openlibrary.org/works/OL19736287W.json"
+    },
+    {
+      "comment_id": 49900281,
+      "source_url": "https://news.ycombinator.com/item?id=49900281",
+      "status": "reviewed",
+      "case_types": [
+        "ambiguous-reference",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Only the paranoid survive",
+          "title": "Only the Paranoid Survive",
+          "authors": [
+            "Andrew S. Grove"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "management"
+          ],
+          "work_id": "/works/OL2355832W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The named Intel-management book is a neutral read. This has two possible antecedent books and cannot uniquely identify either. Sources: https://news.ycombinator.com/item?id=49900281, https://openlibrary.org/works/OL2355832W.json"
+    },
+    {
+      "comment_id": 49900295,
+      "source_url": "https://news.ycombinator.com/item?id=49900295",
+      "status": "reviewed",
+      "case_types": [
+        "short-story",
+        "adaptation",
+        "multiple-books"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Stories of Your Life And Others",
+          "title": "Stories of Your Life and Others",
+          "authors": [
+            "Ted Chiang"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": "/works/OL6216050W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "the short story behind Arrival",
+          "title": "Story of Your Life",
+          "authors": [
+            "Ted Chiang"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "The reader praises the collection and its uniquely identifiable Arrival source story. Arrival is a film, not a separately read book. Sources: https://news.ycombinator.com/item?id=49900295, https://openlibrary.org/works/OL6216050W.json"
+    },
+    {
+      "comment_id": 49900303,
+      "source_url": "https://news.ycombinator.com/item?id=49900303",
+      "status": "reviewed",
+      "case_types": [
+        "numbered-volume",
+        "title-correction"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Dungeon Crawler Carl book 8",
+          "title": "A Parade of Horribles",
+          "authors": [
+            "Matt Dinniman"
+          ],
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": "/works/OL44344307W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The explicit eighth-volume reference uniquely identifies A Parade of Horribles, not the first Dungeon Crawler Carl novel. Sources: https://news.ycombinator.com/item?id=49900303, https://www.penguinrandomhouse.com/series/43C/dungeon-crawler-carl/, https://openlibrary.org/works/OL44344307W.json"
+    },
+    {
+      "comment_id": 49900322,
+      "source_url": "https://news.ycombinator.com/item?id=49900322",
+      "status": "reviewed",
+      "case_types": [
+        "positive",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Boom Town",
+          "title": "Boom Town",
+          "authors": [
+            "Sam Anderson"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL18543644W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The current reader praises this Oklahoma City history. Sources: https://news.ycombinator.com/item?id=49900322, https://openlibrary.org/works/OL18543644W.json"
+    },
+    {
+      "comment_id": 49900326,
+      "source_url": "https://news.ycombinator.com/item?id=49900326",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "it",
+          "title": "Middlemarch",
+          "authors": [
+            "George Eliot"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL20867W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The parent uniquely identifies Middlemarch. Enjoying meeting other readers does not itself endorse the novel. Sources: https://news.ycombinator.com/item?id=49900326, https://openlibrary.org/works/OL20867W.json"
+    },
+    {
+      "comment_id": 49900386,
+      "source_url": "https://news.ycombinator.com/item?id=49900386",
+      "status": "reviewed",
+      "case_types": [
+        "reading-intention"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Discourses",
+          "title": "Discourses",
+          "authors": [
+            "Epictetus"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "philosophy"
+          ],
+          "work_id": "/works/OL13572W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "A philosophical work and its explicitly named author, without an evaluation. Sources: https://news.ycombinator.com/item?id=49900386, https://openlibrary.org/works/OL13572W.json"
+    },
+    {
       "comment_id": 49900388,
       "source_url": "https://news.ycombinator.com/item?id=49900388",
       "status": "reviewed",
@@ -1252,6 +2719,181 @@
       "notes": "A question about meetup membership, not a literary work."
     },
     {
+      "comment_id": 49900393,
+      "source_url": "https://news.ycombinator.com/item?id=49900393",
+      "status": "reviewed",
+      "case_types": [
+        "plural-reference",
+        "series",
+        "multiple-authors",
+        "reading-intention"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Dungeon Crawler Carl series",
+          "title": "Dungeon Crawler Carl series",
+          "authors": [
+            "Matt Dinniman"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous",
+          "aliases": [
+            "Dungeon Crawler Carl"
+          ]
+        },
+        {
+          "raw": "the two other books",
+          "title": "Neuroscience: Exploring the Brain",
+          "authors": [
+            "Mark F. Bear",
+            "Barry W. Connors",
+            "Michael A. Paradiso"
+          ],
+          "author_source": "context",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [],
+          "work_id": null,
+          "identity_status": "pending"
+        },
+        {
+          "raw": "the two other books",
+          "title": "Analog Computing: Development, Programming, Applications, and Future Directions",
+          "authors": [
+            "Bernd Ulmann"
+          ],
+          "author_source": "context",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "engineering"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "The reply discusses the Dungeon Crawler Carl series without identifying a volume. The two other books uniquely refer to the two nonfiction titles in the parent; intentions to check them are neutral, not recommendations. Matt’s latest movie is not enough to infer a specific book volume. Sources: https://news.ycombinator.com/item?id=49900393"
+    },
+    {
+      "comment_id": 49900400,
+      "source_url": "https://news.ycombinator.com/item?id=49900400",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "a copy of it",
+          "title": "The Brothers Karamazov",
+          "authors": [
+            "Fyodor Dostoevsky"
+          ],
+          "author_source": "context",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL272063W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The parent uniquely names the book. Taking it on a trip is a reading anecdote without a personal quality judgment. Sources: https://news.ycombinator.com/item?id=49900400, https://openlibrary.org/works/OL272063W.json"
+    },
+    {
+      "comment_id": 49900415,
+      "source_url": "https://news.ycombinator.com/item?id=49900415",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "reading-intention"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Reading this now",
+          "title": "A Philosophy of Software Design",
+          "authors": [
+            "John K. Ousterhout"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "software-design"
+          ],
+          "work_id": "/works/OL21221785W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The parent uniquely identifies the current read, without an author attribution or endorsement. Sources: https://news.ycombinator.com/item?id=49900415, https://openlibrary.org/works/OL21221785W.json"
+    },
+    {
+      "comment_id": 49900416,
+      "source_url": "https://news.ycombinator.com/item?id=49900416",
+      "status": "reviewed",
+      "case_types": [
+        "no-books",
+        "adaptation"
+      ],
+      "expected_mentions": [],
+      "notes": "This reply discusses cancellation of the television adaptation only; it adds no literary work mention or book criticism. Sources: https://news.ycombinator.com/item?id=49900416"
+    },
+    {
+      "comment_id": 49900432,
+      "source_url": "https://news.ycombinator.com/item?id=49900432",
+      "status": "reviewed",
+      "case_types": [
+        "numbered-volume",
+        "series",
+        "multiple-books"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Wizard and Glass",
+          "title": "Wizard and Glass",
+          "authors": [
+            "Stephen King"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL81615W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "dungeon crawler carl",
+          "title": "Dungeon Crawler Carl series",
+          "authors": [
+            "Matt Dinniman"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous",
+          "aliases": [
+            "Dungeon Crawler Carl"
+          ]
+        }
+      ],
+      "notes": "The fourth Dark Tower novel is explicitly named. The first three volumes are unspecified as a group and need not be invented; Dungeon Crawler Carl is a separate unspecified-volume series read. Reading alone is neutral. Sources: https://news.ycombinator.com/item?id=49900432, https://openlibrary.org/works/OL81615W.json"
+    },
+    {
       "comment_id": 49900440,
       "source_url": "https://news.ycombinator.com/item?id=49900440",
       "status": "reviewed",
@@ -1260,6 +2902,256 @@
       ],
       "expected_mentions": [],
       "notes": "Praise for a podcast, not the book mentioned in the parent."
+    },
+    {
+      "comment_id": 49900454,
+      "source_url": "https://news.ycombinator.com/item?id=49900454",
+      "status": "reviewed",
+      "case_types": [
+        "recommended",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Palo Alto",
+          "title": "Palo Alto",
+          "authors": [
+            "Malcolm Harris"
+          ],
+          "author_source": "stated",
+          "sentiment": "recommended",
+          "strength": 0.95,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL28091094W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The current reader explicitly recommends Harris’s Silicon Valley history. Sources: https://news.ycombinator.com/item?id=49900454, https://openlibrary.org/works/OL28091094W.json"
+    },
+    {
+      "comment_id": 49900481,
+      "source_url": "https://news.ycombinator.com/item?id=49900481",
+      "status": "reviewed",
+      "case_types": [
+        "translation",
+        "multiple-books",
+        "title-spelling"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Le Comte de MonteChristo",
+          "title": "Le Comte de Monte-Cristo",
+          "authors": [
+            "Alexandre Dumas"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        },
+        {
+          "raw": "an African history of Africa",
+          "title": "An African History of Africa",
+          "authors": [
+            "Zeinab Badawi"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL39084356W",
+          "identity_status": "verified",
+          "aliases": [
+            "An African History of Africa: From the Dawn of Humanity to Independence"
+          ]
+        },
+        {
+          "raw": "Hold me tight",
+          "title": "Hold Me Tight",
+          "authors": [
+            "Sue Johnson"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "psychology"
+          ],
+          "work_id": "/works/OL7909038W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Three named reads are neutral. Preserve the French novel title, identify the African history book and distinguish the relationship book from its workbook. Sources: https://news.ycombinator.com/item?id=49900481, https://www.penguinrandomhouse.co.za/product/african-history-of-africa-7381888/, https://www.drsuejohnson.com/books/, https://openlibrary.org/works/OL39084356W.json, https://openlibrary.org/works/OL7909038W.json"
+    },
+    {
+      "comment_id": 49900485,
+      "source_url": "https://news.ycombinator.com/item?id=49900485",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "negative",
+        "series"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "It’s a classic",
+          "title": "The Wheel of Time series",
+          "authors": [
+            "Robert Jordan"
+          ],
+          "author_source": "context",
+          "sentiment": "negative",
+          "strength": 0,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous",
+          "aliases": [
+            "The Wheel of Time"
+          ]
+        }
+      ],
+      "notes": "The uniquely identified fantasy series is criticized for portrayal of women. Quoted criticism is explicitly affirmed by this commenter; no Tolkien book is named. Sources: https://news.ycombinator.com/item?id=49900485"
+    },
+    {
+      "comment_id": 49900511,
+      "source_url": "https://news.ycombinator.com/item?id=49900511",
+      "status": "reviewed",
+      "case_types": [
+        "reading-intention",
+        "numeric-reference"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Gödel, Escher, Bach",
+          "title": "Gödel, Escher, Bach",
+          "authors": [
+            "Douglas R. Hofstadter"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "mathematics",
+            "philosophy"
+          ],
+          "work_id": "/works/OL716850W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Being stuck on a puzzle is a reading-progress report, not a recommendation or dismissal. Sources: https://news.ycombinator.com/item?id=49900511, https://openlibrary.org/works/OL716850W.json"
+    },
+    {
+      "comment_id": 49900535,
+      "source_url": "https://news.ycombinator.com/item?id=49900535",
+      "status": "reviewed",
+      "case_types": [
+        "multiple-books",
+        "ambiguous",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Selected Stories",
+          "title": "Selected Stories",
+          "authors": [
+            "Anton Chekhov"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous"
+        },
+        {
+          "raw": "Death in Venice",
+          "title": "Death in Venice",
+          "authors": [
+            "Thomas Mann"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL26761282W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "The Burnout Society",
+          "title": "The Burnout Society",
+          "authors": [
+            "Byung-Chul Han"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "philosophy"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        },
+        {
+          "raw": "Economics in one lesson",
+          "title": "Economics in One Lesson",
+          "authors": [
+            "Henry Hazlitt"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "economics"
+          ],
+          "work_id": "/works/OL541970W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Four current or completed reads are neutral. Selected Stories does not identify which of several differently selected Chekhov collections was read. Sources: https://news.ycombinator.com/item?id=49900535, https://openlibrary.org/works/OL26761282W.json, https://openlibrary.org/works/OL541970W.json"
+    },
+    {
+      "comment_id": 49900578,
+      "source_url": "https://news.ycombinator.com/item?id=49900578",
+      "status": "reviewed",
+      "case_types": [
+        "subtitle",
+        "reading-intention"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Gouged: The End of a Fair Price—and What That Means for Your Wallet",
+          "title": "Gouged",
+          "authors": [
+            "Lindsay Owens"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "economics"
+          ],
+          "work_id": "/works/OL46028660W",
+          "identity_status": "verified",
+          "aliases": [
+            "Gouged: The End of a Fair Price—and What That Means for Your Wallet"
+          ]
+        }
+      ],
+      "notes": "Buying a newly released ebook and intending to read it is not a personal recommendation; preserve its full subtitle as a verified alias. Sources: https://news.ycombinator.com/item?id=49900578, https://www.penguinrandomhouse.com/books/778487/gouged-by-lindsay-owens/, https://openlibrary.org/works/OL46028660W.json"
     },
     {
       "comment_id": 49900636,

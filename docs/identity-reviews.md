@@ -24,6 +24,9 @@ not a complete manual labeling of the thread or held-out extraction evaluation.
 | Credit David Foster Wallace as novelist on The Pale King; retain Michael Pietsch's editorial contribution in original metadata | [Publisher](https://www.hachettebookgroup.com/titles/david-foster-wallace/the-pale-king/9780316175296/), [editor attribution](https://www.hachettebookgroup.com/hachette-book-group-news/hbg-big-news-this-week-september-17-21-2018/) |
 | Credit Bruce I. Larrimer on Beyond Tube-and-Wing and accept its full subtitle; preserve additional catalog contributor credits | [NASA](https://www.nasa.gov/aeronautics/beyond-tube-and-wing/), [book title page](https://www.nasa.gov/wp-content/uploads/2020/11/beyond_tube-and-wing_tagged.pdf) |
 | Credit Patrick Radden Keefe on Say Nothing while preserving additional catalog contributor credits in original metadata | [Publisher](https://www.penguinrandomhouse.com/books/90837/say-nothing-by-patrick-radden-keefe/) |
+| Match Andy Grove and Andrew Grove with Andrew S. Grove on the original Only the Paranoid Survive, excluding summaries and wrong authors | [Publisher](https://www.penguinrandomhouse.com/books/72469/only-the-paranoid-survive-by-andrew-grove/), [catalog](https://openlibrary.org/works/OL2355832W.json) |
+| Accept the catalog's Garrett Files qualifier on Deadly Quicksilver Lies while keeping the individual novel distinct from Garrett Investigates and the whole series | [Publisher](https://www.penguinrandomhouse.com/books/305312/deadly-quicksilver-lies-by-glen-cook/), [catalog](https://openlibrary.org/works/OL1976779W.json) |
+| Credit Malcolm Harris alone on Palo Alto; retain the misspelled duplicate author record in original metadata | [Publisher](https://www.hachettebookgroup.com/titles/malcolm-harris/palo-alto/9780316592031/), [catalog](https://openlibrary.org/works/OL28091094W.json) |
 | Keep implicit James S. A. Corey references to The Expanse unresolved instead of assigning the prose series to the comic work | [Novels](https://www.hachettebookgroup.com/series/james-s-a-corey/the-expanse/), [graphic novel](https://www.boom-studios.com/archives/the-expanse-origins-original-graphic-novel-debuts-in-february-2018/) |
 
 The last exclusion is scoped to one reviewed work and author identity. An actual
@@ -65,7 +68,7 @@ bibliographic aliases, selected work mappings, credited authors and scoped exclu
 ## Validation scope
 
 [tests/fixtures/reviewed_identity_cases.json](../tests/fixtures/reviewed_identity_cases.json)
-contains 13 source-linked mention-level metadata regressions. They test the
+contains 16 source-linked mention-level metadata regressions. They test the
 confirmed identity decisions on saved candidate metadata. Integration tests cover
 subtitle lookup, original contributor preservation, cached reprocessing, and explicit
 comic links/credits, Munger's nickname, duplicate author records, and catalog-order
@@ -98,5 +101,19 @@ on The Pale King, Beyond Tube-and-Wing and Say Nothing. New integration cases
 check that original multi-contributor metadata survives the primary-author
 correction and that verified records can be reused without network requests.
 Separate tests ensure that unspecified manga creators cannot become prose works.
-These changes need the next Coolify rebuild; the current projection is an offline
-check, not proof that the new batch has been applied in production.
+The October 3, 06:36 UTC production rebuild verified this batch: 593 books,
+936 resolved mentions and 498 unresolved mentions, with all 47 comment corrections
+applied. It made no new model requests and recorded zero failures.
+
+The next 50-comment batch expands the labels to 184 comments and 115 checked
+identities, with 32 pending checks and 17 deliberately unresolved identities.
+The three additional catalog cases test Grove's nickname, the Garrett novel's
+series qualifier, and Palo Alto's duplicate author record. Each retains real
+provider candidates and work/author records, tests catalog-order independence,
+and verifies that canonical corrections preserve the original metadata and can
+be reused offline. Whole-series references do not acquire individual volume IDs.
+
+The local normal-resolver replay matches all checked identities in the enlarged
+set without model requests. These latest decisions still need the next Coolify
+rebuild; a local projection does not establish that they are applied in production
+or establish full-thread extraction accuracy.
