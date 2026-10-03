@@ -33,22 +33,57 @@ The additive `thread_checkpoints` table records whether a complete raw tree was 
 
 SQLite uses WAL, foreign keys, a 30-second busy timeout, and a process lock shared by CLI commands. Web requests read aggregates while ingestion works. Reprocessing rebuilds score and FTS aggregates together in a transaction. Schedule one ingestion process, and keep the database on local storage rather than a network filesystem.
 
-## Ranking version 1
+## Ranking version 2
 
-A positive recommendation has sentiment > 0 and strength >= 0.6. Mention counts, positive recommendation counts, and distinct known recommending usernames are separate statistics.
+A positive recommendation has sentiment > 0 and strength >= 0.6. Raw mention and
+recommendation counts retain the historical evidence. Distinct recommenders count
+known readers whose latest non-neutral opinion is positive. A subsequent neutral
+reading update does not erase an opinion. Each reader contributes once per book
+across all threads and dates. Conflicting opinions with identical timestamps
+abstain rather than letting input order decide.
 
-A user/thread/UTC-date context contributes its strongest positive recommendation once. Missing usernames share an `unknown` context within a thread/date and do not count as independent users.
+Positive opinions contribute their recommendation strength (Luna maps praise to
+0.65 and an explicit recommendation to 0.95); negative opinions subtract 0.5.
+Unidentified readers share one latest opinion, weighted at 0.25, and never count
+as independent users. The anonymous bucket is distinct from any actual username.
+Neutral mentions neither add nor subtract score. Scores cannot be negative.
 
 ```
-quality = 1 + min(log(1 + thread_score) / 20, 0.3)
-explanation = 0.2 × min(context_word_count / 80, 1)
-contribution = strength × (quality + explanation)
-diversity = 1 + 0.15 × log(1 + positive_threads) + 0.1 × log(1 + positive_dates)
-all_time = sum(context_contributions) × diversity
-recent = sum(contribution × 0.5 ** (age_days / 365)) × diversity
+weight = 1 for a known reader, 0.25 for the anonymous bucket
+support = sum(weight × positive_strength)
+opposition = sum(weight × 0.5 for negative opinions)
+n = sum(weight for positive opinions)
+support_multiplier = n / (n + 2)
+diversity = 1 + min(0.1 × log(max(1, positive_threads)), 0.15)
+              + min(0.05 × log(max(1, positive_dates)), 0.1)
+all_time = max(0, support - opposition) × support_multiplier × diversity
+recent = max(0, decayed_support - decayed_opposition) × support_multiplier × diversity
+decay = 0.5 ** (max(0, age_days) / 365)
 ```
 
-Thread score is used because the official HN API does not expose reliable comment scores. Length is a deliberately simple explanation proxy. `score_details` records formula version and factors. All-time scores do not decay. All-time scores can change when thread scores or comments change.
+The support multiplier reduces isolated endorsements; it is a ranking heuristic,
+not a calibrated probability. Independent support across threads/dates adds at
+most 25%. Word count and thread popularity no longer boost a book: a long list
+is not evidence that each book was thoughtfully recommended, and story upvotes
+do not rate individual book opinions. Scores depend on extracted classifications,
+which still require complete source review.
+
+`score_details` records positive/critical readers, weighted support/opposition,
+conflicts, diversity and formula version. All-time scores do not decay. Recent
+ranking decays both support and criticism using a 365-day half-life. “Most
+recommended” sorts by distinct current recommenders, followed by score. Titles
+and IDs break ties consistently for the infinite feed. “Most mentioned” retains
+raw frequency sorting.
+
+Web startup upgrades stale ranking versions in one SQLite transaction using
+stored mentions only. It does not call HN, metadata services or Luna, modify raw
+evidence/cache, or rebuild extraction. An interrupted upgrade rolls back all
+score changes; a second worker checks the version again after acquiring the
+write lock. Normal ingestion/rebuilds and `app.recompute rankings` use the same
+formula. Increment `FORMULA_VERSION` for ranking-only changes, leaving extraction
+and processing cache versions unchanged.
+
+See [the ranking validation notes](ranking.md) for sensitivity checks and limits.
 
 ## Luna extraction and library replacement
 

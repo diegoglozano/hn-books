@@ -1,8 +1,10 @@
 # Source-bound comment corrections
 
-The latest rebuild completed all 870 comments with 916 resolved and 542 unresolved
-mentions across 584 books. It reused 864 cached Luna results, made no new model
-requests, and recorded zero failures. These counts establish processing coverage;
+The verified rebuild completed on October 2, 2026 at 23:50 UTC with all 32 review
+decisions applied: 870 comments, 924 resolved and 509 unresolved mentions across
+585 books. It reused 864 cached Luna results, made no new model requests, performed
+seven metadata lookups and recorded zero failures in 40.8 seconds. These counts
+establish processing coverage;
 they do not establish extraction accuracy.
 
 Screening the 177 comments with no extracted mentions found missed contextual
@@ -50,6 +52,11 @@ regression set as satisfying the complete-thread quality gate. A pending catalog
 check is distinct from a genuinely ambiguous identity: it does not score as a
 correct abstention or contribute to canonicalization accuracy. Mention, sentiment,
 strength and topic metrics can still be evaluated independently of that check.
+
+The corrected production export matches all 42 expected mentions and all 27
+catalog-checked identities in this selected set. The separate original-Luna
+comparison still records eight omissions and 38 false entries. This verifies
+the repairs without presenting curated outputs as improved model accuracy.
 
 ## Scope and evidence
 
