@@ -117,8 +117,8 @@
           "sentiment": "neutral",
           "strength": 0.2,
           "tags": [],
-          "work_id": null,
-          "identity_status": "pending"
+          "work_id": "/works/OL24784465W",
+          "identity_status": "verified"
         },
         {
           "raw": "Intentional(Chris Bailey)",
@@ -182,7 +182,7 @@
           "identity_status": "pending"
         }
       ],
-      "notes": "Nine named reads or series, with no personal endorsement. The outdoor-parenting title is Outdoor Kids in an Inside World by Steven Rinella; There Are No Children Here and Richard Louv are unsupported substitutions. DCC repeats one series, not a second mention. Sources: https://news.ycombinator.com/item?id=49899719, https://penguinrandomhouselibrary.com/book/?isbn=9780593129685, https://openlibrary.org/works/OL20464319W.json, https://openlibrary.org/works/OL38495W.json, https://openlibrary.org/works/OL24593432W.json"
+      "notes": "Nine named reads or series, with no personal endorsement. The outdoor-parenting title is Outdoor Kids in an Inside World by Steven Rinella; There Are No Children Here and Richard Louv are unsupported substitutions. DCC repeats one series, not a second mention. Sources: https://news.ycombinator.com/item?id=49899719, https://penguinrandomhouselibrary.com/book/?isbn=9780593129685, https://openlibrary.org/works/OL20464319W.json, https://openlibrary.org/works/OL38495W.json, https://openlibrary.org/works/OL24593432W.json Catalog identity checked October 3, 2026: https://openlibrary.org/works/OL24784465W.json, https://openlibrary.org/authors/OL1436909A.json."
     },
     {
       "comment_id": 49899881,
@@ -801,11 +801,11 @@
           "tags": [
             "fiction"
           ],
-          "work_id": null,
-          "identity_status": "pending"
+          "work_id": "/works/OL77746W",
+          "identity_status": "verified"
         }
       ],
-      "notes": "Two named books are being read without an endorsement. Unspecified Robert Macfarlane titles cannot be individual entries. The publisher identifies Energy and Civilization as nonfiction history, not science fiction. Sources: https://news.ycombinator.com/item?id=49903728, https://mitpress.mit.edu/9780262035774/energy-and-civilization/, https://openlibrary.org/works/OL20186754W.json"
+      "notes": "Two named books are being read without an endorsement. Unspecified Robert Macfarlane titles cannot be individual entries. The publisher identifies Energy and Civilization as nonfiction history, not science fiction. Sources: https://news.ycombinator.com/item?id=49903728, https://mitpress.mit.edu/9780262035774/energy-and-civilization/, https://openlibrary.org/works/OL20186754W.json Catalog identity checked October 3, 2026: https://openlibrary.org/works/OL77746W.json, https://openlibrary.org/authors/OL39485A.json."
     },
     {
       "comment_id": 49903748,
@@ -1032,8 +1032,8 @@
           "tags": [
             "fiction"
           ],
-          "work_id": null,
-          "identity_status": "pending"
+          "work_id": "/works/OL42983060W",
+          "identity_status": "verified"
         },
         {
           "raw": "Gameshouse series",
@@ -1051,7 +1051,7 @@
           "identity_status": "verified"
         }
       ],
-      "notes": "Bennet refers to Robert Jackson Bennett, also named in the ancestor. The next book after The Tainted Cup is the publisher-verified A Drop of Corruption, not an invented title The next. Praise for Bennett's writing and the Gameshouse is retained; simply moving on to a sequel is neutral. Sources: https://news.ycombinator.com/item?id=49904833, https://news.ycombinator.com/item?id=49897221, https://www.penguinrandomhouse.com/books/735559/a-drop-of-corruption-by-robert-jackson-bennett/ebook/, https://openlibrary.org/works/OL37628730W.json, https://openlibrary.org/works/OL20892736W.json"
+      "notes": "Bennet refers to Robert Jackson Bennett, also named in the ancestor. The next book after The Tainted Cup is the publisher-verified A Drop of Corruption, not an invented title The next. Praise for Bennett's writing and the Gameshouse is retained; simply moving on to a sequel is neutral. Sources: https://news.ycombinator.com/item?id=49904833, https://news.ycombinator.com/item?id=49897221, https://www.penguinrandomhouse.com/books/735559/a-drop-of-corruption-by-robert-jackson-bennett/ebook/, https://openlibrary.org/works/OL37628730W.json, https://openlibrary.org/works/OL20892736W.json Catalog identity checked October 3, 2026: https://openlibrary.org/works/OL42983060W.json, https://openlibrary.org/authors/OL6586893A.json."
     },
     {
       "comment_id": 49905135,
@@ -1304,7 +1304,7 @@
           "raw": "Poor Charlie's Almanack",
           "title": "Poor Charlie's Almanack",
           "authors": [
-            "Charlie Munger"
+            "Charles T. Munger"
           ],
           "author_source": "context",
           "sentiment": "neutral",
@@ -1313,11 +1313,11 @@
             "economics",
             "finance"
           ],
-          "work_id": null,
-          "identity_status": "pending"
+          "work_id": "/works/OL8928012W",
+          "identity_status": "verified"
         }
       ],
-      "notes": "The almanac is on the reading pile, not recommended. The ancestor supplies Charlie Munger. Camus names a possible author to read, with no particular title identified. Sources: https://news.ycombinator.com/item?id=49909420, https://news.ycombinator.com/item?id=49909304, https://press.stripe.com/poor-charlies-almanack"
+      "notes": "The almanac is on the reading pile, not recommended. The ancestor supplies Charlie Munger. Camus names a possible author to read, with no particular title identified. Sources: https://news.ycombinator.com/item?id=49909420, https://news.ycombinator.com/item?id=49909304, https://press.stripe.com/poor-charlies-almanack Catalog identity checked October 3, 2026: https://openlibrary.org/works/OL8928012W.json, https://openlibrary.org/authors/OL3085123A.json, https://openlibrary.org/authors/OL6590452A.json."
     },
     {
       "comment_id": 49909476,
@@ -1450,11 +1450,11 @@
           "tags": [
             "fiction"
           ],
-          "work_id": null,
-          "identity_status": "pending"
+          "work_id": "/works/OL679360W",
+          "identity_status": "verified"
         }
       ],
-      "notes": "Two named books receive explicit criticism. General criticism of Iain M. Banks cannot be narrowed to the Culture series. The DCC author is publisher-verified; negative sentiment remains negative, and American Gods is fantasy rather than science fiction. Sources: https://news.ycombinator.com/item?id=49910451, https://www.penguinrandomhouse.com/series/43C/dungeon-crawler-carl/, https://neilgaiman.com/works/Books/American_Gods, https://openlibrary.org/works/OL24593432W.json"
+      "notes": "Two named books receive explicit criticism. General criticism of Iain M. Banks cannot be narrowed to the Culture series. The DCC author is publisher-verified; negative sentiment remains negative, and American Gods is fantasy rather than science fiction. Sources: https://news.ycombinator.com/item?id=49910451, https://www.penguinrandomhouse.com/series/43C/dungeon-crawler-carl/, https://neilgaiman.com/works/Books/American_Gods, https://openlibrary.org/works/OL24593432W.json Catalog identity checked October 3, 2026: https://openlibrary.org/works/OL679360W.json, https://openlibrary.org/authors/OL53305A.json."
     },
     {
       "comment_id": 49910622,

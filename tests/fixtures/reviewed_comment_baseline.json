@@ -21,16 +21,12 @@
       3
     ]
   },
-  "labels_digest": "123976a0d6188eb0610f6a71aeae039bb049b496e53d0c1ca5c2ad11fbe08495",
+  "labels_digest": "9af93c584cccedc9b4dc1589eedaa19fcf482ac834b35a5378da06add16ac04a",
   "evaluation_version": 3,
   "pending_identity_labels": [
     {
       "comment_id": 49899719,
       "title": "Ten Things I Wish I Knew About Raising Boys"
-    },
-    {
-      "comment_id": 49899719,
-      "title": "Outdoor Kids in an Inside World"
     },
     {
       "comment_id": 49899719,
@@ -65,24 +61,8 @@
       "title": "Tower of Babylon"
     },
     {
-      "comment_id": 49903728,
-      "title": "Anne of Green Gables"
-    },
-    {
-      "comment_id": 49904833,
-      "title": "A Drop of Corruption"
-    },
-    {
       "comment_id": 49906768,
       "title": "The Gold Standard"
-    },
-    {
-      "comment_id": 49909420,
-      "title": "Poor Charlie's Almanack"
-    },
-    {
-      "comment_id": 49910451,
-      "title": "American Gods"
     }
   ],
   "results": {
@@ -100,10 +80,10 @@
         "sentiment_correct": 33,
         "strength_correct": 33,
         "provenance_correct": 29,
-        "known_works": 21,
+        "known_works": 24,
         "identity_correct": 20,
         "authors_correct": 20,
-        "identities_pending": 15,
+        "identities_pending": 10,
         "fn": 8,
         "mention_precision": 0.4722222222222222,
         "mention_recall": 0.8095238095238095,
@@ -112,8 +92,8 @@
         "sentiment_agreement": 0.9705882352941176,
         "recommendation_strength_agreement": 0.9705882352941176,
         "grounded_evidence_rate": 1.0,
-        "canonicalization_accuracy": 0.9523809523809523,
-        "author_accuracy": 0.9523809523809523,
+        "canonicalization_accuracy": 0.8333333333333334,
+        "author_accuracy": 0.8333333333333334,
         "author_provenance_agreement": 0.8529411764705882,
         "unresolved_rate": 0.6944444444444444,
         "abstention_accuracy": null
@@ -132,7 +112,7 @@
           "known_works": 3,
           "identity_correct": 3,
           "authors_correct": 3,
-          "identities_pending": 6,
+          "identities_pending": 5,
           "fn": 2,
           "fp": 1,
           "grounded": 9,
@@ -261,10 +241,10 @@
           "sentiment_correct": 18,
           "strength_correct": 18,
           "provenance_correct": 14,
-          "known_works": 14,
+          "known_works": 17,
           "identity_correct": 13,
           "authors_correct": 13,
-          "identities_pending": 4,
+          "identities_pending": 1,
           "mention_precision": 0.35294117647058826,
           "mention_recall": 1.0,
           "tag_precision": 0.5306122448979592,
@@ -272,8 +252,8 @@
           "sentiment_agreement": 1.0,
           "recommendation_strength_agreement": 1.0,
           "grounded_evidence_rate": 1.0,
-          "canonicalization_accuracy": 0.9285714285714286,
-          "author_accuracy": 0.9285714285714286,
+          "canonicalization_accuracy": 0.7647058823529411,
+          "author_accuracy": 0.7647058823529411,
           "author_provenance_agreement": 0.7777777777777778,
           "unresolved_rate": 0.7058823529411765,
           "abstention_accuracy": null
@@ -288,13 +268,12 @@
           "sentiment_correct": 7,
           "strength_correct": 7,
           "provenance_correct": 2,
-          "known_works": 6,
+          "known_works": 7,
           "identity_correct": 5,
           "authors_correct": 5,
           "fp": 4,
           "grounded": 11,
           "unresolved": 6,
-          "identities_pending": 2,
           "fn": 1,
           "mention_precision": 0.6363636363636364,
           "mention_recall": 0.875,
@@ -303,8 +282,8 @@
           "sentiment_agreement": 1.0,
           "recommendation_strength_agreement": 1.0,
           "grounded_evidence_rate": 1.0,
-          "canonicalization_accuracy": 0.8333333333333334,
-          "author_accuracy": 0.8333333333333334,
+          "canonicalization_accuracy": 0.7142857142857143,
+          "author_accuracy": 0.7142857142857143,
           "author_provenance_agreement": 0.2857142857142857,
           "unresolved_rate": 0.5454545454545454,
           "abstention_accuracy": null
@@ -319,13 +298,13 @@
           "sentiment_correct": 8,
           "strength_correct": 8,
           "provenance_correct": 7,
-          "known_works": 7,
+          "known_works": 8,
           "identity_correct": 7,
           "authors_correct": 7,
           "fp": 5,
           "grounded": 14,
           "unresolved": 7,
-          "identities_pending": 2,
+          "identities_pending": 1,
           "mention_precision": 0.6428571428571429,
           "mention_recall": 1.0,
           "tag_precision": 0.7272727272727273,
@@ -333,8 +312,8 @@
           "sentiment_agreement": 0.8888888888888888,
           "recommendation_strength_agreement": 0.8888888888888888,
           "grounded_evidence_rate": 1.0,
-          "canonicalization_accuracy": 1.0,
-          "author_accuracy": 1.0,
+          "canonicalization_accuracy": 0.875,
+          "author_accuracy": 0.875,
           "author_provenance_agreement": 0.7777777777777778,
           "unresolved_rate": 0.5,
           "abstention_accuracy": null
@@ -425,7 +404,6 @@
           "known_works": 2,
           "identity_correct": 2,
           "authors_correct": 2,
-          "identities_pending": 1,
           "mention_precision": 0.5,
           "mention_recall": 0.25,
           "tag_precision": 0.6666666666666666,
@@ -510,7 +488,7 @@
           "known_works": 3,
           "identity_correct": 3,
           "authors_correct": 3,
-          "identities_pending": 6,
+          "identities_pending": 5,
           "fn": 1,
           "fp": 1,
           "grounded": 9,
@@ -538,13 +516,12 @@
           "sentiment_correct": 4,
           "strength_correct": 4,
           "provenance_correct": 3,
-          "known_works": 3,
+          "known_works": 4,
           "identity_correct": 2,
           "authors_correct": 2,
           "fp": 3,
           "grounded": 7,
           "unresolved": 5,
-          "identities_pending": 1,
           "mention_precision": 0.5714285714285714,
           "mention_recall": 1.0,
           "tag_precision": 0.6,
@@ -552,8 +529,8 @@
           "sentiment_agreement": 1.0,
           "recommendation_strength_agreement": 1.0,
           "grounded_evidence_rate": 1.0,
-          "canonicalization_accuracy": 0.6666666666666666,
-          "author_accuracy": 0.6666666666666666,
+          "canonicalization_accuracy": 0.5,
+          "author_accuracy": 0.5,
           "author_provenance_agreement": 0.75,
           "unresolved_rate": 0.7142857142857143,
           "abstention_accuracy": null
@@ -613,10 +590,9 @@
           "sentiment_correct": 4,
           "strength_correct": 4,
           "provenance_correct": 3,
-          "known_works": 2,
+          "known_works": 4,
           "identity_correct": 1,
           "authors_correct": 1,
-          "identities_pending": 2,
           "fp": 2,
           "grounded": 6,
           "unresolved": 5,
@@ -627,8 +603,8 @@
           "sentiment_agreement": 1.0,
           "recommendation_strength_agreement": 1.0,
           "grounded_evidence_rate": 1.0,
-          "canonicalization_accuracy": 0.5,
-          "author_accuracy": 0.5,
+          "canonicalization_accuracy": 0.25,
+          "author_accuracy": 0.25,
           "author_provenance_agreement": 0.75,
           "unresolved_rate": 0.8333333333333334,
           "abstention_accuracy": null
@@ -690,10 +666,10 @@
           "sentiment_correct": 3,
           "strength_correct": 3,
           "provenance_correct": 4,
-          "known_works": 2,
+          "known_works": 3,
           "identity_correct": 2,
           "authors_correct": 2,
-          "identities_pending": 2,
+          "identities_pending": 1,
           "fp": 2,
           "grounded": 6,
           "unresolved": 4,
@@ -704,8 +680,8 @@
           "sentiment_agreement": 0.75,
           "recommendation_strength_agreement": 0.75,
           "grounded_evidence_rate": 1.0,
-          "canonicalization_accuracy": 1.0,
-          "author_accuracy": 1.0,
+          "canonicalization_accuracy": 0.6666666666666666,
+          "author_accuracy": 0.6666666666666666,
           "author_provenance_agreement": 1.0,
           "unresolved_rate": 0.6666666666666666,
           "abstention_accuracy": null
@@ -723,7 +699,6 @@
           "known_works": 2,
           "identity_correct": 2,
           "authors_correct": 2,
-          "identities_pending": 1,
           "fn": 1,
           "fp": 1,
           "grounded": 3,
@@ -754,7 +729,7 @@
           "known_works": 3,
           "identity_correct": 3,
           "authors_correct": 3,
-          "identities_pending": 6,
+          "identities_pending": 5,
           "fn": 1,
           "fp": 1,
           "grounded": 9,
@@ -845,7 +820,7 @@
           "known_works": 3,
           "identity_correct": 3,
           "authors_correct": 3,
-          "identities_pending": 6,
+          "identities_pending": 5,
           "fn": 1,
           "fp": 1,
           "grounded": 9,
@@ -876,7 +851,7 @@
           "known_works": 3,
           "identity_correct": 3,
           "authors_correct": 3,
-          "identities_pending": 6,
+          "identities_pending": 5,
           "fn": 2,
           "fp": 2,
           "grounded": 10,
@@ -1197,6 +1172,14 @@
           "source_url": "https://news.ycombinator.com/item?id=49903633"
         },
         {
+          "kind": "identity_mismatch",
+          "title": "Anne of Green Gables",
+          "expected_work": "/works/OL77746W",
+          "actual_work": null,
+          "comment_id": 49903728,
+          "source_url": "https://news.ycombinator.com/item?id=49903728"
+        },
+        {
           "kind": "false_positive",
           "title": "Robert Macfarlane titles",
           "comment_id": 49903728,
@@ -1365,6 +1348,14 @@
           "source_url": "https://news.ycombinator.com/item?id=49906782"
         },
         {
+          "kind": "identity_mismatch",
+          "title": "Poor Charlie's Almanack",
+          "expected_work": "/works/OL8928012W",
+          "actual_work": null,
+          "comment_id": 49909420,
+          "source_url": "https://news.ycombinator.com/item?id=49909420"
+        },
+        {
           "kind": "false_positive",
           "title": "Camus",
           "comment_id": 49909420,
@@ -1422,6 +1413,14 @@
           "kind": "identity_mismatch",
           "title": "Dungeon Crawler Carl",
           "expected_work": "/works/OL24593432W",
+          "actual_work": null,
+          "comment_id": 49910451,
+          "source_url": "https://news.ycombinator.com/item?id=49910451"
+        },
+        {
+          "kind": "identity_mismatch",
+          "title": "American Gods",
+          "expected_work": "/works/OL679360W",
           "actual_work": null,
           "comment_id": 49910451,
           "source_url": "https://news.ycombinator.com/item?id=49910451"

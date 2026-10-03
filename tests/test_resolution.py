@@ -178,11 +178,143 @@ REVIEW_CASES = json.loads(
 
 @pytest.mark.parametrize("case", REVIEW_CASES, ids=lambda case: case["mention"]["title"])
 def test_source_linked_identity_reviews(case):
-    selected, _, evidence = select_candidate(MentionSpan(**case["mention"]), case["docs"])
+    span = MentionSpan(**case["mention"])
+    selected, _, evidence = select_candidate(span, case["docs"])
     assert (selected["key"] if selected else None) == case["expected_work"]
+    assert select_candidate(span, list(reversed(case["docs"])))[0] == selected
     if case["expected_work"] is None:
         assert evidence[0]["excluded_by_review"]
         assert evidence[0]["identity_review"]["sources"]
+
+
+@pytest.mark.parametrize(
+    "case", [case for case in REVIEW_CASES if "work" in case], ids=lambda c: c["mention"]["title"]
+)
+def test_reviewed_novels_and_munger_resolve_and_reuse_verified_metadata(settings, case):
+    requests = []
+    authors = {author["key"] + ".json": author for author in case["author_records"]}
+
+    def handle(request):
+        requests.append(request.url.path)
+        if request.url.path == "/search.json":
+            # Munger's nickname search is empty; the title-only fallback identifies him.
+            docs = (
+                []
+                if case["mention"]["author"] == "Charlie Munger" and "author" in request.url.params
+                else case["docs"]
+            )
+            return httpx.Response(200, json={"docs": docs})
+        if request.url.path == case["expected_work"] + ".json":
+            return httpx.Response(200, json=case["work"])
+        return httpx.Response(200, json=authors[request.url.path])
+
+    remote = RemoteClient(settings, httpx.Client(transport=httpx.MockTransport(handle)))
+    span = MentionSpan(**case["mention"])
+    metrics = RunMetrics()
+    with connect(settings.database_path) as conn:
+        book_id, _, evidence = resolve_book(conn, span, MetadataClient(remote, conn, metrics))
+        assert book_id is not None
+        book = conn.execute("SELECT * FROM books WHERE id=?", (book_id,)).fetchone()
+        assert book["openlibrary_id"] == case["expected_work"]
+        review = next(
+            r for r in identity_reviews()["works"] if r["work_id"] == case["expected_work"]
+        )
+        assert json.loads(book["authors"]) == review["authors"]
+        stored = json.loads(book["metadata_json"])
+        assert stored["work"] == case["work"]
+        assert stored["identity_review"] == review
+        assert stored["identity_review_digest"] == identity_digest()
+        assert (
+            next(e for e in evidence if e["key"] == case["expected_work"])["identity_review"]
+            == review
+        )
+        request_count = len(requests)
+        assert (
+            resolve_book(conn, span, MetadataClient(remote, conn, metrics, offline=True))[0]
+            == book_id
+        )
+        assert len(requests) == request_count
+        assert metrics.llm_requests == metrics.failures == 0
+    remote.close()
+
+
+def test_new_preferences_do_not_select_a_novel_for_other_authors_or_coauthors():
+    from app.resolution import author_matches, preferred_review
+
+    assert author_matches("Charlie Munger", ["Charles T. Munger"])
+    assert not author_matches("Charlie Munger", ["Charlie Monroe"])
+    for author in ("Peter D. Kaufman", "Charlie Munger and Peter D. Kaufman"):
+        span = MentionSpan(
+            raw="Poor Charlie's Almanack",
+            title="Poor Charlie's Almanack",
+            author=author,
+            confidence=1,
+        )
+        assert preferred_review(span) is None
+        assert (
+            select_candidate(
+                span,
+                [doc(key="/works/OL8928012W", title=span.title, authors=["Charles T. Munger"])],
+            )[0]
+            is None
+        )
+    assert (
+        select_candidate(
+            MentionSpan(
+                raw="American Gods", title="American Gods", author="Neil Gaiman", confidence=1
+            ),
+            [
+                doc(
+                    key="/works/OL77746W",
+                    title="Anne of Green Gables",
+                    authors=["Lucy Maud Montgomery"],
+                )
+            ],
+        )[0]
+        is None
+    )
+
+
+def test_explicit_american_gods_graphic_work_remains_separate(settings):
+    from app.resolution import preferred_review
+
+    span = MentionSpan(
+        raw="American Gods",
+        title="American Gods",
+        author="Neil Gaiman",
+        work_id="/works/OL24196318W",
+        confidence=1,
+    )
+    assert preferred_review(span) is None
+
+    def handle(request):
+        # A grounded work link resolves the adaptation directly, without a novel search.
+        if request.url.path == "/authors/OL1A.json":
+            return httpx.Response(200, json={"name": "Neil Gaiman"})
+        if request.url.path == "/authors/OL2A.json":
+            return httpx.Response(200, json={"name": "P. Craig Russell"})
+        assert request.url.path == "/works/OL24196318W.json"
+        return httpx.Response(
+            200,
+            json={
+                "title": "The Complete American Gods",
+                "subjects": ["Comics & graphic novels"],
+                "authors": [
+                    {"author": {"key": "/authors/OL1A"}},
+                    {"author": {"key": "/authors/OL2A"}},
+                ],
+            },
+        )
+
+    remote = RemoteClient(settings, httpx.Client(transport=httpx.MockTransport(handle)))
+    with connect(settings.database_path) as conn:
+        book_id, _, _ = resolve_book(conn, span, MetadataClient(remote, conn, RunMetrics()))
+        assert book_id is not None
+        book = conn.execute("SELECT * FROM books WHERE id=?", (book_id,)).fetchone()
+        assert book["openlibrary_id"] == span.work_id
+        assert json.loads(book["authors"]) == ["Neil Gaiman", "P. Craig Russell"]
+        assert json.loads(book["metadata_json"])["identity_review"] is None
+    remote.close()
 
 
 def test_reviewed_aliases_are_specific_and_coauthors_still_require_each_identity():
