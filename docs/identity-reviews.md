@@ -18,6 +18,9 @@ not a complete manual labeling of the thread or held-out extraction evaluation.
 | Prefer reviewed work IDs for The Brothers Karamazov, 1Q84, The Goblin Emperor and The Dark Forest | Linked work records in the review file; [The Dark Forest publisher](https://us.macmillan.com/books/9780765377081/thedarkforest/) |
 | Credit Donna Tartt on The Goldfinch; retain original extra catalog contributors in metadata | [Publisher](https://www.hachettebookgroup.com/titles/donna-tartt/the-goldfinch/9780316055437/) |
 | Credit Donella Meadows as author and retain Diana Wright's editorial contribution in metadata on Thinking in Systems; accept its verified subtitle | [Publisher](https://chelseagreen.co.uk/book/thinking-in-systems/) |
+| Prefer the original Anne of Green Gables novel by Lucy Maud Montgomery over duplicate, adapted and omnibus candidates | [Catalog](https://openlibrary.org/works/OL77746W.json), [publisher](https://www.penguinrandomhouse.com/books/557098/anne-of-green-gables-by-l-m-montgomery/9780143131854/) |
+| Prefer Neil Gaiman's American Gods prose novel; retain explicit graphic-work links as separate identities | [Catalog](https://openlibrary.org/works/OL679360W.json), [author](https://neilgaiman.com/works/Books/American_Gods) |
+| Match Charlie Munger with Charles T. Munger on Poor Charlie's Almanack; collapse duplicate author credits and preserve Peter D. Kaufman's editorial role in source metadata | [Catalog](https://openlibrary.org/works/OL8928012W.json), [publisher](https://press.stripe.com/poor-charlies-almanack) |
 | Keep implicit James S. A. Corey references to The Expanse unresolved instead of assigning the prose series to the comic work | [Novels](https://www.hachettebookgroup.com/series/james-s-a-corey/the-expanse/), [graphic novel](https://www.boom-studios.com/archives/the-expanse-origins-original-graphic-novel-debuts-in-february-2018/) |
 
 The last exclusion is scoped to one reviewed work and author identity. An actual
@@ -59,9 +62,27 @@ bibliographic aliases, selected work mappings, credited authors and scoped exclu
 ## Validation scope
 
 [tests/fixtures/reviewed_identity_cases.json](../tests/fixtures/reviewed_identity_cases.json)
-contains seven source-linked mention-level metadata regressions. They test the
+contains ten source-linked mention-level metadata regressions. They test the
 confirmed identity decisions on saved candidate metadata. Integration tests cover
 subtitle lookup, original contributor preservation, cached reprocessing, and explicit
-comic links/credits. These checks measure behavior on curated identity cases, not
+comic links/credits, Munger's nickname, duplicate author records, and catalog-order
+independence. These checks measure behavior on curated identity cases, not
 full-thread mention precision or recall. Continue the [complete-thread review](thread-review.md)
 before extending ingestion.
+
+The October 3 review also verified the existing catalog matches for Outdoor Kids
+in an Inside World ([work](https://openlibrary.org/works/OL24784465W.json)) and
+A Drop of Corruption ([work](https://openlibrary.org/works/OL42983060W.json)). The
+104-comment regression set now has 32 checked identities and ten pending checks.
+The pre-correction baseline was recomputed against these expanded identity labels
+using the same saved source and prediction snapshot; its eight omissions and
+38 false entries are unchanged.
+
+A local projection through the normal resolver, using saved search responses and
+checked work/author metadata, resolves six previously unresolved mentions across
+the three newly preferred works. It preserves each mention's sentiment, strength
+and source evidence. The projection matches all 32 checked identities and author
+credits in the selected regression set, with no network or model requests.
+This is an offline check, not a completed production rebuild or evidence of
+full-thread accuracy. Production matching changes take effect after the existing
+Coolify rebuild task runs.

@@ -29,7 +29,7 @@ to the current comment and its actual ancestor context.
 
 The source-linked [regression labels](../tests/fixtures/reviewed_comment_labels.json)
 cover 104 comments: selected failures and reviewed negative examples. Of 42
-expected mentions, 27 have catalog-checked identities and 15 still require
+expected mentions, 32 have catalog-checked identities and ten still require
 catalog verification. The
 [saved baseline](../tests/fixtures/reviewed_comment_baseline.json) records eight
 omissions and 38 false entries in this selected set, before applying corrections.
@@ -53,8 +53,12 @@ check is distinct from a genuinely ambiguous identity: it does not score as a
 correct abstention or contribute to canonicalization accuracy. Mention, sentiment,
 strength and topic metrics can still be evaluated independently of that check.
 
-The corrected production export matches all 42 expected mentions and all 27
-catalog-checked identities in this selected set. The separate original-Luna
+The October 2 corrected production export matches all 42 expected mentions and
+all 27 identities that were checked at that time. The October 3
+[identity review](identity-reviews.md) checks five more labels and adds matching
+preferences for three unresolved works. Applying those preferences still requires
+the existing rebuild task; the offline projection matches all 32 checked identities.
+The separate original-Luna
 comparison still records eight omissions and 38 false entries. This verifies
 the repairs without presenting curated outputs as improved model accuracy.
 

@@ -355,5 +355,288 @@
       }
     ],
     "expected_work": null
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=49903728",
+    "mention": {
+      "raw": "Anne of Green Gables",
+      "title": "Anne of Green Gables",
+      "author": "Lucy Maud Montgomery",
+      "author_source": "inferred",
+      "confidence": 1.0,
+      "work_id": null,
+      "require_author": true
+    },
+    "docs": [
+      {
+        "key": "/works/OL77746W",
+        "title": "Anne of Green Gables",
+        "author_name": [
+          "Lucy Maud Montgomery"
+        ],
+        "subject": [
+          "Comics & graphic novels, general"
+        ]
+      },
+      {
+        "key": "/works/OL40955314W",
+        "title": "Anne of Green Gables",
+        "author_name": [
+          "Lucy Maud Montgomery"
+        ]
+      },
+      {
+        "key": "/works/OL15106351W",
+        "title": "The Anne of Green Gables novels [8 novels]",
+        "author_name": [
+          "Lucy Maud Montgomery"
+        ],
+        "subject": []
+      },
+      {
+        "key": "/works/OL40306122W",
+        "title": "Anne of Green Gables",
+        "author_name": [
+          "Lucy Maud Montgomery"
+        ]
+      },
+      {
+        "key": "/works/OL3542109W",
+        "title": "Anne of Green Gables / Anne of Avonlea / Anne of the Island",
+        "author_name": [
+          "Lucy Maud Montgomery"
+        ],
+        "subject": []
+      },
+      {
+        "key": "/works/OL3542187W",
+        "title": "The Anne of Green Gables Diary",
+        "author_name": [
+          "Lucy Maud Montgomery",
+          "Shelley Tanaka"
+        ],
+        "subject": []
+      },
+      {
+        "key": "/works/OL26844766W",
+        "title": "Anne of Green Gables",
+        "author_name": [
+          "Lucy Maud Montgomery"
+        ]
+      },
+      {
+        "key": "/works/OL29751180W",
+        "title": "Anne of Green Gables",
+        "author_name": [
+          "Jan Oliveira",
+          "Lucy Maud Montgomery"
+        ]
+      }
+    ],
+    "expected_work": "/works/OL77746W",
+    "work": {
+      "key": "/works/OL77746W",
+      "title": "Anne of Green Gables",
+      "authors": [
+        {
+          "author": {
+            "key": "/authors/OL39485A"
+          },
+          "type": {
+            "key": "/type/author_role"
+          }
+        }
+      ]
+    },
+    "author_records": [
+      {
+        "key": "/authors/OL39485A",
+        "name": "Lucy Maud Montgomery"
+      }
+    ]
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=49910451",
+    "mention": {
+      "raw": "American Gods",
+      "title": "American Gods",
+      "author": "Neil Gaiman",
+      "author_source": "stated",
+      "confidence": 1.0,
+      "work_id": null,
+      "require_author": true
+    },
+    "docs": [
+      {
+        "key": "/works/OL679360W",
+        "title": "American Gods",
+        "author_name": [
+          "Neil Gaiman"
+        ],
+        "subject": [
+          "Comics & graphic novels, fantasy"
+        ]
+      },
+      {
+        "key": "/works/OL20078177W",
+        "title": "Novels (American Gods / Anansi Boys)",
+        "author_name": [
+          "Neil Gaiman"
+        ],
+        "subject": []
+      },
+      {
+        "key": "/works/OL24196318W",
+        "title": "The Complete American Gods",
+        "author_name": [
+          "Neil Gaiman",
+          "P. Craig Russell",
+          "Scott Hampton",
+          "Walt Simonson",
+          "Colleen Doran",
+          "Glenn Fabry"
+        ],
+        "subject": [
+          "Comics & graphic novels, occult & supernatural",
+          "Comics & graphic novels, media tie-in",
+          "Comics & graphic novels, fantasy"
+        ]
+      },
+      {
+        "key": "/works/OL36649559W",
+        "title": "American Gods",
+        "author_name": [
+          "Neil Gaiman"
+        ],
+        "subject": []
+      },
+      {
+        "key": "/works/OL28836701W",
+        "title": "American Gods Volume 3",
+        "author_name": [
+          "Neil Gaiman",
+          "P. Craig Russell"
+        ]
+      },
+      {
+        "key": "/works/OL37899403W",
+        "title": "American Gods",
+        "author_name": [
+          "Neil Gaiman",
+          "Katia Bagnoli"
+        ]
+      },
+      {
+        "key": "/works/OL37812522W",
+        "title": "Neil Gaimain Tpb Bind up - American Gods and Anansi Boys",
+        "author_name": [
+          "Neil Gaiman"
+        ]
+      },
+      {
+        "key": "/works/OL28410502W",
+        "title": "American Gods Volume 1",
+        "author_name": [
+          "Neil Gaiman",
+          "P. Craig Russell",
+          "Scott Hampton",
+          "Walt Simonson",
+          "Colleen Doran"
+        ]
+      }
+    ],
+    "expected_work": "/works/OL679360W",
+    "work": {
+      "key": "/works/OL679360W",
+      "title": "American Gods",
+      "authors": [
+        {
+          "author": {
+            "key": "/authors/OL53305A"
+          },
+          "type": {
+            "key": "/type/author_role"
+          }
+        }
+      ]
+    },
+    "author_records": [
+      {
+        "key": "/authors/OL53305A",
+        "name": "Neil Gaiman"
+      }
+    ]
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=49909420",
+    "mention": {
+      "raw": "Poor Charlie's Almanack",
+      "title": "Poor Charlie's Almanack",
+      "author": "Charlie Munger",
+      "author_source": "context",
+      "confidence": 1.0,
+      "work_id": null,
+      "require_author": true
+    },
+    "docs": [
+      {
+        "key": "/works/OL8928012W",
+        "title": "Poor Charlie's Almanack",
+        "author_name": [
+          "Charles T. Munger",
+          "Charles T. Munger"
+        ],
+        "subject": []
+      },
+      {
+        "key": "/works/OL20791443W",
+        "title": "Poor Charlie's Almanack",
+        "author_name": [
+          "Peter D. Kaufman"
+        ],
+        "subject": []
+      },
+      {
+        "key": "/works/OL37878637W",
+        "title": "Summary of Charles T. Munger's Poor Charlies Almanack",
+        "author_name": [
+          "Irb Media"
+        ],
+        "subject": []
+      }
+    ],
+    "expected_work": "/works/OL8928012W",
+    "work": {
+      "key": "/works/OL8928012W",
+      "title": "Poor Charlie's Almanack",
+      "authors": [
+        {
+          "type": {
+            "key": "/type/author_role"
+          },
+          "author": {
+            "key": "/authors/OL3085123A"
+          }
+        },
+        {
+          "type": {
+            "key": "/type/author_role"
+          },
+          "author": {
+            "key": "/authors/OL6590452A"
+          }
+        }
+      ]
+    },
+    "author_records": [
+      {
+        "key": "/authors/OL3085123A",
+        "name": "Charles T. Munger"
+      },
+      {
+        "key": "/authors/OL6590452A",
+        "name": "Charles T. Munger"
+      }
+    ]
   }
 ]

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "reviewed_on": "2026-10-02",
+  "reviewed_on": "2026-10-03",
   "reviewed_by": "Codex; source-checked bibliographic rules, pending independent human review",
   "authors": [
     {
@@ -25,6 +25,12 @@
       "name": "Katherine Addison",
       "aliases": ["Sarah Monette", "Sarah Elizabeth Monette"],
       "sources": ["https://openlibrary.org/authors/OL1434466A.json", "https://www.katherineaddison.com/bio"]
+    },
+    {
+      "name": "Charles T. Munger",
+      "display_name": "Charles T. Munger",
+      "aliases": ["Charlie Munger"],
+      "sources": ["https://openlibrary.org/authors/OL3085123A.json", "https://openlibrary.org/authors/OL6590452A.json", "https://press.stripe.com/poor-charlies-almanack"]
     }
   ],
   "works": [
@@ -75,6 +81,30 @@
       "titles": ["Thinking in Systems", "Thinking in Systems: A Primer"],
       "sources": ["https://chelseagreen.co.uk/book/thinking-in-systems/", "https://openlibrary.org/works/OL3737036W.json"],
       "reason": "Verified subtitle and primary author; Diana Wright is the editor."
+    },
+    {
+      "work_id": "/works/OL77746W",
+      "title": "Anne of Green Gables",
+      "authors": ["Lucy Maud Montgomery"],
+      "titles": ["Anne of Green Gables"],
+      "sources": ["https://openlibrary.org/works/OL77746W.json", "https://openlibrary.org/authors/OL39485A.json", "https://www.penguinrandomhouse.com/books/557098/anne-of-green-gables-by-l-m-montgomery/9780143131854/"],
+      "reason": "Verified original novel and author; distinguish the novel from diaries, adaptations and multi-novel collections."
+    },
+    {
+      "work_id": "/works/OL679360W",
+      "title": "American Gods",
+      "authors": ["Neil Gaiman"],
+      "titles": ["American Gods"],
+      "sources": ["https://openlibrary.org/works/OL679360W.json", "https://openlibrary.org/authors/OL53305A.json", "https://neilgaiman.com/works/Books/American_Gods"],
+      "reason": "Verified prose novel; distinguish graphic adaptations, translator credits and the American Gods/Anansi Boys omnibus."
+    },
+    {
+      "work_id": "/works/OL8928012W",
+      "title": "Poor Charlie's Almanack",
+      "authors": ["Charles T. Munger"],
+      "titles": ["Poor Charlie's Almanack"],
+      "sources": ["https://openlibrary.org/works/OL8928012W.json", "https://openlibrary.org/authors/OL3085123A.json", "https://openlibrary.org/authors/OL6590452A.json", "https://press.stripe.com/poor-charlies-almanack"],
+      "reason": "Publisher identifies Charlie Munger as Charles T. Munger and Peter D. Kaufman as editor. Collapse the catalog's duplicate Munger credits while preserving original metadata; exclude summaries and editor-only records."
     }
   ],
   "implicit_exclusions": [
