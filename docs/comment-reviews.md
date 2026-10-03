@@ -1,13 +1,11 @@
 # Source-bound comment corrections
 
-The last verified full rebuild completed on October 3, 2026 at 03:00 UTC with all
-32 then-deployed review decisions applied: 870 comments, 930 resolved and 503
-unresolved mentions across 588 books. It reused 864 cached Luna results, made no
-new model requests, performed eight metadata lookups and recorded zero failures
-in 44.3 seconds. A subsequent unresolved-only retry completed at 03:28 UTC with
-the same library totals and no model requests or failures. These counts
-establish processing coverage;
-they do not establish extraction accuracy.
+The last verified full rebuild completed on October 3, 2026 at 06:36 UTC with all
+47 then-deployed review decisions applied: 870 comments, 936 resolved and 498
+unresolved mentions across 593 books. It reused 864 cached Luna results, made no
+new model requests, performed 23 metadata lookups and recorded zero failures
+in 116.7 seconds. These counts establish processing coverage; they do not
+establish extraction accuracy.
 
 Screening the 177 comments with no extracted mentions found missed contextual
 replies, an abbreviation and a numerical title. Reviewing two adjacent author
@@ -33,8 +31,8 @@ The next batch adds 30 complete comments: the first remaining live, nonempty
 comments of at most 250 characters, ordered by comment ID. This is a systematic
 short-comment batch, with titles, replies, lists, praise and reading intentions.
 It adds 15 persisted comment decisions and revises the existing parenting-title
-decision, bringing the correction file to 47 decisions. These changes still need
-the next production rebuild.
+decision, bringing the correction file to 47 decisions. The October 3 rebuild
+verified this batch in production.
 
 Examples include identifying authors on Private Revolutions, Quantum Break:
 Zero State and the two Patrick Radden Keefe books; retaining a neutral request
@@ -47,11 +45,11 @@ tag; it must not be tagged science fiction. The Mistborn catalog record describe
 a complete trilogy bundle and is retained, with its fantasy topic corrected.
 
 The source-linked [regression labels](../tests/fixtures/reviewed_comment_labels.json)
-now cover 134 comments. Of 83 expected mentions, 60 have catalog-checked
-identities, 19 still require catalog verification and four have genuinely
+then covered 134 comments. Of 83 expected mentions, 60 had catalog-checked
+identities, 19 still required catalog verification and four had genuinely
 ambiguous identities: unspecified Bible editions and manga creators. The
 [saved baseline](../tests/fixtures/reviewed_comment_baseline.json) was recomputed
-against the enlarged labels and records ten omissions and 39 false entries before
+against those enlarged labels and recorded ten omissions and 39 false entries before
 applying corrections. The earlier 104-comment baseline recorded eight omissions
 and 38 false entries.
 These are different label sets, not an improvement in the model. The parenting
@@ -70,7 +68,7 @@ uv run python -m app.evaluate_review \
   --output data/comment-regression-evaluation.json
 ```
 
-Coverage is 134 of 870 comments. Full evaluation still requires every comment
+Coverage is now 184 of 870 comments. Full evaluation still requires every comment
 to be present and reviewed, with no pending identity labels. Do not treat a selected
 regression set as satisfying the complete-thread quality gate. A pending catalog
 check is distinct from a genuinely ambiguous identity: it does not score as a
@@ -79,14 +77,49 @@ strength and topic metrics can still be evaluated independently of that check.
 
 The October 3 production export verified all six repaired mentions from the prior
 [identity review](identity-reviews.md), including all 32 then-checked identities.
-The new offline projection matches all 83 expected mentions, all 60 checked work
+That batch's offline projection matched all 83 expected mentions, all 60 checked work
 and author identities, and all four required abstentions in the enlarged selected
 set. It processes complete comments through the normal resolver using saved
 extractions and metadata lookups, with zero model requests. It is a local
 simulation, not a completed production rebuild or full-thread accuracy result.
-The separate original-Luna comparison still reports ten omissions and 39 false
+Its separate original-Luna comparison reported ten omissions and 39 false
 entries against these same enlarged labels. This verifies the repairs without
 presenting curated outputs as improved model accuracy.
+
+The next batch reviews 50 more live, nonempty comments of at most 250 characters,
+continuing in comment-ID order. Selection and complete-comment title, sentiment,
+author-provenance and topic decisions were made from source inputs before reading
+stored predictions. It adds 33 persisted corrections, bringing the file to 80.
+Replies recover references to The Brothers Karamazov, Middlemarch and the three
+nuclear histories in their parent. Reading intentions and author praise remain
+separate from personal book endorsements.
+
+Numbered references identify Otherland book three as Mountain of Black Glass
+and Dungeon Crawler Carl book eight as A Parade of Horribles, rather than
+assigning either to the first book. Series references retain a `series` qualifier
+where needed to prevent substitution of a first volume or omnibus. The second
+Mistborn sequence remains distinct from the original trilogy. Grimgar's unspecified
+format and Chekhov's unspecified Selected Stories collection remain ambiguous.
+Verified title aliases allow mention evaluation to recognize a series name
+without accepting an incorrect individual-volume identity.
+
+The enlarged labels contain 164 expected mentions: 115 checked catalog identities,
+32 pending catalog checks and 17 ambiguous identities. The local projection matches
+all 164 mentions, sentiments, strengths, topics and author provenance; all 115
+checked identities and author credits; and all 17 required abstentions. The normal
+resolver processes the new 50 comments as 81 mentions, 55 resolved and 26 unresolved,
+with zero model requests and zero failures. Source evidence remains literal and
+every persisted decision passes its source-digest check against the production export.
+The saved baseline is recomputed against the same enlarged labels. Original Luna
+produced 183 mentions, with 30 omissions and 49 false entries against those labels
+(73.2% mention precision and 81.7% recall). These are selected regression
+checks pending independent human review, not accuracy estimates for the whole thread.
+
+This new batch requires the next production rebuild. After deployment, tap
+**Execute Now** on the existing Coolify task shown below. Model prompts and
+extraction cache keys are unchanged; saved Luna results can be reused. Capture
+a fresh authenticated export afterward to verify the applied decisions. There
+are still 686 stored comments outside the review labels.
 
 ## Scope and evidence
 

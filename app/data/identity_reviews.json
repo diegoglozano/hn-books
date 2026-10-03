@@ -31,6 +31,12 @@
       "display_name": "Charles T. Munger",
       "aliases": ["Charlie Munger"],
       "sources": ["https://openlibrary.org/authors/OL3085123A.json", "https://openlibrary.org/authors/OL6590452A.json", "https://press.stripe.com/poor-charlies-almanack"]
+    },
+    {
+      "name": "Andrew S. Grove",
+      "display_name": "Andrew S. Grove",
+      "aliases": ["Andy Grove", "Andrew Grove"],
+      "sources": ["https://www.penguinrandomhouse.com/books/72469/only-the-paranoid-survive-by-andrew-grove/", "https://openlibrary.org/authors/OL319610A.json"]
     }
   ],
   "works": [
@@ -129,6 +135,30 @@
       "titles": ["Say Nothing", "Say Nothing: A True Story of Murder and Memory in Northern Ireland"],
       "sources": ["https://openlibrary.org/works/OL20153382W.json", "https://openlibrary.org/authors/OL6511583A.json", "https://www.penguinrandomhouse.com/books/90837/say-nothing-by-patrick-radden-keefe/"],
       "reason": "Publisher credits Patrick Radden Keefe as author. Preserve the upstream Ariel Font Prades contributor credit in original metadata without assigning coauthorship."
+    },
+    {
+      "work_id": "/works/OL1976779W",
+      "title": "Deadly Quicksilver Lies",
+      "authors": ["Glen Cook"],
+      "titles": ["Deadly Quicksilver Lies", "Deadly Quicksilver Lies (Garrett Files)"],
+      "sources": ["https://www.penguinrandomhouse.com/books/305312/deadly-quicksilver-lies-by-glen-cook/", "https://openlibrary.org/works/OL1976779W.json", "https://openlibrary.org/authors/OL237627A.json"],
+      "reason": "The publisher verifies this specific Garrett novel. The catalog parenthetical is a series qualifier; it does not identify the three-novel Garrett Investigates collection or the whole series."
+    },
+    {
+      "work_id": "/works/OL2355832W",
+      "title": "Only the Paranoid Survive",
+      "authors": ["Andrew S. Grove"],
+      "titles": ["Only the Paranoid Survive"],
+      "sources": ["https://www.penguinrandomhouse.com/books/72469/only-the-paranoid-survive-by-andrew-grove/", "https://openlibrary.org/works/OL2355832W.json", "https://openlibrary.org/authors/OL319610A.json"],
+      "reason": "The publisher identifies Andy Grove as Andrew S. Grove and credits him on the original management book. Prefer that verified work over summaries and unrelated same-titled books."
+    },
+    {
+      "work_id": "/works/OL28091094W",
+      "title": "Palo Alto",
+      "authors": ["Malcolm Harris"],
+      "titles": ["Palo Alto"],
+      "sources": ["https://www.hachettebookgroup.com/titles/malcolm-harris/palo-alto/9780316592031/", "https://openlibrary.org/works/OL28091094W.json", "https://openlibrary.org/authors/OL7153499A.json", "https://openlibrary.org/authors/OL12430794A.json"],
+      "reason": "The publisher credits Malcolm Harris alone. This work lists a duplicate author record misspelled Malcom Harris; preserve both original records in metadata, without creating a second canonical author."
     }
   ],
   "implicit_exclusions": [

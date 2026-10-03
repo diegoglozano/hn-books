@@ -803,5 +803,480 @@
         "name": "Ariel Font Prades"
       }
     ]
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=49900136",
+    "mention": {
+      "raw": "Deadly Quicksilver Lies",
+      "title": "Deadly Quicksilver Lies",
+      "author": "Glen Cook",
+      "author_source": "stated",
+      "work_id": null,
+      "confidence": 1.0
+    },
+    "docs": [
+      {
+        "author_name": [
+          "Glen Cook"
+        ],
+        "cover_i": 12678754,
+        "first_publish_year": 1994,
+        "isbn": [
+          "0451453050",
+          "9780451453051"
+        ],
+        "key": "/works/OL1976779W",
+        "title": "Deadly Quicksilver Lies (Garrett Files)",
+        "subject": [
+          "Garrett (Fictitious character)",
+          "Fiction",
+          "Private investigators",
+          "Fiction, fantasy, general",
+          "Fiction, mystery & detective, general",
+          "Garrett (fictitious character : cook), fiction",
+          "Private investigators, fiction"
+        ]
+      },
+      {
+        "author_name": [
+          "Glen Cook"
+        ],
+        "cover_i": 14469259,
+        "first_publish_year": 2004,
+        "isbn": [
+          "0739447521",
+          "9780739447529"
+        ],
+        "key": "/works/OL1976792W",
+        "title": "Garrett Investigates (Deadly Quicksilver Lies, Petty Pewter Gods, Faded Steel Heat)"
+      }
+    ],
+    "expected_work": "/works/OL1976779W",
+    "work": {
+      "title": "Deadly Quicksilver Lies (Garrett Files)",
+      "first_publish_date": "March 1, 1994",
+      "key": "/works/OL1976779W",
+      "authors": [
+        {
+          "type": {
+            "key": "/type/author_role"
+          },
+          "author": {
+            "key": "/authors/OL237627A"
+          }
+        }
+      ],
+      "type": {
+        "key": "/type/work"
+      },
+      "subjects": [
+        "Garrett (Fictitious character)",
+        "Fiction",
+        "Private investigators",
+        "Fiction, fantasy, general",
+        "Fiction, mystery & detective, general",
+        "Garrett (fictitious character : cook), fiction",
+        "Private investigators, fiction"
+      ],
+      "covers": [
+        12678754
+      ],
+      "genres": [
+        "/tags/OL169T",
+        "/tags/OL175T"
+      ],
+      "latest_revision": 7,
+      "revision": 7,
+      "created": {
+        "type": "/type/datetime",
+        "value": "2009-12-09T22:39:22.632893"
+      },
+      "last_modified": {
+        "type": "/type/datetime",
+        "value": "2026-08-30T00:51:28.108608"
+      }
+    },
+    "author_records": [
+      {
+        "bio": {
+          "type": "/type/text",
+          "value": "Glen Cook (born July 9, 1944) is an American writer of fantasy and science fiction, best known for his series *The Black Company*, a dark military fantasy that follows the adventures of an elite mercenary unit, and *Garrett P.I.* about a hardboiled detective in a fantasy world, blending elements of mystery and fantasy. Born in New York City, he grew up in northern California and served in the U.S. Navy from 1962 to 1972. He attended the Clarion Writer's Workshop in 1970, which helped launch his writing career. His first published novel, [*The Heirs of Babylon*][4], was published in 1972. After his military service, Cook worked at a General Motors assembly plant while writing prolifically. His works are celebrated for their gritty realism and historical complexity, influencing many in the fantasy genre. [Steven Erikson][5] has noted that Cook's work significantly impacted the genre by removing the stereotypes and cliches that were previously inherent in it, and introducing real, human characters and believable situations. He resides near St. Louis, Missouri.\r\n\r\n(Sources:[1][1],[2][2],[3][3])\r\n\r\n[1]: https://en.wikipedia.org/wiki/Glen_Cook\r\n[2]: https://www.fantasybookreview.co.uk/Glen-Cook/biography.html\r\n[3]: https://www.goodreads.com/author/show/13026.Glen_Cook\r\n\r\n[4]: https://openlibrary.org/works/OL17597447W\r\n[5]: https://openlibrary.org/authors/OL1394250A"
+        },
+        "name": "Glen Cook",
+        "personal_name": "Glen Cook",
+        "photos": [
+          5541997
+        ],
+        "key": "/authors/OL237627A",
+        "birth_date": "9 July 1944",
+        "fuller_name": "Glen Charles Cook",
+        "type": {
+          "key": "/type/author"
+        },
+        "remote_ids": {
+          "viaf": "64149024",
+          "wikidata": "Q922071",
+          "isni": "0000000114462044",
+          "imdb": "nm9695789",
+          "bookbrainz": "dcf3fdc4-aba8-49b9-9cbc-6add071b11c4",
+          "musicbrainz": "3d1c5cc7-3356-43a4-8759-d70eb7cb1e6d",
+          "goodreads": "13026",
+          "librarything": "cookglen",
+          "lc_naf": "n88634381",
+          "gnd": "118137859",
+          "amazon": "B000AQ26ZQ",
+          "storygraph": "eb308729-9902-427d-b3ef-dc312a61bac0"
+        },
+        "alternate_names": [
+          "Cook, Glen",
+          "Cook, G."
+        ],
+        "latest_revision": 14,
+        "revision": 14,
+        "created": {
+          "type": "/type/datetime",
+          "value": "2008-04-01T03:28:50.625462"
+        },
+        "last_modified": {
+          "type": "/type/datetime",
+          "value": "2025-08-04T01:33:11.847087"
+        }
+      }
+    ]
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=49900281",
+    "mention": {
+      "raw": "Only the paranoid survive",
+      "title": "Only the Paranoid Survive",
+      "author": "Andy Grove",
+      "author_source": "stated",
+      "work_id": null,
+      "confidence": 1.0
+    },
+    "docs": [
+      {
+        "author_name": [
+          "Andrew S. Grove"
+        ],
+        "cover_i": 241061,
+        "first_publish_year": 1996,
+        "isbn": [
+          "9780385483827",
+          "9780385482585",
+          "0385483821",
+          "0385482582",
+          "0002558106",
+          "9780002558105"
+        ],
+        "key": "/works/OL2355832W",
+        "title": "Only the paranoid survive",
+        "subject": [
+          "Economic aspects",
+          "Economic aspects of Technological innovations",
+          "Organizational change",
+          "Strategic planning",
+          "Technological innovations",
+          "Success in business",
+          "Management",
+          "Computer industry",
+          "Executives",
+          "Paranoia",
+          "Organizational Innovation",
+          "Case Reports",
+          "Technology",
+          "Economics",
+          "Competitive Behavior",
+          "Planning Techniques",
+          "Leadership",
+          "Professional Corporations",
+          "Industry"
+        ]
+      },
+      {
+        "author_name": [
+          "Andrew S. Grove"
+        ],
+        "cover_i": 8770230,
+        "first_publish_year": 1998,
+        "isbn": [
+          "1861975139",
+          "9781861975133"
+        ],
+        "key": "/works/OL20110347W",
+        "title": "Only the Paranoid Survive"
+      },
+      {
+        "author_name": [
+          "Andrew Grove"
+        ],
+        "first_publish_year": 1998,
+        "isbn": [
+          "0006388272",
+          "9781800810624",
+          "9780006388272",
+          "1800810628"
+        ],
+        "key": "/works/OL26518917W",
+        "title": "Only the Paranoid Survive"
+      },
+      {
+        "author_name": [
+          "FiFi Wang",
+          "Jarred Wang"
+        ],
+        "first_publish_year": 2020,
+        "isbn": [
+          "9781660281060",
+          "1660281067"
+        ],
+        "key": "/works/OL22267487W",
+        "title": "Only the Paranoid Survive"
+      },
+      {
+        "author_name": [
+          "Irb Media"
+        ],
+        "first_publish_year": 2024,
+        "isbn": [
+          "9798330099597"
+        ],
+        "key": "/works/OL38683033W",
+        "title": "Summary of Andrew S. Grove's Only the Paranoid Survive",
+        "subject": [
+          "Business"
+        ]
+      }
+    ],
+    "expected_work": "/works/OL2355832W",
+    "work": {
+      "lc_classifications": [
+        "HD58.8 .G765 1996"
+      ],
+      "dewey_number": [
+        "658.4/06"
+      ],
+      "title": "Only the paranoid survive",
+      "covers": [
+        241061
+      ],
+      "first_sentence": {
+        "type": "/type/text",
+        "value": "I teach a class in strategic management at Stanford University's business school as a part-time departure from my job as president and CEO of Intel Corporation."
+      },
+      "first_publish_date": "1996",
+      "key": "/works/OL2355832W",
+      "authors": [
+        {
+          "type": {
+            "key": "/type/author_role"
+          },
+          "author": {
+            "key": "/authors/OL319610A"
+          }
+        }
+      ],
+      "excerpts": [
+        {
+          "excerpt": "I teach a class in strategic management at Stanford University's business school as a part-time departure from my job as president and CEO of Intel Corporation."
+        }
+      ],
+      "type": {
+        "key": "/type/work"
+      },
+      "subjects": [
+        "Economic aspects",
+        "Economic aspects of Technological innovations",
+        "Organizational change",
+        "Strategic planning",
+        "Technological innovations",
+        "Success in business",
+        "Management",
+        "Computer industry",
+        "Executives",
+        "Paranoia",
+        "Organizational Innovation",
+        "Case Reports",
+        "Technology",
+        "Economics",
+        "Competitive Behavior",
+        "Planning Techniques",
+        "Leadership",
+        "Professional Corporations",
+        "Industry"
+      ],
+      "description": {
+        "type": "/type/text",
+        "value": "Under Andy Grove's leadership, Intel has become the world's largest chipmaker, the fifth-most-admired company in America, and the seventh-most-profitable company among the Fortune 500. You don't achieve rankings like these unless you have mastered a rare understanding of the art of business and an unusual way with its practice.\n\nFew CEOs can claim this level of consistent record-breaking success. Grove attributes much of this success to the philosophy and strategy he reveals in Only the Paranoid Survive - a book that is unique in leadership annals for offering a bold new business measure, and for taking the reader deep inside the workings of a major corporation.\n\nGrove's contribution to business thinking concerns a new way of measuring the nightmare moment every leader dreads - the moment when massive change occurs and all bets are off. The success you had the day before is gone, destroyed by unforeseen changes that hit like a stage-six rapid. Grove calls such moments Strategic Inflection Points, and he has lived through several. When SIPs hit, all rules of business shift fast, furiously, and forever.\n\nSIPs can be set off by almost anything: mega-competition, an arcane change in regulations, or a seemingly modest change in technology. Yet in the watchful leader's hand, SIPs can be an ace. Managed right, a company can turn a SIP into a positive force to win in the marketplace and emerge stronger than ever."
+      },
+      "latest_revision": 12,
+      "revision": 12,
+      "created": {
+        "type": "/type/datetime",
+        "value": "2009-12-09T23:30:39.528296"
+      },
+      "last_modified": {
+        "type": "/type/datetime",
+        "value": "2026-05-18T16:34:55.199718"
+      }
+    },
+    "author_records": [
+      {
+        "name": "Andrew S. Grove",
+        "alternate_names": [
+          "Andrew Grove",
+          "Dr. Andrew S. Grove",
+          "Andrew Stephen Grove",
+          "ANDREW S. GROVE"
+        ],
+        "birth_date": "1936",
+        "remote_ids": {
+          "viaf": "108281008",
+          "wikidata": "Q432929",
+          "isni": "0000000117793471",
+          "goodreads": "37708",
+          "lc_naf": "n83040150",
+          "opac_sbn": "LO1V029860"
+        },
+        "type": {
+          "key": "/type/author"
+        },
+        "personal_name": "Andrew S. Grove",
+        "key": "/authors/OL319610A",
+        "latest_revision": 6,
+        "revision": 6,
+        "created": {
+          "type": "/type/datetime",
+          "value": "2008-04-01T03:28:50.625462"
+        },
+        "last_modified": {
+          "type": "/type/datetime",
+          "value": "2025-07-31T21:44:36.380175"
+        }
+      }
+    ]
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=49900454",
+    "mention": {
+      "raw": "Palo Alto by Malcolm Harris",
+      "title": "Palo Alto",
+      "author": "Malcolm Harris",
+      "author_source": "stated",
+      "work_id": null,
+      "confidence": 0.99
+    },
+    "docs": [
+      {
+        "author_name": [
+          "Malcolm Harris",
+          "Malcom Harris"
+        ],
+        "cover_i": 14425256,
+        "first_publish_year": 2023,
+        "isbn": [
+          "1529430917",
+          "0316592021",
+          "9781529430912",
+          "9780316592024",
+          "9780316592017",
+          "031659203X",
+          "1529430887",
+          "1529430879",
+          "9781529430875",
+          "9780316592031",
+          "0316592013",
+          "9781529430882"
+        ],
+        "key": "/works/OL28091094W",
+        "title": "Palo Alto"
+      }
+    ],
+    "expected_work": "/works/OL28091094W",
+    "work": {
+      "type": {
+        "key": "/type/work"
+      },
+      "title": "Palo Alto",
+      "authors": [
+        {
+          "type": {
+            "key": "/type/author_role"
+          },
+          "author": {
+            "key": "/authors/OL7153499A"
+          }
+        },
+        {
+          "type": {
+            "key": "/type/author_role"
+          },
+          "author": {
+            "key": "/authors/OL12430794A"
+          }
+        }
+      ],
+      "key": "/works/OL28091094W",
+      "covers": [
+        14425256
+      ],
+      "latest_revision": 3,
+      "revision": 3,
+      "created": {
+        "type": "/type/datetime",
+        "value": "2022-06-19T05:40:05.785488"
+      },
+      "last_modified": {
+        "type": "/type/datetime",
+        "value": "2024-11-14T12:12:07.759296"
+      }
+    },
+    "author_records": [
+      {
+        "name": "Malcolm Harris",
+        "personal_name": "Malcolm Harris",
+        "key": "/authors/OL7153499A",
+        "type": {
+          "key": "/type/author"
+        },
+        "bio": {
+          "type": "/type/text",
+          "value": "Journalist & writer from Palo Alto, California."
+        },
+        "remote_ids": {
+          "wikidata": "Q68924604"
+        },
+        "latest_revision": 2,
+        "revision": 2,
+        "created": {
+          "type": "/type/datetime",
+          "value": "2012-07-18T14:48:27.074213"
+        },
+        "last_modified": {
+          "type": "/type/datetime",
+          "value": "2024-02-28T19:53:54.868396"
+        }
+      },
+      {
+        "type": {
+          "key": "/type/author"
+        },
+        "name": "Malcom Harris",
+        "key": "/authors/OL12430794A",
+        "source_records": [
+          "bwb:9781529430875"
+        ],
+        "latest_revision": 1,
+        "revision": 1,
+        "created": {
+          "type": "/type/datetime",
+          "value": "2023-02-17T04:27:06.036172"
+        },
+        "last_modified": {
+          "type": "/type/datetime",
+          "value": "2023-02-17T04:27:06.036172"
+        }
+      }
+    ]
   }
 ]

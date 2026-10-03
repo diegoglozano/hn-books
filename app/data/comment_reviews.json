@@ -1833,6 +1833,1411 @@
           }
         ]
       }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49899813,
+      "source_digest": "5c09e01de03664b5db3264faad5bb4a025e4df649f7c2f3e245d10a2db162c3e",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "Borrowing a book and looking forward to reading it is an intention, not a review; the parent supplies its author.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49899813",
+        "https://www.penguinrandomhouse.com/books/692736/exit-party-by-emily-st-john-mandel/"
+      ],
+      "case_types": [
+        "contextual-reference",
+        "reading-intention"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Exit Party",
+            "title": "Exit Party",
+            "author": "Emily St. John Mandel",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49899817,
+      "source_digest": "35dcab712f85646ee515e5e9265433fc336c779b7233d98bfc00b2ec2bc2d481",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "Two reads receive qualified, mixed assessments: okay but not great, and better but still lacking. Neither is a clear personal endorsement.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49899817",
+        "https://www.agriddle.com/Quantum-Radio"
+      ],
+      "case_types": [
+        "multiple-books",
+        "mixed-sentiment"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Quantum Radio",
+            "title": "Quantum Radio",
+            "author": "A.G. Riddle",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          },
+          {
+            "raw": "Rainbows End",
+            "title": "Rainbows End",
+            "author": "Vernor Vinge",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49899825,
+      "source_digest": "b9eb5f46fb64f49eaa707844a5bcca7e76ff53d398efa454c1bc8f3bf8f09340",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The current reader praises Postman’s book and its argument about television and culture.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49899825"
+      ],
+      "case_types": [
+        "positive",
+        "classification"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Amusing Ourselves to Death",
+            "title": "Amusing Ourselves to Death",
+            "author": "Neil Postman",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "history",
+              "philosophy"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49899862,
+      "source_digest": "7bb6023871ef5d458f2241b76c1eabdc3cb1b6e207687211f30cd22877722af2",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The named fantasy novel is a recurring read; Always alone does not supply a personal evaluation.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49899862"
+      ],
+      "case_types": [
+        "classification"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "The Neverending Story",
+            "title": "The Neverending Story",
+            "author": "Michael Ende",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49899866,
+      "source_digest": "9d266417678bd931830820f068c199d4c9d9c722f89a076e7da7cd44351c1b88",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The parent uniquely identifies the book. Excellent plus giving a copy to every new teammate is a personal endorsement. The author is inferred because the parent does not name him.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49899866"
+      ],
+      "case_types": [
+        "contextual-reference",
+        "recommended"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "This is an excellent book",
+            "title": "A Philosophy of Software Design",
+            "author": "John K. Ousterhout",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "recommended",
+            "tags": [
+              "software-design"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49899875,
+      "source_digest": "f10fe6adec686e0f59fb05cdf25871932c7a015e3516a70ba77f8696a1cac2af",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "Two named reads by the Postman identified in the parent. Praise for the thinker does not automatically endorse each book.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49899875"
+      ],
+      "case_types": [
+        "abbreviation",
+        "multiple-books",
+        "author-context"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Amusing Ourselves",
+            "title": "Amusing Ourselves to Death",
+            "author": "Neil Postman",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "history",
+              "philosophy"
+            ]
+          },
+          {
+            "raw": "Technopoly",
+            "title": "Technopoly",
+            "author": "Neil Postman",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "history",
+              "philosophy"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49899915,
+      "source_digest": "8a276544f255b5e291b872265f803b6d9b1169aac46c6802b2a147cf6517a796",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "Four current or completed reads, without recommendations; the warfare scenario is nonfiction, not a science-fiction novel.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49899915",
+        "https://www.penguinrandomhouse.com/books/783250/biological-war-by-annie-jacobsen/",
+        "https://www.penguinrandomhouse.com/books/815318/what-happened-to-liberal-democracy-by-daron-acemoglu/9798217182169/"
+      ],
+      "case_types": [
+        "multiple-books",
+        "classification"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Biological War",
+            "title": "Biological War",
+            "author": "Annie Jacobsen",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "history"
+            ]
+          },
+          {
+            "raw": "The Left Hand of Darkness",
+            "title": "The Left Hand of Darkness",
+            "author": "Ursula K. Le Guin",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          },
+          {
+            "raw": "The Nerd Reich",
+            "title": "The Nerd Reich",
+            "author": "Gil Durán",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "history"
+            ]
+          },
+          {
+            "raw": "What Happened to Liberal Democracy?",
+            "title": "What Happened to Liberal Democracy?",
+            "author": "Daron Acemoglu",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "history",
+              "economics"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49899923,
+      "source_digest": "b8f21395477a32fb0db0082ddd6d97e3d04086166ba61c0ec9f9dfa4c42e1fd6",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "Enjoyment and pacing criticism concern the Wheel of Time series. Otherland book three is specifically Mountain of Black Glass; do not assign it to the series’ first novel. An uncertain Wheel of Time volume number does not identify a particular volume.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49899923",
+        "https://www.penguinrandomhouse.com/books/332220/otherland-3-mountain-of-black-glass-by-tad-williams/paperback/"
+      ],
+      "case_types": [
+        "contextual-reference",
+        "series",
+        "numbered-volume",
+        "mixed-sentiment"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "the books",
+            "title": "The Wheel of Time series",
+            "author": "Robert Jordan",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction"
+            ]
+          },
+          {
+            "raw": "book 3 of Otherland",
+            "title": "Mountain of Black Glass",
+            "author": "Tad Williams",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "negative",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49899924,
+      "source_digest": "72e079d1832e9fc2471dcd2b64a58c43bee2f00656f651be562624bcb36010e3",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "Two named fictional series/universes are not particular volumes. The Old English Exodus is Tolkien’s text, translation and commentary, and its proofreading experience is criticized; preserve that specific scholarly book rather than the biblical Exodus.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49899924",
+        "https://www.harperreach.com/products/myths-and-legends-boxed-set-2-the-old-english-exodus-finn-and-hengest-the-story-of-kullervo-the-lay-of-aotrou-itroun-the-battle-of-maldon-j-r-r-tolkien-9780008795184/"
+      ],
+      "case_types": [
+        "series",
+        "translation",
+        "negative"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Chanur books",
+            "title": "Chanur series",
+            "author": "C.J. Cherryh",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          },
+          {
+            "raw": "Alliance-Union novels",
+            "title": "Alliance-Union",
+            "author": "C.J. Cherryh",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          },
+          {
+            "raw": "Old English Exodus",
+            "title": "The Old English Exodus",
+            "author": "J.R.R. Tolkien",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "negative",
+            "tags": [
+              "history"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49899929,
+      "source_digest": "b1490350b21c04172e03715856e53aa8e41e2f82c15fe3aa1faa408d83994840",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The negative reply concerns the uniquely named Dawkins book in the parent. Reading Harms’s critique does not itself recommend the Harms book. Evolutionary biology is not science fiction.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49899929",
+        "https://www.cambridge.org/core/books/information-and-meaning-in-evolutionary-processes/7FDEB0B92246F597B33CCCDCCD92C0F8"
+      ],
+      "case_types": [
+        "contextual-reference",
+        "negative",
+        "classification"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Don't bother with this",
+            "title": "The Selfish Gene",
+            "author": "Richard Dawkins",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "negative",
+            "tags": []
+          },
+          {
+            "raw": "Information and Meaning in Evolutionary Processes",
+            "title": "Information and Meaning in Evolutionary Processes",
+            "author": "William F. Harms",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "philosophy"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49899957,
+      "source_digest": "1015232193773fd85ee941b571818669359d5cdf49bcde5702a27d802f527df6",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The commenter praises the named franchise but links an overview that covers novel, manga and anime forms. No particular volume or format is identified; do not guess a manga creator or map it to volume one.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49899957",
+        "https://sevenseasentertainment.com/series/grimgar-of-fantasy-and-ash-light-novel/"
+      ],
+      "case_types": [
+        "series",
+        "adaptation",
+        "ambiguous"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Grimgar of Fantasy and Ash",
+            "title": "Grimgar of Fantasy and Ash",
+            "author": null,
+            "author_source": "unknown",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49899984,
+      "source_digest": "85d819a88439da40ab6190eada9eb53b55bf7270abd20784781292f06f4416c3",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "Specific first volumes identify Logical Foundations and Swann’s Way rather than entire series. The official Logical Foundations title page credits eight primary authors and separately lists additional contributors.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49899984",
+        "https://softwarefoundations.cis.upenn.edu/lf-current/index.html"
+      ],
+      "case_types": [
+        "numbered-volume",
+        "translation"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "The first volume of Software Foundations",
+            "title": "Logical Foundations",
+            "author": "Benjamin C. Pierce and Arthur Azevedo de Amorim and Chris Casinghino and Marco Gaboardi and Michael Greenberg and Cătălin Hriţcu and Vilhelm Sjöberg and Brent Yorgey",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "programming-languages"
+            ]
+          },
+          {
+            "raw": "the first volume of À la recherche du temps perdu",
+            "title": "Du côté de chez Swann",
+            "author": "Marcel Proust",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900006,
+      "source_digest": "7f664cfeb3deba3e6a2ac5cf4a676da1f85517663fe055e4f65068c67f2a08dd",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The reader refers to remembering the book series before watching its adaptation. Preserve a neutral reference to the books; criticism of the television series must not become a negative book recommendation.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900006"
+      ],
+      "case_types": [
+        "contextual-reference",
+        "adaptation",
+        "series"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "forget most of it",
+            "title": "The Wheel of Time series",
+            "author": "Robert Jordan",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900009,
+      "source_digest": "ee7cf3d93b3005339380994777b3bfac84444e7c0df2f0f460d987dad63df252",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "A climbing metaphor compares two difficult reads. The parent uniquely identifies Karamazov; K2 and Everest are not book titles. Difficulty completing Steinbeck is not an explicit judgment of its quality.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900009"
+      ],
+      "case_types": [
+        "contextual-reference",
+        "comparison",
+        "no-false-titles"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "This is my K2",
+            "title": "The Brothers Karamazov",
+            "author": "Fyodor Dostoevsky",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction"
+            ]
+          },
+          {
+            "raw": "Grapes of Wrath",
+            "title": "The Grapes of Wrath",
+            "author": "John Steinbeck",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900012,
+      "source_digest": "63685ee03da46b38c371f87fb614c2f6f8d03501f805fa892308e0deac068c9f",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The quoted claim about the parent’s book is not a new personal opinion. The reply identifies Sanderson’s second Mistborn sequence, not the original trilogy or a specific volume, and reports an emotional response.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900012"
+      ],
+      "case_types": [
+        "series",
+        "numbered-volume",
+        "quoted-comparison"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "2nd Mistborn trilogy",
+            "title": "Mistborn: Wax and Wayne",
+            "author": "Brandon Sanderson",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900033,
+      "source_digest": "e75cc5895a31a5cd915fa5074cb81d64beb65d08a55776655e86799cd0a137f5",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "Three reads share the explicitly stated author. Correct the Nickel title spelling; reading a binge alone does not classify every title as recommended.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900033"
+      ],
+      "case_types": [
+        "multiple-books",
+        "title-spelling",
+        "classification"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Nickeled and Dimed",
+            "title": "Nickel and Dimed",
+            "author": "Barbara Ehrenreich",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "economics",
+              "history"
+            ]
+          },
+          {
+            "raw": "Dancing in the Streets",
+            "title": "Dancing in the Streets",
+            "author": "Barbara Ehrenreich",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "history"
+            ]
+          },
+          {
+            "raw": "Natural Causes",
+            "title": "Natural Causes",
+            "author": "Barbara Ehrenreich",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": []
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900130,
+      "source_digest": "12516a2eb6a051fd71c698d79ea047e2b222e2c21c9b9a01d1605a8428d66c77",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "These refers collectively to the three books in the parent. The tentative darkly encouraging interpretation is neutral, and the parent’s endorsement must not be inherited.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900130"
+      ],
+      "case_types": [
+        "plural-reference",
+        "classification"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "these",
+            "title": "Hiroshima",
+            "author": "John Hersey",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "history"
+            ]
+          },
+          {
+            "raw": "these",
+            "title": "The Doomsday Machine",
+            "author": "Daniel Ellsberg",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "history"
+            ]
+          },
+          {
+            "raw": "these",
+            "title": "Command and Control",
+            "author": "Eric Schlosser",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "history"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900136,
+      "source_digest": "21e9ade1b0d52eab68805ca2ecad791e45bd606ce9242b2d5cb912683a50235a",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The series is a perennial favorite; the explicitly named current volume is merely being read. Preserve the series reference separately without mapping it to a volume.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900136"
+      ],
+      "case_types": [
+        "series",
+        "multiple-books",
+        "classification"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Garrett P.I. series",
+            "title": "Garrett P.I. series",
+            "author": "Glen Cook",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction"
+            ]
+          },
+          {
+            "raw": "Deadly Quicksilver Lies",
+            "title": "Deadly Quicksilver Lies",
+            "author": "Glen Cook",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900182,
+      "source_digest": "ecc2205e75173345738e0493fbe7065e155d9f0fcbb57206f2699ce53ff99928",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "Carl abbreviates the series explicitly named in the thread body, without specifying a volume. The other three titles receive personal positive assessments.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900182"
+      ],
+      "case_types": [
+        "abbreviation",
+        "series",
+        "multiple-books"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Carl",
+            "title": "Dungeon Crawler Carl series",
+            "author": "Matt Dinniman",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          },
+          {
+            "raw": "Nettle and Bone",
+            "title": "Nettle & Bone",
+            "author": "T. Kingfisher",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction"
+            ]
+          },
+          {
+            "raw": "Some desperate glory",
+            "title": "Some Desperate Glory",
+            "author": "Emily Tesh",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          },
+          {
+            "raw": "East of Eden",
+            "title": "East of Eden",
+            "author": "John Steinbeck",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900213,
+      "source_digest": "dccbaf4abc6d0b3de5caf57b9012175fea30146c0dc3eaf6af727046813ce1b0",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "A link identifies the literary series from the parent without endorsing it or selecting one of its novels.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900213"
+      ],
+      "case_types": [
+        "link-title",
+        "series",
+        "contextual-reference"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "https://en.wikipedia.org/wiki/Garrett_P.I.",
+            "title": "Garrett P.I. series",
+            "author": "Glen Cook",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900238,
+      "source_digest": "0d4a4fa08a0567945b2b7eacad6d2c7b0bb646dc089a64635d4cdc5c7bd89192",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "Two explicitly credited nonfiction books are summarized without personal recommendations; preserve the complete known subtitle as an accepted alias.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900238"
+      ],
+      "case_types": [
+        "multiple-books",
+        "subtitle",
+        "classification"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "President Lincoln",
+            "title": "President Lincoln",
+            "author": "William Lee Miller",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "biography",
+              "history"
+            ]
+          },
+          {
+            "raw": "God's Middle Finger: Into the Lawless Heart of the Sierra Madre",
+            "title": "God's Middle Finger",
+            "author": "Richard Grant",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "biography"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900259,
+      "source_digest": "e12226337658b25904dfd4340b3f9e86beb4ed1b5721911a229c0f6ae80d90b9",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The skeptical question specifically concerns the need for the book named by the parent, not an unknown generic book.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900259"
+      ],
+      "case_types": [
+        "contextual-reference",
+        "negative"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "a whole book for this",
+            "title": "You've Been Pooping All Wrong",
+            "author": "Trisha Pasricha",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "negative",
+            "tags": []
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900260,
+      "source_digest": "e786c76193395a9846428f3139ffeee4641039f5fe5632d175d77fd5bda517cf",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "Three current reads are neutral. The movie explanation identifies Dune Messiah and does not add a separate Dune mention.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900260"
+      ],
+      "case_types": [
+        "multiple-books",
+        "numbered-volume",
+        "adaptation"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Dune Messiah",
+            "title": "Dune Messiah",
+            "author": "Frank Herbert",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          },
+          {
+            "raw": "Analysis I",
+            "title": "Analysis I",
+            "author": "Terence Tao",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "mathematics"
+            ]
+          },
+          {
+            "raw": "Thinking in bets",
+            "title": "Thinking in Bets",
+            "author": "Annie Duke",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "psychology"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900281,
+      "source_digest": "f70cb0c4faa5064d212e1f7d0080b7c213bf4f6860c8f244c9531b2123f564f1",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The named Intel-management book is a neutral read. This has two possible antecedent books and cannot uniquely identify either.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900281"
+      ],
+      "case_types": [
+        "ambiguous-reference",
+        "classification"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Only the paranoid survive",
+            "title": "Only the Paranoid Survive",
+            "author": "Andy Grove",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "management"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900295,
+      "source_digest": "4d9260f5b08c2c617f17dc448c911b6df3d0fe8835b2cb0660d8b0036ebb0952",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The reader praises the collection and its uniquely identifiable Arrival source story. Arrival is a film, not a separately read book.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900295"
+      ],
+      "case_types": [
+        "short-story",
+        "adaptation",
+        "multiple-books"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Stories of Your Life And Others",
+            "title": "Stories of Your Life and Others",
+            "author": "Ted Chiang",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          },
+          {
+            "raw": "the short story behind Arrival",
+            "title": "Story of Your Life",
+            "author": "Ted Chiang",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900303,
+      "source_digest": "0bae01a8b9dba8e5b75fe2742b36585dc2b8f6d24271877eb57572c70d4db6a8",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The explicit eighth-volume reference uniquely identifies A Parade of Horribles, not the first Dungeon Crawler Carl novel.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900303",
+        "https://www.penguinrandomhouse.com/series/43C/dungeon-crawler-carl/"
+      ],
+      "case_types": [
+        "numbered-volume",
+        "title-correction"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Dungeon Crawler Carl book 8",
+            "title": "A Parade of Horribles",
+            "author": "Matt Dinniman",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900326,
+      "source_digest": "24f646ea1612b99b2a6e4b9788570c6f47554cd9fe2ea8c27f5e66e21c2c43c6",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The parent uniquely identifies Middlemarch. Enjoying meeting other readers does not itself endorse the novel.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900326"
+      ],
+      "case_types": [
+        "contextual-reference",
+        "classification"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "it",
+            "title": "Middlemarch",
+            "author": "George Eliot",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900393,
+      "source_digest": "570a5cb6d4c7a8a4139543010c3b33ae53bade5326777a7505b61c98a3f92373",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The reply discusses the Dungeon Crawler Carl series without identifying a volume. The two other books uniquely refer to the two nonfiction titles in the parent; intentions to check them are neutral, not recommendations. Matt’s latest movie is not enough to infer a specific book volume.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900393"
+      ],
+      "case_types": [
+        "plural-reference",
+        "series",
+        "multiple-authors",
+        "reading-intention"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Dungeon Crawler Carl series",
+            "title": "Dungeon Crawler Carl series",
+            "author": "Matt Dinniman",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "positive",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          },
+          {
+            "raw": "the two other books",
+            "title": "Neuroscience: Exploring the Brain",
+            "author": "Mark F. Bear and Barry W. Connors and Michael A. Paradiso",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": []
+          },
+          {
+            "raw": "the two other books",
+            "title": "Analog Computing: Development, Programming, Applications, and Future Directions",
+            "author": "Bernd Ulmann",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "engineering"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900415,
+      "source_digest": "8baf2bb600987453bffa6ba325df9e3239f29a7342278815d5093e030ea51d68",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The parent uniquely identifies the current read, without an author attribution or endorsement.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900415"
+      ],
+      "case_types": [
+        "contextual-reference",
+        "reading-intention"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Reading this now",
+            "title": "A Philosophy of Software Design",
+            "author": "John K. Ousterhout",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "software-design"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900432,
+      "source_digest": "d8f6b56ce433dcc88250c3bb1a801f6cd7c965e4cc4f8f9de9cb3739be321fbf",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The fourth Dark Tower novel is explicitly named. The first three volumes are unspecified as a group and need not be invented; Dungeon Crawler Carl is a separate unspecified-volume series read. Reading alone is neutral.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900432"
+      ],
+      "case_types": [
+        "numbered-volume",
+        "series",
+        "multiple-books"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Wizard and Glass",
+            "title": "Wizard and Glass",
+            "author": "Stephen King",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction"
+            ]
+          },
+          {
+            "raw": "dungeon crawler carl",
+            "title": "Dungeon Crawler Carl series",
+            "author": "Matt Dinniman",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction",
+              "science-fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900481,
+      "source_digest": "b8c8d17531ccd47ab7b718bf444c2d7bc1024d565afac46f4ed708947da856a7",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "Three named reads are neutral. Preserve the French novel title, identify the African history book and distinguish the relationship book from its workbook.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900481",
+        "https://www.penguinrandomhouse.co.za/product/african-history-of-africa-7381888/",
+        "https://www.drsuejohnson.com/books/"
+      ],
+      "case_types": [
+        "translation",
+        "multiple-books",
+        "title-spelling"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Le Comte de MonteChristo",
+            "title": "Le Comte de Monte-Cristo",
+            "author": "Alexandre Dumas",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "fiction"
+            ]
+          },
+          {
+            "raw": "an African history of Africa",
+            "title": "An African History of Africa",
+            "author": "Zeinab Badawi",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "history"
+            ]
+          },
+          {
+            "raw": "Hold me tight",
+            "title": "Hold Me Tight",
+            "author": "Sue Johnson",
+            "author_source": "inferred",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "psychology"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900485,
+      "source_digest": "89196abe6c0443a3f53311f82a06699064accb27a80fab990baee989d448ae0f",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "The uniquely identified fantasy series is criticized for portrayal of women. Quoted criticism is explicitly affirmed by this commenter; no Tolkien book is named.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900485"
+      ],
+      "case_types": [
+        "contextual-reference",
+        "negative",
+        "series"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "It’s a classic",
+            "title": "The Wheel of Time series",
+            "author": "Robert Jordan",
+            "author_source": "context",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "negative",
+            "tags": [
+              "fiction"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "thread_id": 49893157,
+      "comment_id": 49900578,
+      "source_digest": "0a9a1573a1ad3f11bc3e5c00559284ff0c20a5fb92a42327fa515eacd634885c",
+      "reviewer": "Codex; source-checked, pending independent human review",
+      "reviewed_at": "2026-10-03",
+      "reason": "Buying a newly released ebook and intending to read it is not a personal recommendation; preserve its full subtitle as a verified alias.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=49900578",
+        "https://www.penguinrandomhouse.com/books/778487/gouged-by-lindsay-owens/"
+      ],
+      "case_types": [
+        "subtitle",
+        "reading-intention"
+      ],
+      "result": {
+        "mentions": [
+          {
+            "raw": "Gouged: The End of a Fair Price—and What That Means for Your Wallet",
+            "title": "Gouged",
+            "author": "Lindsay Owens",
+            "author_source": "stated",
+            "work_id": null,
+            "confidence": 1.0,
+            "sentiment": "neutral",
+            "tags": [
+              "economics"
+            ]
+          }
+        ]
+      }
     }
   ]
 }
