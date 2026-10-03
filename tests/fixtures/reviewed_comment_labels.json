@@ -16,6 +16,635 @@
       "notes": "A literary periodical, not a book title."
     },
     {
+      "comment_id": 49893281,
+      "source_url": "https://news.ycombinator.com/item?id=49893281",
+      "status": "reviewed",
+      "case_types": [
+        "classification",
+        "multiple-authors"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Why Greatness cannot be Planned",
+          "title": "Why Greatness Cannot Be Planned",
+          "authors": [
+            "Kenneth O. Stanley",
+            "Joel Lehman"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "ai"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "The commenter summarizes the argument without endorsing it. The publisher credits both Stanley and Lehman and classifies the book under artificial intelligence. Sources: https://link.springer.com/book/10.1007/978-3-319-15524-1"
+    },
+    {
+      "comment_id": 49893351,
+      "source_url": "https://news.ycombinator.com/item?id=49893351",
+      "status": "reviewed",
+      "case_types": [
+        "multiple-books",
+        "author-spelling"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The Fox and the Jewel by Karen A. Smeyers",
+          "title": "The Fox and the Jewel",
+          "authors": [
+            "Karen Ann Smyers"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL1941098W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "The Spiral Dance by Starhawk",
+          "title": "The Spiral Dance",
+          "authors": [
+            "Starhawk"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "philosophy"
+          ],
+          "work_id": "/works/OL1852088W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Two titles in a reading bag, without endorsement. The catalog identifies the first author as Karen Ann Smyers despite the commenter spelling Smeyers. Sources: https://openlibrary.org/works/OL1941098W.json, https://openlibrary.org/works/OL1852088W.json"
+    },
+    {
+      "comment_id": 49894237,
+      "source_url": "https://news.ycombinator.com/item?id=49894237",
+      "status": "reviewed",
+      "case_types": [
+        "positive"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The Rouse by China Miéville",
+          "title": "The Rouse",
+          "authors": [
+            "China Miéville"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "A named novel receives personal praise. The publisher confirms the title and author; a catalog identity still needs checking. Sources: https://www.penguinrandomhouse.com/books/554904/the-rouse-by-china-mieville/"
+    },
+    {
+      "comment_id": 49894816,
+      "source_url": "https://news.ycombinator.com/item?id=49894816",
+      "status": "reviewed",
+      "case_types": [
+        "author-provenance",
+        "subtitle"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Private Revolutions: Four Women Face China's New Social Order",
+          "title": "Private Revolutions",
+          "authors": [
+            "Yuan Yang"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL37828044W",
+          "identity_status": "verified",
+          "aliases": [
+            "Private Revolutions: Four Women Face China's New Social Order"
+          ]
+        }
+      ],
+      "notes": "A named nonfiction book is offered as a current read without clear personal endorsement. The publisher identifies Yuan Yang; she is not stated in the comment. Sources: https://www.penguinrandomhouse.com/books/716128/private-revolutions-by-yuan-yang/, https://openlibrary.org/works/OL37828044W.json"
+    },
+    {
+      "comment_id": 49895007,
+      "source_url": "https://news.ycombinator.com/item?id=49895007",
+      "status": "reviewed",
+      "case_types": [
+        "series",
+        "positive"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The Immortal Great Souls",
+          "title": "The Immortal Great Souls",
+          "authors": [
+            "Phil Tucker"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "Praise names the fantasy series, not a particular volume. Do not assign this reference to Bastion by guessing the first book. Sources: https://www.authorphiltucker.com/"
+    },
+    {
+      "comment_id": 49895058,
+      "source_url": "https://news.ycombinator.com/item?id=49895058",
+      "status": "reviewed",
+      "case_types": [
+        "recommendation",
+        "abbreviation",
+        "wrong-title"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "\"The Soul of a new Machine\"",
+          "title": "The Soul of a New Machine",
+          "authors": [
+            "Tracy Kidder"
+          ],
+          "author_source": "inferred",
+          "sentiment": "recommended",
+          "strength": 0.95,
+          "tags": [
+            "engineering",
+            "history"
+          ],
+          "work_id": "/works/OL98218W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "\"Showstoppers\"",
+          "title": "Showstopper!",
+          "authors": [
+            "G. Pascal Zachary"
+          ],
+          "author_source": "inferred",
+          "sentiment": "recommended",
+          "strength": 0.95,
+          "tags": [
+            "engineering",
+            "history"
+          ],
+          "work_id": "/works/OL15182824W",
+          "identity_status": "verified",
+          "aliases": [
+            "Showstopper!: The Breakneck Race to Create Windows NT and the Next Generation at Microsoft"
+          ]
+        }
+      ],
+      "notes": "Both computing histories are explicitly recommended. Showstoppers is the colloquial plural spelling of the publisher-verified Showstopper!, not a different work. Sources: https://www.simonandschuster.com/books/Showstopper%21/G-Pascal-Zachary/9798993755366, https://openlibrary.org/works/OL98218W.json, https://openlibrary.org/works/OL15182824W.json"
+    },
+    {
+      "comment_id": 49895061,
+      "source_url": "https://news.ycombinator.com/item?id=49895061",
+      "status": "reviewed",
+      "case_types": [
+        "series",
+        "positive"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The Immortal Great Souls by Phil Tucker",
+          "title": "The Immortal Great Souls",
+          "authors": [
+            "Phil Tucker"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "A second commenter independently praises the same fantasy series; no individual volume is named. Sources: https://www.authorphiltucker.com/"
+    },
+    {
+      "comment_id": 49895097,
+      "source_url": "https://news.ycombinator.com/item?id=49895097",
+      "status": "reviewed",
+      "case_types": [
+        "nonfiction-topic",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The Selfish Gene by Richard Dawkins",
+          "title": "The Selfish Gene",
+          "authors": [
+            "Richard Dawkins"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [],
+          "work_id": "/works/OL1966488W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "This is nonfiction evolutionary biology, not science fiction. The controlled taxonomy has no biology tag, so the topic list is empty. Sources: https://openlibrary.org/works/OL1966488W.json"
+    },
+    {
+      "comment_id": 49895167,
+      "source_url": "https://news.ycombinator.com/item?id=49895167",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "series",
+        "genre",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "series",
+          "title": "Mistborn",
+          "authors": [
+            "Brandon Sanderson"
+          ],
+          "author_source": "context",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL16044142W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Still a good series refers to the Mistborn trilogy named in the parent. The checked catalog work describes the complete three-book bundle, so retaining that identity is valid. Magical world-building does not make the fantasy trilogy science fiction. Sources: https://openlibrary.org/works/OL16044142W.json"
+    },
+    {
+      "comment_id": 49895400,
+      "source_url": "https://news.ycombinator.com/item?id=49895400",
+      "status": "reviewed",
+      "case_types": [
+        "subtitle",
+        "positive"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Blank Space: A Cultural History of the Twenty-First Century",
+          "title": "Blank Space",
+          "authors": [
+            "W. David Marx"
+          ],
+          "author_source": "stated",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL44585097W",
+          "identity_status": "verified",
+          "aliases": [
+            "Blank Space: A Cultural History of the Twenty-First Century"
+          ]
+        }
+      ],
+      "notes": "The commenter praises a nonfiction cultural history. The publisher uses the main title Blank Space and credits W. David Marx. Sources: https://www.penguinrandomhouse.com/books/769187/blank-space-by-w-david-marx/9780593833995/, https://openlibrary.org/works/OL44585097W.json"
+    },
+    {
+      "comment_id": 49895659,
+      "source_url": "https://news.ycombinator.com/item?id=49895659",
+      "status": "reviewed",
+      "case_types": [
+        "positive",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Infinite Jest",
+          "title": "Infinite Jest",
+          "authors": [
+            "David Foster Wallace"
+          ],
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL2943602W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Enjoying the novel is personal praise; slow progress through a long book is not an overall negative opinion. Sources: https://openlibrary.org/works/OL2943602W.json"
+    },
+    {
+      "comment_id": 49895675,
+      "source_url": "https://news.ycombinator.com/item?id=49895675",
+      "status": "reviewed",
+      "case_types": [
+        "author-spelling",
+        "wrong-title"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Dostoevsky's Brother Karamazov",
+          "title": "The Brothers Karamazov",
+          "authors": [
+            "Fyodor Dostoevsky"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL272063W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "A current read, without endorsement. The author is stated by surname and the singular Brother is a title spelling variation. Sources: https://openlibrary.org/works/OL272063W.json"
+    },
+    {
+      "comment_id": 49895689,
+      "source_url": "https://news.ycombinator.com/item?id=49895689",
+      "status": "reviewed",
+      "case_types": [
+        "adaptation",
+        "contextual-reference"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "the book",
+          "title": "Killing Floor",
+          "authors": [
+            "Lee Child"
+          ],
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL24477958W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The commenter praises the book as well as the show. Amazon confirms that Reacher season one adapts Killing Floor; the novel is uniquely identifiable from the explicitly numbered season. Sources: https://www.aboutamazon.com/news/entertainment/reacher-season-3-release-plot-recap-jack, https://openlibrary.org/works/OL24477958W.json"
+    },
+    {
+      "comment_id": 49895706,
+      "source_url": "https://news.ycombinator.com/item?id=49895706",
+      "status": "reviewed",
+      "case_types": [
+        "anonymous-work",
+        "edition",
+        "recommendation"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "the bible",
+          "title": "The Bible",
+          "authors": [],
+          "author_source": "unknown",
+          "sentiment": "recommended",
+          "strength": 0.95,
+          "tags": [
+            "history"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous"
+        }
+      ],
+      "notes": "The commenter recommends a scholarly or literal Bible translation without selecting an edition or translator. Retain the work reference with an unresolved edition/collection identity."
+    },
+    {
+      "comment_id": 49895834,
+      "source_url": "https://news.ycombinator.com/item?id=49895834",
+      "status": "reviewed",
+      "case_types": [
+        "series",
+        "duplicate-alias"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The Captive's War",
+          "title": "The Captive's War",
+          "authors": [
+            "James S.A. Corey"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "science-fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "The quoted Carryx series and the named Captive's War refer to the same series, not two distinct works. The publisher confirms it is a trilogy; no particular volume is selected. Sources: https://www.hachettebookgroup.com/titles/james-s-a-corey/the-faith-of-beasts/9780316525671/"
+    },
+    {
+      "comment_id": 49895839,
+      "source_url": "https://news.ycombinator.com/item?id=49895839",
+      "status": "reviewed",
+      "case_types": [
+        "no-books",
+        "ambiguous-reference"
+      ],
+      "expected_mentions": [],
+      "notes": "A reply about remembering the magic rules, without a particular literary work being singled out or evaluated."
+    },
+    {
+      "comment_id": 49895848,
+      "source_url": "https://news.ycombinator.com/item?id=49895848",
+      "status": "reviewed",
+      "case_types": [
+        "author-provenance",
+        "subtitle",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Beyond Tube-and-Wing: The X-48 Blended Wing-Body and NASA's Quest to Reshape Future Transport Aircraft",
+          "title": "Beyond Tube-and-Wing",
+          "authors": [
+            "Bruce I. Larrimer"
+          ],
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "engineering",
+            "history"
+          ],
+          "work_id": "/works/OL20764348W",
+          "identity_status": "verified",
+          "aliases": [
+            "Beyond Tube-and-Wing: The X-48 Blended Wing-Body and NASA's Quest to Reshape Future Transport Aircraft"
+          ]
+        },
+        {
+          "raw": "The Anduril Thesis",
+          "title": "The Anduril Thesis",
+          "authors": [
+            "Kyle Harrison"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "startups"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "NASA credits Bruce I. Larrimer on the praised aviation history. Contrary Research confirms The Anduril Thesis is a published 300-page book by Kyle Harrison, not the company manifesto. The second book is only being read. Sources: https://www.nasa.gov/aeronautics/beyond-tube-and-wing/, https://research.contrary.com/report/the-anduril-thesis, https://openlibrary.org/works/OL20764348W.json"
+    },
+    {
+      "comment_id": 49895980,
+      "source_url": "https://news.ycombinator.com/item?id=49895980",
+      "status": "reviewed",
+      "case_types": [
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The Intellectual Life",
+          "title": "The Intellectual Life",
+          "authors": [
+            "A. G Sertillanges"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "philosophy"
+          ],
+          "work_id": "/works/OL34639823W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "A named philosophical current read with a worldview caveat, without a personal endorsement. Sources: https://openlibrary.org/works/OL34639823W.json"
+    },
+    {
+      "comment_id": 49895982,
+      "source_url": "https://news.ycombinator.com/item?id=49895982",
+      "status": "reviewed",
+      "case_types": [
+        "adaptation",
+        "author-provenance",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Quantum Break: Zero State",
+          "title": "Quantum Break: Zero State",
+          "authors": [
+            "Cam Rogers"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "science-fiction"
+          ],
+          "work_id": "/works/OL20868694W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The novel is a current read. The explicit recommendation is for the video game; Dark and Primer are film/TV comparisons, not additional book recommendations. Titan credits Cam Rogers on the novel. Sources: https://titanbooks.com/8971-quantum-break-zero-state/, https://openlibrary.org/works/OL20868694W.json"
+    },
+    {
+      "comment_id": 49896009,
+      "source_url": "https://news.ycombinator.com/item?id=49896009",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "series",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "That's the one I mean!",
+          "title": "The Captive's War",
+          "authors": [
+            "James S.A. Corey"
+          ],
+          "author_source": "context",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "science-fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "The immediate parent uniquely names The Captive's War. The reply confirms identity without repeating the older ancestor's praise; no individual series volume is named. Sources: https://www.jamessacorey.com/news/"
+    },
+    {
+      "comment_id": 49896013,
+      "source_url": "https://news.ycombinator.com/item?id=49896013",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "series",
+        "reading-intention"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "her Terra Ignota series",
+          "title": "Terra Ignota",
+          "authors": [
+            "Ada Palmer"
+          ],
+          "author_source": "context",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "science-fiction"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        },
+        {
+          "raw": "this one next",
+          "title": "Inventing the Renaissance",
+          "authors": [
+            "Ada Palmer"
+          ],
+          "author_source": "context",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL42403635W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Terra Ignota receives praise as a series. The contextual Inventing the Renaissance reference is a reading intention, not a recommendation. Sources: https://openlibrary.org/works/OL42403635W.json"
+    },
+    {
       "comment_id": 49896123,
       "source_url": "https://news.ycombinator.com/item?id=49896123",
       "status": "reviewed",
@@ -27,6 +656,244 @@
       "notes": "Butler translated both the Iliad and Odyssey. The current comment names neither; choosing the Iliad invents a particular work. Sources: https://news.ycombinator.com/item?id=49896123, https://www.gutenberg.org/ebooks/author/748, https://www.gutenberg.org/ebooks/1727"
     },
     {
+      "comment_id": 49896156,
+      "source_url": "https://news.ycombinator.com/item?id=49896156",
+      "status": "reviewed",
+      "case_types": [
+        "author-provenance",
+        "question"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Crime and Punishment",
+          "title": "Crime and Punishment",
+          "authors": [
+            "Fyodor Dostoevsky"
+          ],
+          "author_source": "context",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL45018229W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "A question about a named novel, without endorsement. The parent explicitly supplies Dostoevsky, so the author provenance is contextual. Sources: https://openlibrary.org/works/OL45018229W.json"
+    },
+    {
+      "comment_id": 49896216,
+      "source_url": "https://news.ycombinator.com/item?id=49896216",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "edition",
+        "question"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "abridgements",
+          "title": "The History of the Decline and Fall of the Roman Empire",
+          "authors": [
+            "Edward Gibbon"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL35404997W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The parent uniquely identifies Decline and Fall of the Roman Empire. The reply asks about abridgements of that work, without identifying an edition or endorsing it. Sources: https://openlibrary.org/works/OL35404997W.json"
+    },
+    {
+      "comment_id": 49896323,
+      "source_url": "https://news.ycombinator.com/item?id=49896323",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "author-provenance",
+        "editor-credit"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "it",
+          "title": "Infinite Jest",
+          "authors": [
+            "David Foster Wallace"
+          ],
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL2943602W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "The Pale King",
+          "title": "The Pale King",
+          "authors": [
+            "David Foster Wallace"
+          ],
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL15701417W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The parent uniquely names Infinite Jest, but names no author, so Wallace is inferred. Both novels receive praise. Michael Pietsch edited the posthumous Pale King; he is not its novelist. Sources: https://www.hachettebookgroup.com/titles/david-foster-wallace/the-pale-king/9780316175296/, https://www.hachettebookgroup.com/hachette-book-group-news/hbg-big-news-this-week-september-17-21-2018/, https://openlibrary.org/works/OL2943602W.json, https://openlibrary.org/works/OL15701417W.json"
+    },
+    {
+      "comment_id": 49896445,
+      "source_url": "https://news.ycombinator.com/item?id=49896445",
+      "status": "reviewed",
+      "case_types": [
+        "contextual-reference",
+        "edition",
+        "reading-intention",
+        "numerical-title"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "translations",
+          "title": "The Bible",
+          "authors": [],
+          "author_source": "unknown",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous"
+        },
+        {
+          "raw": "Donald Knuth's \"3:16 Bible Texts Illuminated\"",
+          "title": "3:16 Bible Texts Illuminated",
+          "authors": [
+            "Donald Knuth"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL14941569W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The reply refers to Bible translations being read and asks for alternatives. It also names Knuth's book as a reading intention. Neither is a recommendation; no Bible edition or translator is selected. Sources: https://www-cs-faculty.stanford.edu/~knuth/316.html, https://openlibrary.org/works/OL14941569W.json"
+    },
+    {
+      "comment_id": 49897345,
+      "source_url": "https://news.ycombinator.com/item?id=49897345",
+      "status": "reviewed",
+      "case_types": [
+        "edition",
+        "author-provenance"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "\"A Philosophy of Software Design\"",
+          "title": "A Philosophy of Software Design",
+          "authors": [
+            "John K. Ousterhout"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "software-design"
+          ],
+          "work_id": "/works/OL21221785W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "A named software-design book is a current read. The first/second edition discussion identifies editions of one work, not two separate books. Sources: https://openlibrary.org/works/OL21221785W.json"
+    },
+    {
+      "comment_id": 49897922,
+      "source_url": "https://news.ycombinator.com/item?id=49897922",
+      "status": "reviewed",
+      "case_types": [
+        "adaptation",
+        "wrong-author",
+        "multiple-books"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The Heaven and Earth Grocery Store",
+          "title": "The Heaven & Earth Grocery Store",
+          "authors": [
+            "James McBride"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction"
+          ],
+          "work_id": "/works/OL34059667W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "The Shadow over Innsmouth",
+          "title": "The Shadow Over Innsmouth",
+          "authors": [],
+          "author_source": "unknown",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous"
+        },
+        {
+          "raw": "The Shadow out of Time",
+          "title": "The Shadow Out of Time",
+          "authors": [],
+          "author_source": "unknown",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "fiction",
+            "science-fiction"
+          ],
+          "work_id": null,
+          "identity_status": "ambiguous"
+        },
+        {
+          "raw": "Progress and Poverty",
+          "title": "Progress and Poverty",
+          "authors": [
+            "Henry George"
+          ],
+          "author_source": "inferred",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "economics"
+          ],
+          "work_id": "/works/OL20596049W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Four current reads, without endorsement. The comment explicitly identifies two manga adaptations but does not name their creators. Preserve those references as unresolved adaptations; Lovecraft's original prose works are not valid matches. Publisher records establish the separate adaptation format, without proving which edition this reader has. Sources: https://www.darkhorse.com/Search/H.P.%20Lovecraft%2C%20Gou%20Tanabe, https://www.darkhorse.com/Search/Browse/%22Gou%2BTanabe%22/PpwNwkt8, https://openlibrary.org/works/OL34059667W.json, https://openlibrary.org/works/OL20596049W.json"
+    },
+    {
       "comment_id": 49899604,
       "source_url": "https://news.ycombinator.com/item?id=49899604",
       "status": "reviewed",
@@ -35,6 +902,130 @@
       ],
       "expected_mentions": [],
       "notes": "Links to reading discussions, not mentions of works in those discussions."
+    },
+    {
+      "comment_id": 49899665,
+      "source_url": "https://news.ycombinator.com/item?id=49899665",
+      "status": "reviewed",
+      "case_types": [
+        "recommendation",
+        "classification"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "Scott McCloud’s Understanding Comics",
+          "title": "Understanding Comics",
+          "authors": [
+            "Scott McCloud"
+          ],
+          "author_source": "stated",
+          "sentiment": "recommended",
+          "strength": 0.95,
+          "tags": [],
+          "work_id": "/works/OL276032W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "The commenter directly recommends the named book. Its comics/art subject has no matching controlled topic; no unrelated topic is invented. Sources: https://openlibrary.org/works/OL276032W.json"
+    },
+    {
+      "comment_id": 49899705,
+      "source_url": "https://news.ycombinator.com/item?id=49899705",
+      "status": "reviewed",
+      "case_types": [
+        "multiple-books",
+        "nonfiction-topic"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "The Power Broker by Robert Caro",
+          "title": "The Power Broker",
+          "authors": [
+            "Robert A. Caro"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL4195860W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Recoding America by Jennifer Pahlka",
+          "title": "Recoding America",
+          "authors": [
+            "Jennifer Pahlka"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "management"
+          ],
+          "work_id": "/works/OL28847212W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "The Time Tax by Annie Lowrey",
+          "title": "The Time Tax",
+          "authors": [
+            "Annie Lowrey"
+          ],
+          "author_source": "stated",
+          "sentiment": "neutral",
+          "strength": 0.2,
+          "tags": [
+            "economics"
+          ],
+          "work_id": null,
+          "identity_status": "pending"
+        }
+      ],
+      "notes": "Three named nonfiction current reads, without endorsement. Titles and authors are stated; unresolved catalog coverage does not erase the named book. Sources: https://openlibrary.org/works/OL4195860W.json, https://openlibrary.org/works/OL28847212W.json The Library of Congress confirms The Time Tax is a published book: https://www.loc.gov/events/2026-national-book-festival/authors-and-speakers/item/n2018001528/annie-lowrey/."
+    },
+    {
+      "comment_id": 49899714,
+      "source_url": "https://news.ycombinator.com/item?id=49899714",
+      "status": "reviewed",
+      "case_types": [
+        "author-provenance",
+        "positive"
+      ],
+      "expected_mentions": [
+        {
+          "raw": "London Falling",
+          "title": "London Falling",
+          "authors": [
+            "Patrick Radden Keefe"
+          ],
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL45399274W",
+          "identity_status": "verified"
+        },
+        {
+          "raw": "Say Nothing",
+          "title": "Say Nothing",
+          "authors": [
+            "Patrick Radden Keefe"
+          ],
+          "author_source": "inferred",
+          "sentiment": "positive",
+          "strength": 0.65,
+          "tags": [
+            "history"
+          ],
+          "work_id": "/works/OL20153382W",
+          "identity_status": "verified"
+        }
+      ],
+      "notes": "Both nonfiction books receive praise. The publisher identifies Patrick Radden Keefe as the shared author; the comment supplies neither his name nor a contextual author. Sources: https://www.penguinrandomhouse.com/books/704979/london-falling-by-patrick-radden-keefe/, https://openlibrary.org/works/OL45399274W.json, https://openlibrary.org/works/OL20153382W.json"
     },
     {
       "comment_id": 49899719,
@@ -96,16 +1087,21 @@
         },
         {
           "raw": "Ten things I wish I knew about raising boys",
-          "title": "Ten Things I Wish I Knew About Raising Boys",
-          "authors": [],
-          "author_source": "unknown",
+          "title": "Ten Things I Wish You Knew About Raising Boys",
+          "authors": [
+            "Billy Garvey"
+          ],
+          "author_source": "inferred",
           "sentiment": "neutral",
           "strength": 0.2,
           "tags": [
             "psychology"
           ],
           "work_id": null,
-          "identity_status": "pending"
+          "identity_status": "pending",
+          "aliases": [
+            "Ten Things I Wish I Knew About Raising Boys"
+          ]
         },
         {
           "raw": "Outdoor kids in an indoor world",
@@ -182,7 +1178,7 @@
           "identity_status": "pending"
         }
       ],
-      "notes": "Nine named reads or series, with no personal endorsement. The outdoor-parenting title is Outdoor Kids in an Inside World by Steven Rinella; There Are No Children Here and Richard Louv are unsupported substitutions. DCC repeats one series, not a second mention. Sources: https://news.ycombinator.com/item?id=49899719, https://penguinrandomhouselibrary.com/book/?isbn=9780593129685, https://openlibrary.org/works/OL20464319W.json, https://openlibrary.org/works/OL38495W.json, https://openlibrary.org/works/OL24593432W.json Catalog identity checked October 3, 2026: https://openlibrary.org/works/OL24784465W.json, https://openlibrary.org/authors/OL1436909A.json."
+      "notes": "Nine named reads or series, with no personal endorsement. The outdoor-parenting title is Outdoor Kids in an Inside World by Steven Rinella; There Are No Children Here and Richard Louv are unsupported substitutions. DCC repeats one series, not a second mention. Sources: https://news.ycombinator.com/item?id=49899719, https://penguinrandomhouselibrary.com/book/?isbn=9780593129685, https://openlibrary.org/works/OL20464319W.json, https://openlibrary.org/works/OL38495W.json, https://openlibrary.org/works/OL24593432W.json Catalog identity checked October 3, 2026: https://openlibrary.org/works/OL24784465W.json, https://openlibrary.org/authors/OL1436909A.json. Publisher title and author checked October 3: https://www.penguin.com.au/books/ten-things-i-wish-you-knew-about-raising-boys-9781761620850. Catalog identity remains pending."
     },
     {
       "comment_id": 49899881,

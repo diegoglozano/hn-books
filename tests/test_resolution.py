@@ -317,6 +317,31 @@ def test_explicit_american_gods_graphic_work_remains_separate(settings):
     remote.close()
 
 
+@pytest.mark.parametrize("title", ["The Shadow Over Innsmouth", "The Shadow Out of Time"])
+def test_reviewed_manga_with_unspecified_creators_cannot_become_original_prose(settings, title):
+    from app.comment_reviews import read_reviews
+
+    review = next(
+        r
+        for r in read_reviews(Path("app/data/comment_reviews.json")).comments
+        if r.comment_id == 49897922
+    )
+    mention = next(m for m in review.result.mentions if m.title == title)
+    assert mention.author is None
+    assert mention.author_source == "unknown"
+
+    def handle(request):
+        pytest.fail("An unspecified manga creator must not search for or select original prose.")
+
+    remote = RemoteClient(settings, httpx.Client(transport=httpx.MockTransport(handle)))
+    metrics = RunMetrics()
+    with connect(settings.database_path) as conn:
+        assert resolve_book(conn, mention.span(), MetadataClient(remote, conn, metrics))[0] is None
+        assert conn.execute("SELECT COUNT(*) FROM books").fetchone()[0] == 0
+        assert metrics.metadata_lookups == metrics.llm_requests == 0
+    remote.close()
+
+
 def test_reviewed_aliases_are_specific_and_coauthors_still_require_each_identity():
     from app.resolution import author_matches, author_parts
 

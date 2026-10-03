@@ -638,5 +638,170 @@
         "name": "Charles T. Munger"
       }
     ]
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=49896323",
+    "mention": {
+      "raw": "The Pale King",
+      "title": "The Pale King",
+      "author": "David Foster Wallace",
+      "author_source": "inferred",
+      "confidence": 1.0,
+      "work_id": null,
+      "require_author": true
+    },
+    "docs": [
+      {
+        "key": "/works/OL15701417W",
+        "title": "The Pale King",
+        "author_name": [
+          "David Foster Wallace",
+          "Michael Pietsch"
+        ]
+      }
+    ],
+    "expected_work": "/works/OL15701417W",
+    "work": {
+      "key": "/works/OL15701417W",
+      "title": "The Pale King",
+      "authors": [
+        {
+          "type": {
+            "key": "/type/author_role"
+          },
+          "author": {
+            "key": "/authors/OL448939A"
+          }
+        },
+        {
+          "type": {
+            "key": "/type/author_role"
+          },
+          "author": {
+            "key": "/authors/OL4040816A"
+          }
+        }
+      ]
+    },
+    "author_records": [
+      {
+        "key": "/authors/OL448939A",
+        "name": "David Foster Wallace"
+      },
+      {
+        "key": "/authors/OL4040816A",
+        "name": "Michael Pietsch"
+      }
+    ]
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=49895848",
+    "mention": {
+      "raw": "Beyond Tube-and-Wing: The X-48 Blended Wing-Body and NASA's Quest to Reshape Future Transport Aircraft",
+      "title": "Beyond Tube-and-Wing",
+      "author": "Bruce I. Larrimer",
+      "author_source": "inferred",
+      "confidence": 1.0,
+      "work_id": null,
+      "require_author": true
+    },
+    "docs": [
+      {
+        "key": "/works/OL20764348W",
+        "title": "Beyond Tube-And-Wing",
+        "author_name": [
+          "Bruce Larrimer",
+          "Richard Hallion"
+        ]
+      }
+    ],
+    "expected_work": "/works/OL20764348W",
+    "work": {
+      "key": "/works/OL20764348W",
+      "title": "Beyond Tube-And-Wing",
+      "authors": [
+        {
+          "type": {
+            "key": "/type/author_role"
+          },
+          "author": {
+            "key": "/authors/OL7909568A"
+          }
+        },
+        {
+          "type": {
+            "key": "/type/author_role"
+          },
+          "author": {
+            "key": "/authors/OL392737A"
+          }
+        }
+      ]
+    },
+    "author_records": [
+      {
+        "key": "/authors/OL7909568A",
+        "name": "Bruce Larrimer"
+      },
+      {
+        "key": "/authors/OL392737A",
+        "name": "Richard Hallion"
+      }
+    ]
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=49899714",
+    "mention": {
+      "raw": "Say Nothing",
+      "title": "Say Nothing",
+      "author": "Patrick Radden Keefe",
+      "author_source": "inferred",
+      "confidence": 1.0,
+      "work_id": null,
+      "require_author": true
+    },
+    "docs": [
+      {
+        "key": "/works/OL20153382W",
+        "title": "Say Nothing",
+        "author_name": [
+          "Patrick Radden Keefe",
+          "Ariel Font Prades"
+        ]
+      }
+    ],
+    "expected_work": "/works/OL20153382W",
+    "work": {
+      "key": "/works/OL20153382W",
+      "title": "Say Nothing",
+      "authors": [
+        {
+          "author": {
+            "key": "/authors/OL6511583A"
+          },
+          "type": {
+            "key": "/type/author_role"
+          }
+        },
+        {
+          "author": {
+            "key": "/authors/OL9942209A"
+          },
+          "type": {
+            "key": "/type/author_role"
+          }
+        }
+      ]
+    },
+    "author_records": [
+      {
+        "key": "/authors/OL6511583A",
+        "name": "Patrick Radden Keefe"
+      },
+      {
+        "key": "/authors/OL9942209A",
+        "name": "Ariel Font Prades"
+      }
+    ]
   }
 ]
