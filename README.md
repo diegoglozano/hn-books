@@ -51,7 +51,7 @@ Run these from the repository root, prefixed by `uv run` locally. Inside the Doc
 
 Daily ingestion deliberately starts with an explicit corpus. Historical discovery is opt-in. A partial run exits nonzero, logs failures, and preserves fetched raw data for retry. Overlapping writer commands are rejected by a process lock.
 
-Queries, legacy aliases, and the controlled taxonomy live in [app/data/library.toml](app/data/library.toml). Luna handles title extraction and classification by default. Changing the model, prompt, topic names, comment, or supplied ancestor context invalidates its cache. Increment `PROMPT_VERSION` in `app/luna.py` for extraction changes and `PROCESSOR_VERSION` in `app/pipeline.py` for matching or aggregation semantics.
+Queries, legacy aliases, and the controlled taxonomy live in [app/data/library.toml](app/data/library.toml). Luna handles title extraction and classification by default. Changing the model, prompt, topic names, comment, or supplied ancestor context invalidates its cache. Increment `PROMPT_VERSION` in `app/luna.py` for extraction changes and `PROCESSOR_VERSION` in `app/pipeline.py` for matching semantics. Ranking-only changes increment `FORMULA_VERSION` in `app/ranking.py`; the web app refreshes stale scores from stored mentions on deployment without new model requests.
 
 ## Rebuild the latest thread with Luna
 
@@ -276,8 +276,10 @@ validation, cache invalidation, per-book classification persistence, metadata au
 validation, and safe backup/rebuild/resume behavior. They do not measure a real
 model's accuracy. Follow the [complete-thread review workflow](docs/thread-review.md)
 to label actual saved results, including unresolved identities and comments with no extracted books. Inferred
-authors and ambiguous follow-up references still need scrutiny. HN comment scores
-are unavailable from the official API, so ranking uses thread score and context length.
+authors and ambiguous follow-up references still need scrutiny. Ranking uses each
+reader's latest opinion once, recommendation strength, criticism and bounded
+thread/date breadth. “Most recommended” orders by distinct readers. See the
+[ranking validation notes](docs/ranking.md); scores do not establish extraction accuracy.
 
 Only resolved mentions appear as library books. A detected title may remain unresolved because Open Library returned no matching work, the stated title/author disagrees with its metadata, or several works are equally plausible. Inspect the authenticated unresolved-mentions endpoint for these cases. An empty author-filtered lookup retries by title, while retaining the same title and author validation. After an extraction update, reprocess a stored thread with the command above, or reprocess all mentions. Wait for any active ingestion to finish first; writer commands share a lock.
 

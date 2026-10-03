@@ -687,18 +687,29 @@ function BookDetail({ id }: { id: number }) {
           <hr />
           <h3>A score you can inspect</h3>
           <p>
-            Positive recommendations count once per user, thread, and day.
-            Scores reward independent contexts and explanations.
+            {(book.score_details.formula_version ?? 1) >= 2
+              ? "Each reader’s latest opinion counts once. Strong recommendations add weight; criticism reduces it. Support from several readers counts more than an isolated endorsement."
+              : "Positive recommendations count once per user, thread, and day. Scores reward independent contexts and explanations."}
           </p>
           <dl>
-            <dt>Independent contexts</dt>
+            <dt>Supporting opinions</dt>
             <dd>{book.score_details.independent_contexts}</dd>
+            {(book.score_details.formula_version ?? 1) >= 2 && (
+              <>
+                <dt>Critical readers</dt>
+                <dd>{book.score_details.negative_users ?? 0}</dd>
+                <dt>Support weight</dt>
+                <dd>{(book.score_details.positive_weight ?? 0).toFixed(2)}</dd>
+                <dt>Criticism weight</dt>
+                <dd>{(book.score_details.negative_weight ?? 0).toFixed(2)}</dd>
+              </>
+            )}
             <dt>Recent score</dt>
             <dd>{book.recent_score.toFixed(1)}</dd>
           </dl>
           <p>
-            Recent scores use a gentle 365-day half-life. Classification is a
-            heuristic; read the evidence to judge the recommendation.
+            Recent scores use a gentle 365-day half-life. Read the source
+            comments to judge each recommendation.
           </p>
         </aside>
       </div>

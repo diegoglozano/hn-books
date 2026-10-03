@@ -12,7 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from app.config import Settings, get_settings
 from app.db import connect, initialize
 from app.extraction import plain_text
-from app.ranking import aggregate_tags
+from app.ranking import aggregate_tags, ensure_current_rankings
 from app.review import review_template, thread_report
 
 
@@ -36,6 +36,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     @asynccontextmanager
     async def lifespan(_: FastAPI):
         initialize(settings.database_path)
+        with connect(settings.database_path) as conn:
+            ensure_current_rankings(conn)
         yield
 
     app = FastAPI(title="HN Opinionated Library", version="0.1.0", lifespan=lifespan)
@@ -96,16 +98,17 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 params.append(tag)
             clause = " AND ".join(where)
             order = {
-                "all-time": "all_time_score",
-                "recent": "recent_score",
-                "mentions": "mention_count",
-                "recommendations": "recommendation_count",
+                "all-time": "b.all_time_score DESC, b.independent_recommenders DESC",
+                "recent": "b.recent_score DESC, b.independent_recommenders DESC",
+                "mentions": "b.mention_count DESC, b.all_time_score DESC",
+                "recommendations": "b.independent_recommenders DESC, b.all_time_score DESC",
             }[sort]
             total = conn.execute(f"SELECT COUNT(*) FROM books b WHERE {clause}", params).fetchone()[
                 0
             ]
             rows = conn.execute(
-                f"SELECT b.* FROM books b WHERE {clause} ORDER BY b.{order} DESC, b.id "
+                f"SELECT b.* FROM books b WHERE {clause} "
+                f"ORDER BY {order}, b.canonical_title COLLATE NOCASE, b.id "
                 "LIMIT ? OFFSET ?",
                 [*params, page_size, (page - 1) * page_size],
             ).fetchall()

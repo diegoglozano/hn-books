@@ -20,7 +20,13 @@ export interface Book {
   all_time_score: number;
   recent_score: number;
   score_details: {
+    formula_version?: number;
     independent_contexts: number;
+    negative_users?: number;
+    positive_threads?: number;
+    positive_dates?: number;
+    positive_weight?: number;
+    negative_weight?: number;
     recent_half_life_days: number;
   };
   timeline?: { month: string; mentions: number; recommenders: number }[];
