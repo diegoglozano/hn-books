@@ -1,8 +1,11 @@
+import json
+
 import httpx
 
 from app.backfill import completed_threads, ingest_backfill
 from app.clients import RemoteClient
 from app.db import connect
+from app.discovery import ThreadCandidate
 from app.models import RunMetrics
 from app.pipeline import PROCESSOR_VERSION
 
@@ -141,3 +144,96 @@ def test_existing_database_upgrade_preserves_raw_records(settings):
         )
         assert conn.execute("PRAGMA user_version").fetchone()[0] == 2
         assert completed_threads(conn) == set()
+
+
+def test_reading_command_appends_preserves_original_books_and_resumes(settings, monkeypatch):
+    from app import ingest
+
+    requests = []
+    books = {100: ("Dune", "Frank Herbert"), 200: ("Hyperion", "Dan Simmons")}
+
+    def handle(request):
+        path = request.url.path
+        requests.append(path)
+        if "/item/" in path:
+            item_id = int(path.rsplit("/", 1)[1].removesuffix(".json"))
+            thread_id = item_id if item_id in books else item_id - 1
+            title, author = books[thread_id]
+            item: dict = {"id": item_id, "time": item_id}
+            if item_id in books:
+                item |= {
+                    "type": "story",
+                    "title": "Ask HN: What are you reading?",
+                    "kids": [item_id + 1],
+                    "descendants": 101,
+                }
+            else:
+                item |= {
+                    "type": "comment",
+                    "parent": thread_id,
+                    "by": f"reader{thread_id}",
+                    "text": f'I recommend "{title}" by {author}.',
+                }
+            return httpx.Response(200, json=item)
+        if path == "/search.json":
+            title = request.url.params["title"]
+            tid = next(tid for tid, book in books.items() if book[0] == title)
+            return httpx.Response(
+                200,
+                json={
+                    "docs": [
+                        {"key": f"/works/OL{tid}W", "title": title, "author_name": [books[tid][1]]}
+                    ]
+                },
+            )
+        tid = int(path.removeprefix("/works/OL").removesuffix("W.json"))
+        return httpx.Response(200, json={"title": books[tid][0]})
+
+    def remote(settings):
+        return RemoteClient(settings, httpx.Client(transport=httpx.MockTransport(handle)))
+
+    first = remote(settings)
+    try:
+        with connect(settings.database_path) as conn:
+            ingest_backfill(conn, first, [100], RunMetrics())
+            old_book = dict(conn.execute("SELECT * FROM books").fetchone())
+            old_mention = dict(conn.execute("SELECT * FROM book_mentions").fetchone())
+    finally:
+        first.close()
+    monkeypatch.setattr(ingest, "get_settings", lambda: settings)
+    monkeypatch.setattr(ingest, "RemoteClient", remote)
+    monkeypatch.setattr(
+        ingest,
+        "discover_reading_threads",
+        lambda *a, **kw: [
+            ThreadCandidate(100, "What are you reading?", 100, 101),
+            ThreadCandidate(200, "What are you reading?", 200, 101),
+        ],
+    )
+    monkeypatch.setattr("sys.argv", ["ingest", "reading", "--years", "5"])
+    assert ingest.main() == 0
+    with connect(settings.database_path) as conn:
+        assert completed_threads(conn) == {100, 200}
+        assert conn.execute("SELECT COUNT(*) FROM books WHERE mention_count>0").fetchone()[0] == 2
+        retained = conn.execute("SELECT * FROM books WHERE id=?", (old_book["id"],)).fetchone()
+        assert retained["canonical_title"] == old_book["canonical_title"] == "Dune"
+        assert retained["mention_count"] == 1
+        assert (
+            dict(
+                conn.execute(
+                    "SELECT * FROM book_mentions WHERE id=?", (old_mention["id"],)
+                ).fetchone()
+            )
+            == old_mention
+        )
+    before = len(requests)
+    assert ingest.main() == 0
+    assert len(requests) == before
+    with connect(settings.database_path) as conn:
+        assert conn.execute("SELECT COUNT(*) FROM book_mentions").fetchone()[0] == 2
+        run = conn.execute(
+            "SELECT status,metrics_json FROM ingestion_runs ORDER BY id DESC"
+        ).fetchone()
+        metrics = json.loads(run["metrics_json"])
+        assert run["status"] == "completed"
+        assert metrics["threads_skipped"] == 2 and metrics["threads_remaining"] == 0

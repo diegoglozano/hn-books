@@ -6,6 +6,10 @@ discovery_queries = [
 # Broad title searches for historical reading discussions; deduplicated by HN ID.
 backfill_queries = ["reading", "books", "book", "read", "novels", "literature"]
 
+# A dedicated title-question filter keeps What/Which (book) are you reading threads.
+# Search the shared word so optional title words do not hide otherwise eligible threads.
+reading_thread_queries = ["reading"]
+
 # These ordinary words/language names require an explicit author or Open Library work link.
 # Quotation marks, italics, and a reading cue alone do not identify the intended book.
 ambiguous_titles = ["It", "We", "Us", "You", "Her", "Go", "Up", "On", "Python", "Rust", "Java", "SQL", "AI", "Code"]

@@ -1,4 +1,5 @@
 import argparse
+import json
 from datetime import UTC, date, datetime
 
 import httpx
@@ -6,7 +7,8 @@ import pytest
 
 from app.clients import RemoteClient
 from app.config import library_config
-from app.discovery import discover_reading_threads
+from app.db import connect
+from app.discovery import ThreadCandidate, discover_reading_threads
 from app.ingest import backfill_period
 
 
@@ -164,3 +166,125 @@ def test_title_filter_excludes_prefix_only_matches(settings, monkeypatch):
         ),
     )
     assert [c.id for c in discover_reading_threads(remote, 100, 200)] == [2]
+
+
+def test_engaged_reading_collection_filters_titles_and_comment_boundary(settings, monkeypatch):
+    monkeypatch.setitem(library_config(), "reading_thread_queries", ["reading"])
+    titles = [
+        "Ask HN: What are you reading?",
+        "Ask HN: Which book are you reading these days?",
+        "Ask HN: What books are you currently reading?",
+        "Ask HN: What are good blogs that you enjoy reading?",
+        "Ask HN: Are you tired of reading ChatGPT headlines?",
+        "Ask HN: Reading workflow?",
+    ]
+    hits = [hit(i + 1, 110 + i, title) | {"num_comments": 101} for i, title in enumerate(titles)]
+    hits += [hit(7, 120) | {"num_comments": 100}, hit(8, 130)]
+    hits += [hit(9, 140) | {"num_comments": None}, hit(10, 200) | {"num_comments": 500}]
+
+    def handle(request):
+        assert request.url.params["numericFilters"] == (
+            "created_at_i>=100,created_at_i<200,num_comments>=101"
+        )
+        assert request.url.params["restrictSearchableAttributes"] == "title"
+        return httpx.Response(200, json=result(hits))
+
+    remote = RemoteClient(settings, httpx.Client(transport=httpx.MockTransport(handle)))
+    candidates = discover_reading_threads(remote, 100, 200, collection="reading", min_comments=101)
+    assert [c.id for c in candidates] == [1, 2, 3]
+
+
+def test_comment_filter_survives_capped_window_splitting(settings, monkeypatch):
+    monkeypatch.setitem(library_config(), "reading_thread_queries", ["reading"])
+
+    def handle(request):
+        numeric = request.url.params["numericFilters"]
+        assert numeric.endswith(",num_comments>=101")
+        if numeric.startswith("created_at_i>=100,created_at_i<200"):
+            data = result([], total=200, pages=1)
+        elif numeric.startswith("created_at_i>=100,created_at_i<150"):
+            data = result([hit(1, 149) | {"num_comments": 101}])
+        else:
+            assert numeric.startswith("created_at_i>=150,created_at_i<200")
+            data = result([hit(2, 150) | {"num_comments": 102}])
+        return httpx.Response(200, json=data)
+
+    remote = RemoteClient(settings, httpx.Client(transport=httpx.MockTransport(handle)))
+    assert [
+        c.id
+        for c in discover_reading_threads(remote, 100, 200, collection="reading", min_comments=101)
+    ] == [1, 2]
+
+
+def test_negative_comment_threshold_is_rejected(settings):
+    remote = RemoteClient(settings)
+    try:
+        with pytest.raises(ValueError, match="cannot be negative"):
+            discover_reading_threads(remote, 100, 200, min_comments=-1)
+    finally:
+        remote.close()
+
+
+@pytest.mark.parametrize(
+    "command,flags,collection,minimum,order,expected_ids",
+    [
+        ("reading", [], "reading", 101, "newest", [3, 2, 1]),
+        ("backfill", [], "discussions", 0, "oldest", [1, 2, 3]),
+        (
+            "reading",
+            ["--min-comments", "200", "--order", "oldest"],
+            "reading",
+            200,
+            "oldest",
+            [1, 2, 3],
+        ),
+    ],
+)
+def test_dry_run_reports_selected_order_and_skips_completed_threads(
+    settings, monkeypatch, capsys, command, flags, collection, minimum, order, expected_ids
+):
+    from app import ingest
+
+    calls = []
+    candidates = [
+        ThreadCandidate(i, "What are you reading?", 100 + i, 100 + i) for i in range(1, 5)
+    ]
+
+    def discover(remote, start, end, **kwargs):
+        calls.append(kwargs)
+        return candidates
+
+    monkeypatch.setattr(ingest, "discover_reading_threads", discover)
+    monkeypatch.setattr(ingest, "completed_threads", lambda conn: {4})
+    monkeypatch.setattr(ingest, "get_settings", lambda: settings)
+    monkeypatch.setattr("sys.argv", ["ingest", command, "--years", "5", "--dry-run", *flags])
+    assert ingest.main() == 0
+    body = json.loads(capsys.readouterr().out)
+    assert calls == [{"scope": "ask-hn", "collection": collection, "min_comments": minimum}]
+    assert body["min_comments"] == minimum and body["order"] == order
+    assert body["threads_pending"] == body["threads_to_process"] == 3
+    assert body["threads_skipped"] == 1
+    assert [c["id"] for c in body["preview"]] == expected_ids
+    assert body["estimated_comments"] == 306
+    with connect(settings.database_path) as conn:
+        assert conn.execute("SELECT COUNT(*) FROM ingestion_runs").fetchone()[0] == 0
+
+
+def test_reading_dry_run_limit_reports_only_the_next_batch(settings, monkeypatch, capsys):
+    from app import ingest
+
+    monkeypatch.setattr(ingest, "get_settings", lambda: settings)
+    monkeypatch.setattr(
+        ingest,
+        "discover_reading_threads",
+        lambda *a, **kw: [
+            ThreadCandidate(1, "What are you reading?", 100, 101),
+            ThreadCandidate(2, "What are you reading?", 200, 150),
+        ],
+    )
+    monkeypatch.setattr("sys.argv", ["ingest", "reading", "--limit", "1", "--dry-run"])
+    assert ingest.main() == 0
+    body = json.loads(capsys.readouterr().out)
+    assert body["threads_pending"] == 2 and body["threads_to_process"] == 1
+    assert body["estimated_comments"] == 150
+    assert [c["id"] for c in body["preview"]] == [2]

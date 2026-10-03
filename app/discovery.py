@@ -11,6 +11,13 @@ from app.config import library_config
 
 logger = logging.getLogger(__name__)
 Scope = Literal["ask-hn", "stories"]
+Collection = Literal["discussions", "reading"]
+
+READING_QUESTION = re.compile(
+    r"\b(?:what|which)\s+(?:books?\s+)?are\s+you\s+"
+    r"(?:(?:all|currently|still)\s+)?reading\b",
+    re.IGNORECASE,
+)
 
 
 @dataclass(frozen=True)
@@ -26,6 +33,9 @@ def discover_reading_threads(
     start: int,
     end: int,
     scope: Scope = "ask-hn",
+    *,
+    collection: Collection = "discussions",
+    min_comments: int = 0,
 ) -> list[ThreadCandidate]:
     """Return matches in [start, end), deduplicated and sorted oldest first.
 
@@ -34,6 +44,8 @@ def discover_reading_threads(
     """
     if start >= end:
         raise ValueError("The start must be before the end of the discovery period")
+    if min_comments < 0:
+        raise ValueError("The minimum comment count cannot be negative")
     discovered: dict[int, ThreadCandidate] = {}
 
     def search_window(query: str, lower: int, upper: int) -> None:
@@ -45,6 +57,8 @@ def discover_reading_threads(
             "hitsPerPage": 100,
             "page": 0,
         }
+        if min_comments:
+            params["numericFilters"] += f",num_comments>={min_comments}"
         url = f"{remote.settings.algolia_base_url}/search_by_date"
         first = remote.get(url, params)
         total, pages = int(first["nbHits"]), int(first["nbPages"])
@@ -79,6 +93,11 @@ def discover_reading_threads(
             for hit in hits:
                 created_at = int(hit["created_at_i"])
                 title = hit.get("title") or ""
+                comments = int(hit.get("num_comments") or 0)
+                if comments < min_comments or (
+                    collection == "reading" and not READING_QUESTION.search(title)
+                ):
+                    continue
                 # Algolia prefix/stemming matches can include bookmarks/readme/bread.
                 # Keep actual reading/book words while retaining broad discussion coverage.
                 if lower <= created_at < upper and re.search(
@@ -91,7 +110,7 @@ def discover_reading_threads(
                         id=item_id,
                         title=hit.get("title") or "Untitled thread",
                         created_at=created_at,
-                        comments=int(hit.get("num_comments") or 0),
+                        comments=comments,
                     )
         if fetched < total:
             raise RuntimeError(f"Incomplete search results for {query!r}: {fetched} of {total}")
@@ -107,7 +126,10 @@ def discover_reading_threads(
             },
         )
 
-    for query in library_config()["backfill_queries"]:
+    queries = library_config()[
+        "reading_thread_queries" if collection == "reading" else "backfill_queries"
+    ]
+    for query in queries:
         search_window(query, start, end)
     candidates = sorted(
         discovered.values(), key=lambda candidate: (candidate.created_at, candidate.id)
@@ -118,6 +140,8 @@ def discover_reading_threads(
             "detail": {
                 "threads": len(candidates),
                 "scope": scope,
+                "collection": collection,
+                "min_comments": min_comments,
                 "since": datetime.fromtimestamp(start, UTC).isoformat(),
                 "until": datetime.fromtimestamp(end, UTC).isoformat(),
             }
