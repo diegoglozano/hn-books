@@ -223,7 +223,16 @@ Interactive schemas are available at `/docs`.
 | `GET /api/admin/threads/{id}/review` | Complete consistent review snapshot and a pending checklist for every comment |
 | `GET /api/admin/ingestion-status` | Last 30 runs, status, metrics and failures |
 
-Sort values: `all-time`, `recent`, `mentions`, `recommendations`. Multiple topic filters intersect. Search is lexical; it safely tokenizes input rather than accepting raw FTS syntax. Debug routes require `Authorization: Bearer <ADMIN_TOKEN>` and expose no destructive operations. Raw HN HTML is retained in SQLite; React displays plain text and never injects HN HTML.
+Sort values: `all-time`, `recent`, `mentions`, `recommendations`. Multiple `tag`
+filters match **any** selected topic. Repeated `exclude_tag` filters hide books
+with **any** excluded topic, including books that also match an included topic.
+With only exclusions, all other books remain eligible. Both filter types combine
+with the search text. The topic sidebar has Include/Exclude controls and removable
+filter chips; choosing one action clears the opposite action for that topic.
+Search is lexical; it safely tokenizes input rather than accepting raw FTS syntax.
+Debug routes require `Authorization: Bearer <ADMIN_TOKEN>` and expose no destructive
+operations. Raw HN HTML is retained in SQLite; React displays plain text and never
+injects HN HTML.
 
 ## Docker and Coolify
 

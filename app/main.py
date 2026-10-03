@@ -81,7 +81,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 ).fetchone()[0],
             }
 
-    def list_books(q: str, tags: list[str], sort: str, page: int, page_size: int) -> dict:
+    def list_books(
+        q: str, tags: list[str], excluded_tags: list[str], sort: str, page: int, page_size: int
+    ) -> dict:
         with connect(settings.database_path) as conn:
             where = ["b.mention_count>0"]
             params: list = []
@@ -91,11 +93,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             if expression:
                 where.append("b.id IN (SELECT rowid FROM books_fts WHERE books_fts MATCH ?)")
                 params.append(expression)
-            for tag in tags:
-                where.append("""EXISTS (SELECT 1 FROM book_mentions m
-                    JOIN book_mention_tags mt ON mt.mention_id=m.id
-                    JOIN tags t ON t.id=mt.tag_id WHERE m.book_id=b.id AND t.name=?)""")
-                params.append(tag)
+            for names, operator in ((tags, "EXISTS"), (excluded_tags, "NOT EXISTS")):
+                if names:
+                    placeholders = ",".join("?" for _ in names)
+                    where.append(f"""{operator} (SELECT 1 FROM book_mentions m
+                        JOIN book_mention_tags mt ON mt.mention_id=m.id
+                        JOIN tags t ON t.id=mt.tag_id
+                        WHERE m.book_id=b.id AND t.name IN ({placeholders}))""")
+                    params.extend(names)
             clause = " AND ".join(where)
             order = {
                 "all-time": "b.all_time_score DESC, b.independent_recommenders DESC",
@@ -124,11 +129,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     def books(
         q: Annotated[str, Query(max_length=300)] = "",
         tag: Annotated[list[str] | None, Query()] = None,
+        exclude_tag: Annotated[list[str] | None, Query()] = None,
         sort: Literal["all-time", "recent", "mentions", "recommendations"] = "all-time",
         page: Annotated[int, Query(ge=1)] = 1,
         page_size: Annotated[int, Query(ge=1, le=100)] = 12,
     ) -> dict:
-        return list_books(q, tag or [], sort, page, page_size)
+        return list_books(q, tag or [], exclude_tag or [], sort, page, page_size)
 
     @app.get("/api/books/{book_id}")
     def book_detail(book_id: int) -> dict:

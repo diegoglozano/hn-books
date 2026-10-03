@@ -17,6 +17,7 @@ import {
   ArrowDownWideNarrow,
   ArrowLeft,
   ArrowRight,
+  Ban,
   BookOpen,
   Check,
   ChevronLeft,
@@ -338,18 +339,31 @@ function LibraryView({
   active: boolean;
 }) {
   const [query, setQuery] = useState("");
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [topicFilters, setTopicFilters] = useState<{
+    included: string[];
+    excluded: string[];
+  }>({ included: [], excluded: [] });
+  const { included: selectedTags, excluded: excludedTags } = topicFilters;
+  const [filterMode, setFilterMode] = useState<"included" | "excluded">(
+    "included",
+  );
   const [sort, setSort] = useState("all-time");
   const [total, setTotal] = useState<number | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const params = new URLSearchParams({ q: query, sort });
   selectedTags.forEach((tag) => params.append("tag", tag));
+  excludedTags.forEach((tag) => params.append("exclude_tag", tag));
   const feedKey = params.toString();
   useEffect(() => setTotal(null), [feedKey]);
-  function toggleTag(name: string) {
-    setSelectedTags((prev) =>
-      prev.includes(name) ? prev.filter((t) => t !== name) : [...prev, name],
-    );
+  function toggleTag(name: string, mode = filterMode) {
+    const other = mode === "included" ? "excluded" : "included";
+    setTopicFilters((prev) => ({
+      ...prev,
+      [mode]: prev[mode].includes(name)
+        ? prev[mode].filter((t) => t !== name)
+        : [...prev[mode], name],
+      [other]: prev[other].filter((t) => t !== name),
+    }));
   }
   const activeTags = tags.filter((tag) => (tag.book_count ?? 0) > 0);
   return (
@@ -434,6 +448,8 @@ function LibraryView({
           </label>
           <button
             className="filter-toggle"
+            aria-expanded={filtersOpen}
+            aria-controls="topic-filters"
             onClick={() => setFiltersOpen(!filtersOpen)}
           >
             <SlidersHorizontal size={18} /> Topics
@@ -455,14 +471,40 @@ function LibraryView({
           </label>
         </div>
         <div className="collection-layout">
-          <aside className={`topic-sidebar ${filtersOpen ? "open" : ""}`}>
+          <aside
+            id="topic-filters"
+            className={`topic-sidebar ${filtersOpen ? "open" : ""}`}
+          >
             <div className="sidebar-heading">
               EXPLORE BY TOPIC <SlidersHorizontal size={13} />
             </div>
+            <div className="topic-controls">
+              <div
+                className="topic-mode"
+                role="group"
+                aria-label="Topic filter action"
+              >
+                <button
+                  aria-pressed={filterMode === "included"}
+                  onClick={() => setFilterMode("included")}
+                >
+                  Include
+                </button>
+                <button
+                  aria-pressed={filterMode === "excluded"}
+                  onClick={() => setFilterMode("excluded")}
+                >
+                  Exclude
+                </button>
+              </div>
+              <p>
+                Match any included topic. Hide books with any excluded topic.
+              </p>
+            </div>
             <button
-              className={`topic-option ${!selectedTags.length ? "selected" : ""}`}
+              className={`topic-option ${!selectedTags.length && !excludedTags.length ? "selected" : ""}`}
               onClick={() => {
-                setSelectedTags([]);
+                setTopicFilters({ included: [], excluded: [] });
               }}
             >
               <span>
@@ -473,12 +515,16 @@ function LibraryView({
             {activeTags.map((tag) => (
               <button
                 key={tag.name}
-                className={`topic-option ${selectedTags.includes(tag.name) ? "selected" : ""}`}
+                className={`topic-option ${selectedTags.includes(tag.name) ? "selected" : ""} ${excludedTags.includes(tag.name) ? "excluded" : ""}`}
+                aria-label={`${filterMode === "included" ? "Include" : "Exclude"} ${label(tag.name)}`}
+                aria-pressed={topicFilters[filterMode].includes(tag.name)}
                 onClick={() => toggleTag(tag.name)}
               >
                 <span>{label(tag.name)}</span>
                 <span>
-                  {selectedTags.includes(tag.name) ? (
+                  {excludedTags.includes(tag.name) ? (
+                    <Ban size={13} aria-label="Excluded" />
+                  ) : selectedTags.includes(tag.name) ? (
                     <Check size={13} />
                   ) : (
                     tag.book_count
@@ -493,11 +539,25 @@ function LibraryView({
             </div>
           </aside>
           <div className="collection-main">
-            {selectedTags.length > 0 && (
+            {(selectedTags.length > 0 || excludedTags.length > 0) && (
               <div className="selected-filters">
                 {selectedTags.map((tag) => (
-                  <button key={tag} onClick={() => toggleTag(tag)}>
+                  <button
+                    key={tag}
+                    aria-label={`Remove included topic ${label(tag)}`}
+                    onClick={() => toggleTag(tag, "included")}
+                  >
                     {label(tag)} <X size={12} />
+                  </button>
+                ))}
+                {excludedTags.map((tag) => (
+                  <button
+                    key={tag}
+                    className="excluded"
+                    aria-label={`Remove excluded topic ${label(tag)}`}
+                    onClick={() => toggleTag(tag, "excluded")}
+                  >
+                    <Ban size={12} /> Exclude {label(tag)} <X size={12} />
                   </button>
                 ))}
               </div>
@@ -514,10 +574,12 @@ function LibraryView({
               key={feedKey}
               params={feedKey}
               active={active}
-              filtered={Boolean(query || selectedTags.length)}
+              filtered={Boolean(
+                query || selectedTags.length || excludedTags.length,
+              )}
               onClear={() => {
                 setQuery("");
-                setSelectedTags([]);
+                setTopicFilters({ included: [], excluded: [] });
               }}
               onTotal={setTotal}
             />
