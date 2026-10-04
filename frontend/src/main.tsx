@@ -130,9 +130,9 @@ function BookCard({ book, rank }: { book: Book; rank: number }) {
         </span>
       </div>
       <div className="book-info">
-        <div className="book-topic">
-          {label(book.tags[0]?.name ?? "From the HN bookshelf")}
-        </div>
+        {book.tags[0] && (
+          <div className="book-topic">{label(book.tags[0].name)}</div>
+        )}
         <h3>{book.canonical_title}</h3>
         <p className="author">
           {book.authors.join(", ") || "Author unavailable"}
@@ -255,7 +255,7 @@ function BookFeed({
   if (!result && error)
     return (
       <div className="empty-state" role="alert">
-        <h3>Couldn’t load the bookshelf</h3>
+        <h3>Couldn’t load books</h3>
         <p>{error}</p>
         <button onClick={retryLoading}>Try again</button>
       </div>
@@ -276,24 +276,8 @@ function BookFeed({
     return (
       <div className="empty-state">
         <BookOpen size={40} strokeWidth={1} />
-        <div className="eyebrow">A GOOD LIBRARY STARTS SOMEWHERE</div>
-        <h3>
-          {filtered
-            ? "No books on this shelf yet."
-            : "Your next great read is waiting."}
-        </h3>
-        <p>
-          {filtered
-            ? "Try a different idea or clear your topic filters."
-            : "Ingest a reading thread to turn its conversations into your first collection."}
-        </p>
-        {filtered ? (
-          <button onClick={onClear}>Clear filters</button>
-        ) : (
-          <a className="primary-button" href="#/about">
-            Start your library <ArrowRight size={16} />
-          </a>
-        )}
+        <h3>{filtered ? "No books found" : "No books yet"}</h3>
+        {filtered && <button onClick={onClear}>Clear filters</button>}
       </div>
     );
   return (
@@ -318,9 +302,7 @@ function BookFeed({
           <p>Loading more books…</p>
         ) : hasMore ? (
           <button onClick={loadMore}>Load more books</button>
-        ) : (
-          <p>You’ve reached the end of the bookshelf.</p>
-        )}
+        ) : null}
         <span>
           {number(result.items.length)} of {number(result.total)} books
         </span>
@@ -368,68 +350,17 @@ function LibraryView({
   const activeTags = tags.filter((tag) => (tag.book_count ?? 0) > 0);
   return (
     <>
-      <section className="hero">
-        <div className="eyebrow">
-          <span /> THE HACKER NEWS BOOKSHELF
-        </div>
-        <h1>
-          Good books.
-          <br />
-          <em>Real conversations.</em>
-        </h1>
-        <p>
-          A library shaped by curious people.
-          <br className="mobile-break" /> Discover the books Hacker News keeps
-          coming back to.
-        </p>
-        <div className="hero-footer">
-          <div className="hero-note">
-            <span className="hn-mini">Y</span>
-            <span>Every book has a conversation behind it.</span>
-          </div>
-          <a href="#/about">
-            How this library works <ArrowRight size={16} />
-          </a>
-        </div>
-        <div className="hero-decoration" aria-hidden="true">
-          <div className="drawn-book book-one">
-            <span>
-              STAY
-              <br />
-              CURIOUS
-            </span>
-          </div>
-          <div className="drawn-book book-two">
-            <span>
-              READ
-              <br />
-              DEEPER.
-            </span>
-          </div>
-          <div className="drawn-book book-three">
-            <BookOpen size={36} strokeWidth={1} />
-          </div>
-          <span className="shelf" />
-        </div>
+      <section className="library-header">
+        <h1>Hacker News books</h1>
+        <DatasetStats stats={stats} />
       </section>
       <section className="library-section">
-        <div className="section-heading">
-          <div>
-            <div className="eyebrow">THE COLLECTION</div>
-            <h2>
-              Find your next rabbit hole<span>.</span>
-            </h2>
-          </div>
-          <span className="collection-count">
-            {number(total ?? stats?.books ?? 0)} books, many perspectives
-          </span>
-        </div>
         <div className="search-toolbar">
           <label className="search-box">
             <Search size={20} />
             <input
               aria-label="Search the library"
-              placeholder="Search books, authors, or ideas…"
+              placeholder="Search titles, authors or keywords"
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);
@@ -463,8 +394,8 @@ function LibraryView({
                 setSort(e.target.value);
               }}
             >
-              <option value="all-time">All-time favorites</option>
-              <option value="recent">Recent favorites</option>
+              <option value="all-time">Highest score</option>
+              <option value="recent">Recent score</option>
               <option value="mentions">Most mentioned</option>
               <option value="recommendations">Most recommended</option>
             </select>
@@ -476,7 +407,7 @@ function LibraryView({
             className={`topic-sidebar ${filtersOpen ? "open" : ""}`}
           >
             <div className="sidebar-heading">
-              EXPLORE BY TOPIC <SlidersHorizontal size={13} />
+              TOPICS <SlidersHorizontal size={13} />
             </div>
             <div className="topic-controls">
               <div
@@ -532,11 +463,6 @@ function LibraryView({
                 </span>
               </button>
             ))}
-            <div className="sidebar-note">
-              <MessageSquare size={20} strokeWidth={1.5} />
-              <p>Recommendations with receipts.</p>
-              <span>Read the original comments. Make up your own mind.</span>
-            </div>
           </aside>
           <div className="collection-main">
             {(selectedTags.length > 0 || excludedTags.length > 0) && (
@@ -563,12 +489,8 @@ function LibraryView({
               </div>
             )}
             <div className="results-heading">
-              <span>
-                {query ? `Results for “${query}”` : "The community’s bookshelf"}
-              </span>
-              <span>
-                <span className="status-dot" /> HN recommendations
-              </span>
+              <span>{query ? `Results for “${query}”` : "Books"}</span>
+              <span>{number(total ?? stats?.books ?? 0)} books</span>
             </div>
             <BookFeed
               key={feedKey}
@@ -623,7 +545,7 @@ function BookDetail({ id }: { id: number }) {
   if (!book)
     return (
       <div className="empty-state" aria-busy="true">
-        Opening the book…
+        Loading book…
       </div>
     );
   return (
@@ -636,7 +558,6 @@ function BookDetail({ id }: { id: number }) {
           <Cover book={book} large />
         </div>
         <div>
-          <div className="eyebrow">ON THE HN BOOKSHELF</div>
           <h1>{book.canonical_title}</h1>
           <p className="detail-author">
             {book.authors.join(", ")}{" "}
@@ -647,24 +568,23 @@ function BookDetail({ id }: { id: number }) {
               <span key={tag.name}>{label(tag.name)}</span>
             ))}
           </div>
-          <p className="description">
-            {book.description ||
-              "Open Library has no description for this work yet. The HN conversations below tell their own story."}
-          </p>
+          {book.description && (
+            <p className="description">{book.description}</p>
+          )}
           <a
             className="external-link"
             href={`https://openlibrary.org${book.openlibrary_id}`}
             target="_blank"
             rel="noreferrer"
           >
-            Book metadata from Open Library <ExternalLink size={14} />
+            Open Library <ExternalLink size={14} />
           </a>
         </div>
       </section>
       <div className="detail-stats">
         <div>
           <strong>{book.independent_recommenders}</strong>
-          <span>independent recommenders</span>
+          <span>recommenders</span>
         </div>
         <div>
           <strong>{book.mention_count}</strong>
@@ -672,23 +592,16 @@ function BookDetail({ id }: { id: number }) {
         </div>
         <div>
           <strong>{book.thread_count}</strong>
-          <span>conversations</span>
+          <span>threads</span>
         </div>
         <div>
           <strong>{book.all_time_score.toFixed(1)}</strong>
-          <span>all-time HN score</span>
+          <span>score</span>
         </div>
       </div>
       <div className="detail-columns">
         <section>
-          <div className="eyebrow">THE RECOMMENDATIONS, IN THEIR OWN WORDS</div>
-          <h2>
-            Behind the bookshelf<span>.</span>
-          </h2>
-          <p className="section-description">
-            The original context. The thoughtful praise. The occasional
-            disagreement.
-          </p>
+          <h2>Comments</h2>
           {mentions?.items.map((mention) => (
             <article className="mention" key={mention.id}>
               <div className="mention-heading">
@@ -728,8 +641,7 @@ function BookDetail({ id }: { id: number }) {
           )}
         </section>
         <aside className="detail-aside">
-          <div className="eyebrow">RECOMMENDATION HISTORY</div>
-          <h3>A lasting conversation</h3>
+          <h3>Mentions by month</h3>
           <div className="timeline">
             {book.timeline?.map((point) => (
               <div key={point.month}>
@@ -745,14 +657,8 @@ function BookDetail({ id }: { id: number }) {
               </div>
             ))}
           </div>
-          <p>Mentions by month, from the original HN timestamps.</p>
           <hr />
-          <h3>A score you can inspect</h3>
-          <p>
-            {(book.score_details.formula_version ?? 1) >= 2
-              ? "Each reader’s latest opinion counts once. Strong recommendations add weight; criticism reduces it. Support from several readers counts more than an isolated endorsement."
-              : "Positive recommendations count once per user, thread, and day. Scores reward independent contexts and explanations."}
-          </p>
+          <h3>Scores</h3>
           <dl>
             <dt>Supporting opinions</dt>
             <dd>{book.score_details.independent_contexts}</dd>
@@ -769,10 +675,6 @@ function BookDetail({ id }: { id: number }) {
             <dt>Recent score</dt>
             <dd>{book.recent_score.toFixed(1)}</dd>
           </dl>
-          <p>
-            Recent scores use a gentle 365-day half-life. Read the source
-            comments to judge each recommendation.
-          </p>
         </aside>
       </div>
     </div>
@@ -794,17 +696,10 @@ function ThreadsView() {
   }, [page]);
   return (
     <section className="simple-page">
-      <div className="eyebrow">THE SOURCE MATERIAL</div>
-      <h1>
-        It starts with a conversation<span>.</span>
-      </h1>
-      <p className="section-description">
-        The reading threads behind your library. Every comment tree is preserved
-        locally.
-      </p>
+      <h1>Threads</h1>
       {error && <p role="alert">{error}</p>}
       {!result && !error ? (
-        <p>Loading conversations…</p>
+        <p>Loading threads…</p>
       ) : result?.items.length ? (
         <>
           {result.items.map((thread) => (
@@ -820,7 +715,7 @@ function ThreadsView() {
                 <h3>{thread.title}</h3>
                 <p>
                   {thread.author} · {date(thread.created_at)} · {thread.score}{" "}
-                  points · {thread.stored_comments} stored comments
+                  points · {thread.stored_comments} comments
                 </p>
               </div>
               <ExternalLink size={17} />
@@ -837,11 +732,7 @@ function ThreadsView() {
         !error && (
           <div className="empty-state">
             <MessageSquare size={35} strokeWidth={1} />
-            <h3>The conversation hasn’t started yet.</h3>
-            <p>Add your first reading thread to populate the library.</p>
-            <a className="primary-button" href="#/about">
-              Get started <ArrowRight size={16} />
-            </a>
+            <h3>No threads yet</h3>
           </div>
         )
       )}
@@ -849,65 +740,51 @@ function ThreadsView() {
   );
 }
 
-function AboutView() {
+function DatasetStats({ stats }: { stats: Stats | null }) {
+  return (
+    <dl className="dataset-stats" aria-label="Dataset totals">
+      {(
+        [
+          ["books", stats?.books],
+          ["threads", stats?.threads],
+          ["comments", stats?.comments],
+        ] as const
+      ).map(([name, count]) => (
+        <div key={name}>
+          <dt>{name}</dt>
+          <dd>{count === undefined ? "—" : number(count)}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+function AboutView({ stats }: { stats: Stats | null }) {
   return (
     <section className="simple-page about-page">
-      <div className="eyebrow">A SMALL LIBRARY WITH A LONG MEMORY</div>
-      <h1>
-        Books with a conversation
-        <br />
-        behind them<span>.</span>
-      </h1>
-      <p className="about-lead">
-        Some of the best book recommendations are buried in a comment thread.
-        This library gives them a shelf.
+      <h1>About</h1>
+      <p>
+        Books mentioned in{" "}
+        <a href="https://news.ycombinator.com" target="_blank" rel="noreferrer">
+          Hacker News
+        </a>{" "}
+        reading threads. Book metadata from{" "}
+        <a href="https://openlibrary.org" target="_blank" rel="noreferrer">
+          Open Library
+        </a>
+        .
       </p>
-      <div className="about-grid">
-        <article>
-          <span className="step-number">01</span>
-          <h3>Follow the discussion</h3>
-          <p>
-            Reading threads from Hacker News become a local corpus. Original
-            comments, authors, timestamps, and links stay attached to every
-            book.
-          </p>
-        </article>
-        <article>
-          <span className="step-number">02</span>
-          <h3>Keep the evidence</h3>
-          <p>
-            Books resolve to Open Library works. Uncertain matches are held for
-            inspection. Bibliographic metadata stays separate from what HN
-            readers say.
-          </p>
-        </article>
-        <article>
-          <span className="step-number">03</span>
-          <h3>Reward independent voices</h3>
-          <p>
-            Repeated replies count less than independent recommendations.
-            Positive, neutral, and critical mentions are distinguished with an
-            inspectable baseline.
-          </p>
-        </article>
-      </div>
-      <div className="setup-note">
-        <BookOpen size={27} strokeWidth={1.5} />
-        <div>
-          <h3>Start with one reading thread</h3>
-          <p>From your application container or local checkout, run:</p>
-          <code>uv run python -m app.ingest thread &lt;HN_ID&gt;</code>
-          <p>
-            Then reload the library. Schedule <code>python -m app.ingest</code>{" "}
-            daily to refresh known threads. See the repository README for setup
-            and deployment.
-          </p>
-        </div>
-      </div>
-      <p className="about-footnote">
-        No accounts. No runtime LLM. Just a small, self-hosted library, and the
-        conversations that make it worth exploring.
-      </p>
+      <DatasetStats stats={stats} />
+      {stats?.last_updated && (
+        <p className="updated-at">
+          Updated{" "}
+          {new Date(stats.last_updated).toLocaleDateString(undefined, {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          })}
+        </p>
+      )}
     </section>
   );
 }
@@ -958,7 +835,6 @@ function App() {
             <span className="brand-mark">Y</span>
             <span>
               HN <strong>Library</strong>
-              <small>OPINIONATED BY THE COMMUNITY</small>
             </span>
           </a>
           <nav aria-label="Main navigation">
@@ -971,15 +847,12 @@ function App() {
               <Library size={16} /> Library
             </a>
             <a className={view === "threads" ? "active" : ""} href="#/threads">
-              <MessageSquare size={16} /> Conversations
+              <MessageSquare size={16} /> Threads
             </a>
             <a className={view === "about" ? "active" : ""} href="#/about">
-              About <ArrowRight size={14} />
+              About
             </a>
           </nav>
-          <span className="header-note">
-            <span className="status-dot" /> From Hacker News
-          </span>
         </div>
       </header>
       <main>
@@ -991,16 +864,22 @@ function App() {
         ) : view === "threads" ? (
           <ThreadsView />
         ) : view === "about" ? (
-          <AboutView />
+          <AboutView stats={stats} />
         ) : null}
       </main>
       <footer>
         <a href="#/" className="footer-brand">
-          <span className="hn-mini">Y</span> A little less scrolling. A little
-          more reading.
+          HN Library
         </a>
         <span>
-          Built from HN conversations · Metadata by{" "}
+          <a
+            href="https://news.ycombinator.com"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Hacker News <ExternalLink size={11} />
+          </a>{" "}
+          ·{" "}
           <a href="https://openlibrary.org" target="_blank" rel="noreferrer">
             Open Library <ExternalLink size={11} />
           </a>
