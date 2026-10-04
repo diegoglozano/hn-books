@@ -4,8 +4,8 @@ import httpx
 
 from app.backfill import completed_threads, ingest_backfill
 from app.clients import RemoteClient
+from app.config import library_config
 from app.db import connect
-from app.discovery import ThreadCandidate
 from app.models import RunMetrics
 from app.pipeline import PROCESSOR_VERSION
 
@@ -163,7 +163,7 @@ def test_reading_command_appends_preserves_original_books_and_resumes(settings, 
             if item_id in books:
                 item |= {
                     "type": "story",
-                    "title": "Ask HN: What are you reading?",
+                    "title": "Ask HN: Books that stayed with you",
                     "kids": [item_id + 1],
                     "descendants": 101,
                 }
@@ -202,15 +202,10 @@ def test_reading_command_appends_preserves_original_books_and_resumes(settings, 
         first.close()
     monkeypatch.setattr(ingest, "get_settings", lambda: settings)
     monkeypatch.setattr(ingest, "RemoteClient", remote)
+    monkeypatch.setitem(library_config(), "reading_thread_ids", [100, 200])
     monkeypatch.setattr(
-        ingest,
-        "discover_reading_threads",
-        lambda *a, **kw: [
-            ThreadCandidate(100, "What are you reading?", 100, 101),
-            ThreadCandidate(200, "What are you reading?", 200, 101),
-        ],
+        "sys.argv", ["ingest", "reading", "--since", "1970-01-01", "--until", "1970-01-02"]
     )
-    monkeypatch.setattr("sys.argv", ["ingest", "reading", "--years", "5"])
     assert ingest.main() == 0
     with connect(settings.database_path) as conn:
         assert completed_threads(conn) == {100, 200}
@@ -228,7 +223,7 @@ def test_reading_command_appends_preserves_original_books_and_resumes(settings, 
         )
     before = len(requests)
     assert ingest.main() == 0
-    assert len(requests) == before
+    assert sorted(requests[before:]) == ["/v0/item/100.json", "/v0/item/200.json"]
     with connect(settings.database_path) as conn:
         assert conn.execute("SELECT COUNT(*) FROM book_mentions").fetchone()[0] == 2
         run = conn.execute(
