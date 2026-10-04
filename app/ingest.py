@@ -57,7 +57,7 @@ def main() -> int:
     single.add_argument("id", type=int)
     for name, help_text in (
         ("backfill", "Resume historical book-discussion ingestion"),
-        ("reading", "Add engaged What/Which are you reading threads to the existing library"),
+        ("reading", "Add eligible threads from the curated book-discussion list"),
     ):
         historical = commands.add_parser(name, help=help_text)
         historical.set_defaults(collection="reading" if name == "reading" else "discussions")
@@ -77,13 +77,13 @@ def main() -> int:
             "--scope",
             choices=["ask-hn", "stories"],
             default="ask-hn",
-            help="Search Ask HN titles or all HN story titles",
+            help="Backfill title-search scope (reading uses curated IDs)",
         )
         historical.add_argument(
             "--min-comments",
             type=nonnegative_int,
             default=101 if name == "reading" else 0,
-            help="Minimum indexed comment count, inclusive (reading: 101; backfill: 0)",
+            help="Minimum comment count, inclusive (reading: current HN count; backfill: indexed)",
         )
         historical.add_argument(
             "--order",
@@ -141,6 +141,7 @@ def main() -> int:
                         "dry_run": True,
                         "scope": args.scope,
                         "collection": args.collection,
+                        "selection": "curated" if args.collection == "reading" else "search",
                         "min_comments": args.min_comments,
                         "order": args.order,
                         "since": datetime.fromtimestamp(bounds[0], UTC).isoformat(),
@@ -172,6 +173,7 @@ def main() -> int:
         run_command += (
             f" since={bounds[0]} until={bounds[1]} scope={args.scope}"
             f" collection={args.collection} min_comments={args.min_comments} order={args.order}"
+            f" selection={'curated' if args.collection == 'reading' else 'search'}"
         )
     with tracked_run(settings, run_command) as metrics:
         remote = RemoteClient(settings)

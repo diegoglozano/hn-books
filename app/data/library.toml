@@ -6,9 +6,54 @@ discovery_queries = [
 # Broad title searches for historical reading discussions; deduplicated by HN ID.
 backfill_queries = ["reading", "books", "book", "read", "novels", "literature"]
 
-# A dedicated title-question filter keeps What/Which (book) are you reading threads.
-# Search the shared word so optional title words do not hide otherwise eligible threads.
-reading_thread_queries = ["reading"]
+# Curated book discussions for the reading command. Add HN story IDs here.
+# The command checks live HN dates/counts; defaults are five years and 101+ comments.
+# Titles are notes for maintainers, not matching rules. Newest first.
+reading_thread_ids = [
+  49893157, # Ask HN: What are you reading?
+  46391572, # Ask HN: What did you read in 2025?
+  42614722, # Ask HN: Books about people who did hard things
+  42508087, # Ask HN: What is the best thing you read in 2024?
+  42268570, # Ask HN: What were the best books you read this year?
+  41759206, # Ask HN: What book had a big impact on you as a child or teenager?
+  41756432, # Ask HN: What's the "best" book you've ever read?
+  41387062, # Ask HN: What books should I read to improve as a software engineer?
+  40277933, # Ask HN: What nonfiction books do you keep rereading?
+  39057219, # Ask HN: Good books on philosophy of engineering?
+  38918418, # Ask HN: Good book to learn modern networking?
+  38803092, # Ask HN: What are good books/blogs to read for a first time CTO?
+  38556188, # Ask HN: Books you read in 2023 and recommend for 2024?
+  38237730, # Ask HN: What are you reading these days?
+  37156372, # Ask HN: Any interesting books you have read lately?
+  36020597, # Ask HN: What are your favorite sci-fi books?
+  35929112, # Ask HN: What are the most eye-opening textbooks you have ever read?
+  35168647, # Ask HN: What books helped you in your entrepreneurship journey?
+  34439828, # Ask HN: Math books that made you significantly better at math?
+  34412069, # Ask HN: Books that teach programming by building a series of small projects?
+  34160611, # Ask HN: Books you read in 2022 and recommend for 2023
+  34055123, # Ask HN: What is the best thing you read in 2022?
+  33854815, # Ask HN: Reading material on how to be a better software engineer?
+  33849267, # Ask HN: Best books read in 2022?
+  33797862, # Ask HN: Which books have made you a better thinker and problem solver?
+  33593631, # Ask HN: Do you recall any book or course that made a topic finally click?
+  33381791, # Ask HN: What are some of the best books you have read in 2022?
+  33130533, # Ask HN: Best book to learn C in 2022?
+  32935412, # Ask HN: Which books you have read till now that were worth investing time in?
+  32790064, # Ask HN: Which books do you consider real gems in your field of work/study?
+  32712496, # Ask HN: What book have you re-read 3x or more?
+  31968169, # Ask HN: Which book would you pick to re-read for the rest of your life?
+  31707163, # Ask HN: Best beginner friendly linear algebra book?
+  31488608, # Ask HN: Serious mathematics books that can replace a good teacher?
+  30822339, # Ask HN: Which book can attract anyone towards your field of study?
+  30734709, # Ask HN: What book changed your life?
+  30485544, # Ask HN: The book that did it for you in math and/or CS?
+  30241190, # Ask HN: What is one book you would recommend everyone to read?
+  30228261, # Ask HN: Best books on managing software complexity?
+  29668228, # Ask HN: What's the best book you read in 2021?
+  29605394, # Ask HN: Life Changing Books?
+  29498220, # Ask HN: I'm looking for a good book on the fundamentals of CS
+  29462663, # Ask HN: What are some must read books?
+]
 
 # These ordinary words/language names require an explicit author or Open Library work link.
 # Quotation marks, italics, and a reading cue alone do not identify the intended book.

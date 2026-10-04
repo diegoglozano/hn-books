@@ -38,7 +38,7 @@ Run these from the repository root, prefixed by `uv run` locally. Inside the Doc
 | `python -m app.ingest` | Refresh configured and already stored threads; suitable for daily scheduling |
 | `python -m app.ingest discover` | Discover the first Algolia result page for each configured Ask HN query, then ingest |
 | `python -m app.ingest backfill --years 5` | Resume five years of date-bounded reading-thread discovery and ingestion |
-| `python -m app.ingest reading --years 5` | Add What/Which are you reading threads with more than 100 comments, newest first; skip completed threads |
+| `python -m app.ingest reading` | Add curated book-discussion threads from the last five years with more than 100 comments; skip completed threads |
 | `python -m app.reprocess mentions` | Re-extract stored comments; reuse local books/cache and look up missing metadata |
 | `python -m app.reprocess mentions --offline` | Re-extract with no network calls; requires cached Luna results and metadata |
 | `python -m app.reprocess mentions --thread <HN_ID>` | Re-extract one stored thread without fetching its HN comments again |
@@ -153,20 +153,25 @@ accuracy in offline evaluation.
 
 ### Engaged reading threads
 
-For the selected expansion, use a five-year window and keep only indexed
-What/Which (book/books) are you reading questions with **more than 100 comments**:
+The reading command uses the explicit `reading_thread_ids` list in
+[`app/data/library.toml`](app/data/library.toml). It includes current reading,
+finished-book roundups, favorites and recommendation discussions. By default,
+keep threads from the last **five years** with **more than 100 comments**:
 
 ```bash
-python -m app.ingest reading --years 5 --dry-run
-python -m app.ingest reading --years 5
+python -m app.ingest reading --dry-run
+python -m app.ingest reading
 ```
 
-This dedicated collection searches titles, then checks the actual question and
-comment count. It excludes incidental reading matches such as news headlines,
-blogs and PDF workflows. The default threshold is 101 (inclusive); adjust it with
-`--min-comments`. HN's count includes nested replies and does not measure the
-number of book recommendations. Eligibility uses Algolia's indexed count at
-discovery time, which can change or differ from the stored raw-tree size.
+Add or remove HN story IDs in that list and deploy through a PR. The adjacent
+titles are notes for maintainers, with no title matching or search queries.
+The command fetches current story records directly from HN, checks dates and
+comment counts, deduplicates IDs and skips deleted/dead stories. Missing records
+or non-story IDs fail explicitly. The default threshold is 101 (inclusive);
+adjust it with `--min-comments`. HN's count includes nested replies, can change
+or differ from the stored tree, and does not measure book recommendations.
+`--scope` applies to the separate broad backfill search; it does not change
+the curated list.
 
 Threads are processed newest first, and completed threads under the current
 processor version are skipped. Existing threads, books, review decisions and
@@ -182,15 +187,15 @@ verification observes `METADATA_INTERVAL`; changing discovery does not change
 model prompts or invalidate existing extraction caches.
 
 After deployment, change the existing Coolify task to
-**`python -m app.ingest reading --years 5`**, set its timeout to **36000 seconds**,
+**`python -m app.ingest reading`**, set its timeout to **36000 seconds**,
 and tap **Execute Now**. It appends to the existing library. The single-thread
 `app.rebuild` command replaces the library with one thread; use
 `python -m app.reprocess mentions` to reprocess a stored corpus while keeping
 all its threads. Daily `python -m app.ingest` refreshes the configured and stored
-corpus; the dedicated reading command discovers newly eligible threads.
+corpus; rerun the reading command after adding IDs to the curated list.
 
 See [the source-linked discovery snapshot](docs/engaged-reading-threads.md)
-for the first selected addition and the current review scope.
+for the curated list, current comment-volume snapshot and review scope.
 
 ### Broad book discussions
 

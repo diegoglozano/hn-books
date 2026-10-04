@@ -168,34 +168,98 @@ def test_title_filter_excludes_prefix_only_matches(settings, monkeypatch):
     assert [c.id for c in discover_reading_threads(remote, 100, 200)] == [2]
 
 
-def test_engaged_reading_collection_filters_titles_and_comment_boundary(settings, monkeypatch):
-    monkeypatch.setitem(library_config(), "reading_thread_queries", ["reading"])
-    titles = [
-        "Ask HN: What are you reading?",
-        "Ask HN: Which book are you reading these days?",
-        "Ask HN: What books are you currently reading?",
-        "Ask HN: What are good blogs that you enjoy reading?",
-        "Ask HN: Are you tired of reading ChatGPT headlines?",
-        "Ask HN: Reading workflow?",
-    ]
-    hits = [hit(i + 1, 110 + i, title) | {"num_comments": 101} for i, title in enumerate(titles)]
-    hits += [hit(7, 120) | {"num_comments": 100}, hit(8, 130)]
-    hits += [hit(9, 140) | {"num_comments": None}, hit(10, 200) | {"num_comments": 500}]
+def test_curated_reading_collection_checks_hn_records_without_title_matching(settings, monkeypatch):
+    monkeypatch.setitem(library_config(), "reading_thread_ids", [1, 2, 3, 4, 5, 6, 7, 8, 9, 1])
+    settings.hn_thread_ids = "999"
+    stories: dict[int, dict] = {
+        i: {
+            "id": i,
+            "type": "story",
+            "time": 110 + i,
+            "title": "An annual bookshelf",
+            "descendants": 101,
+        }
+        for i in range(1, 10)
+    }
+    stories[1] |= {"time": 150, "title": "What did you read in 2025?", "descendants": 448}
+    stories[2] |= {"time": 100, "title": "Books you recommend", "descendants": 101}
+    stories[3] |= {"descendants": 100}
+    stories[4] |= {"time": 99}
+    stories[5] |= {"time": 200}
+    stories[6] |= {"descendants": None}
+    stories[7] |= {"deleted": True}
+    stories[8] |= {"dead": True}
+    calls = []
 
     def handle(request):
-        assert request.url.params["numericFilters"] == (
-            "created_at_i>=100,created_at_i<200,num_comments>=101"
-        )
-        assert request.url.params["restrictSearchableAttributes"] == "title"
-        return httpx.Response(200, json=result(hits))
+        assert str(request.url).startswith(settings.hn_base_url + "/item/")
+        assert not request.url.params
+        item_id = int(request.url.path.rsplit("/", 1)[-1].removesuffix(".json"))
+        calls.append(item_id)
+        return httpx.Response(200, json=stories[item_id])
 
     remote = RemoteClient(settings, httpx.Client(transport=httpx.MockTransport(handle)))
-    candidates = discover_reading_threads(remote, 100, 200, collection="reading", min_comments=101)
-    assert [c.id for c in candidates] == [1, 2, 3]
+    try:
+        candidates = discover_reading_threads(
+            remote, 100, 200, collection="reading", min_comments=101
+        )
+    finally:
+        remote.close()
+    assert [(c.id, c.comments) for c in candidates] == [(2, 101), (9, 101), (1, 448)]
+    assert candidates[1].title == "An annual bookshelf"
+    assert sorted(calls) == list(range(1, 10))
+
+
+@pytest.mark.parametrize("configured", [[0], [-1], [True], ["123"], "123"])
+def test_curated_reading_rejects_invalid_ids_before_requests(settings, monkeypatch, configured):
+    monkeypatch.setitem(library_config(), "reading_thread_ids", configured)
+    remote = RemoteClient(
+        settings,
+        httpx.Client(transport=httpx.MockTransport(lambda _: pytest.fail("No request expected"))),
+    )
+    try:
+        with pytest.raises(ValueError, match="positive integer HN IDs"):
+            discover_reading_threads(remote, 100, 200, collection="reading", min_comments=101)
+    finally:
+        remote.close()
+
+
+@pytest.mark.parametrize(
+    "response,exception,message",
+    [
+        (httpx.Response(200, content=b"null"), ValueError, "missing or invalid"),
+        (httpx.Response(200, json={"id": 1, "type": "comment"}), ValueError, "not a thread"),
+        (httpx.Response(404), httpx.HTTPStatusError, "404"),
+    ],
+)
+def test_curated_reading_invalid_sources_fail_explicitly(
+    settings, monkeypatch, response, exception, message
+):
+    monkeypatch.setitem(library_config(), "reading_thread_ids", [1])
+    remote = RemoteClient(settings, httpx.Client(transport=httpx.MockTransport(lambda _: response)))
+    try:
+        with pytest.raises(exception, match=message):
+            discover_reading_threads(remote, 100, 200, collection="reading", min_comments=101)
+    finally:
+        remote.close()
+
+
+def test_empty_curated_list_does_not_fall_back_to_search(settings, monkeypatch):
+    monkeypatch.setitem(library_config(), "reading_thread_ids", [])
+    remote = RemoteClient(
+        settings,
+        httpx.Client(transport=httpx.MockTransport(lambda _: pytest.fail("No request expected"))),
+    )
+    try:
+        assert (
+            discover_reading_threads(remote, 100, 200, collection="reading", min_comments=101) == []
+        )
+    finally:
+        remote.close()
 
 
 def test_comment_filter_survives_capped_window_splitting(settings, monkeypatch):
-    monkeypatch.setitem(library_config(), "reading_thread_queries", ["reading"])
+    monkeypatch.setitem(library_config(), "backfill_queries", ["reading"])
 
     def handle(request):
         numeric = request.url.params["numericFilters"]
@@ -210,10 +274,7 @@ def test_comment_filter_survives_capped_window_splitting(settings, monkeypatch):
         return httpx.Response(200, json=data)
 
     remote = RemoteClient(settings, httpx.Client(transport=httpx.MockTransport(handle)))
-    assert [
-        c.id
-        for c in discover_reading_threads(remote, 100, 200, collection="reading", min_comments=101)
-    ] == [1, 2]
+    assert [c.id for c in discover_reading_threads(remote, 100, 200, min_comments=101)] == [1, 2]
 
 
 def test_negative_comment_threshold_is_rejected(settings):
@@ -262,6 +323,7 @@ def test_dry_run_reports_selected_order_and_skips_completed_threads(
     body = json.loads(capsys.readouterr().out)
     assert calls == [{"scope": "ask-hn", "collection": collection, "min_comments": minimum}]
     assert body["min_comments"] == minimum and body["order"] == order
+    assert body["selection"] == ("curated" if command == "reading" else "search")
     assert body["threads_pending"] == body["threads_to_process"] == 3
     assert body["threads_skipped"] == 1
     assert [c["id"] for c in body["preview"]] == expected_ids
